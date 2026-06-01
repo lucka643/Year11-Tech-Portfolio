@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Toys &amp; Games — Year 11 Design Technology · Luca Carlisle</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+
+<!-- Animated WebGL fog background -->
+<canvas id="fog"></canvas>
+<div class="grain"></div>
+
+<!-- Fixed HUD -->
+<header class="hud">
+  <div class="hud-left">
+    <span class="hud-mark">◆</span>
+    <span class="hud-name">LUCA CARLISLE</span>
+  </div>
+  <div class="hud-right">
+    <span class="hud-course">DES&middot;TECH / YR11</span>
+  </div>
+</header>
+
+<!-- Right-side progress rail -->
+<nav class="rail" aria-label="Section progress">
+  <span class="rail-line"><i id="railFill"></i></span>
+  <ol class="rail-ticks" id="railTicks"></ol>
+</nav>
+
+<main id="scene">
+
+  <!-- ===================== HERO ===================== -->
+  <section class="slide slide--hero" data-deep="#05070f" data-light="#2b4a7a" data-accent="#7fd4ff" data-label="Welcome">
+    <div class="content content--center">
+      <p class="kicker" data-speed="1.3">DESIGN&nbsp;TECHNOLOGY&nbsp;PORTFOLIO &nbsp;·&nbsp; 2026</p>
+      <h1 class="hero-title" data-speed="0.35">Toys<span class="amp" data-speed="0.9">&amp;</span>Games</h1>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 01 DIVIDER ===================== -->
+  <section class="slide slide--divider" data-deep="#060a14" data-light="#2f4f86" data-accent="#7fd4ff" data-label="Section 01">
+    <div class="content content--center">
+      <p class="sec-num" data-speed="1.4">01</p>
+      <h2 class="sec-title" data-speed="0.4">Brief</h2>
+      <p class="sec-tags" data-speed="0.9">Problem &nbsp;·&nbsp; Situation &nbsp;·&nbsp; Target &nbsp;·&nbsp; Brief</p>
+    </div>
+  </section>
+
+  <!-- ===================== PROBLEM ===================== -->
+  <section class="slide" data-deep="#06110f" data-light="#1f6f5c" data-accent="#5fe6b5" data-label="Problem">
+    <div class="content content--split">
+      <div class="col col--text" data-speed="0.55">
+        <p class="eyebrow" data-speed="1.2">1a · Design Problem</p>
+        <h3 class="head" data-speed="0.5">Plastic that never breaks down.</h3>
+        <p class="body">Most of the toys on the shelves are made from plastic that landfills can't break down. They're cheap to make and buy, and companies aren't looking to use other materials because biodegradable and recyclable options cost more.</p>
+        <p class="body">Using eco-friendly materials would let toys either break down naturally or be reused, cutting out a huge amount of the plastic waste being produced today.</p>
+      </div>
+      <div class="col col--media" data-speed="0.85">
+        <figure class="frame" data-img="assets/problem.jpg">
+          <figcaption>Mass-produced plastic toys</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== SITUATION ===================== -->
+  <section class="slide" data-deep="#0a1208" data-light="#5f7a1f" data-accent="#c8ec5f" data-label="Situation">
+    <div class="content content--split content--reverse">
+      <div class="col col--text" data-speed="0.55">
+        <p class="eyebrow" data-speed="1.2">1b · Situation</p>
+        <h3 class="head" data-speed="0.5">Built to survive rough play.</h3>
+        <p class="body">The audience for this product is children who are hard on their toys. It has to stand up to being thrown, dropped and stepped on without falling apart.</p>
+        <p class="body">Just as importantly, it can't pose any safety risk — no sharp edges and no small removable parts that could be swallowed.</p>
+      </div>
+      <div class="col col--media" data-speed="0.85">
+        <figure class="frame" data-img="assets/situation.jpg">
+          <figcaption>Children at group play</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== TARGET MARKET ===================== -->
+  <section class="slide" data-deep="#120d06" data-light="#8a5a1c" data-accent="#ffc06a" data-label="Target">
+    <div class="content content--split">
+      <div class="col col--text" data-speed="0.55">
+        <p class="eyebrow" data-speed="1.2">1c · Target Market</p>
+        <h3 class="head" data-speed="0.5">Loved by kids, bought by parents.</h3>
+        <p class="body">Although children are the main users, they usually don't have the money to buy the product themselves. To sell it, the design first has to grab the child's attention and interest — which means age-appropriate toys they'll genuinely enjoy and connect with.</p>
+        <p class="body">It also has to appeal to parents, caregivers, family and friends, since they're the ones who make the final purchase decision.</p>
+      </div>
+      <div class="col col--media" data-speed="0.85">
+        <figure class="frame" data-img="assets/target.jpg">
+          <figcaption>The toy aisle</figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== DESIGN BRIEF ===================== -->
+  <section class="slide slide--tall" data-deep="#0c0813" data-light="#5a3f8c" data-accent="#bda0ff" data-label="Design Brief">
+    <div class="content content--narrow">
+      <p class="eyebrow" data-speed="1.2">1e · Design Brief</p>
+      <h3 class="head" data-speed="0.5">The brief.</h3>
+      <p class="body body--lead">Supporting the development of young children requires a thoughtful balance of modern and traditional ideas. The design should consider the different environments where children learn and interact — classrooms, social settings, independent activities and group play. While children may influence buying decisions, parents and families ultimately purchase products, so the design must also appeal to them by showing clear educational value.</p>
+      <p class="body">The product should be based on the client's needs and preferences, with market research like surveys and group discussions used to gather feedback. The first focus is an attractive appearance, followed by practical features that let it function effectively. Cost affects manufacturing methods and material choices — for this prototype, timber, plastic and metal are considered, with attention to local availability and environmental impact. Anthropometrics and ergonomics are also key, to keep the product comfortable, safe and suitable for children to use.</p>
+    </div>
+  </section>
+
+  <!-- ===================== SECTION 02 DIVIDER ===================== -->
+  <section class="slide slide--divider" data-deep="#0b0a16" data-light="#3b3f96" data-accent="#8fa3ff" data-label="Section 02">
+    <div class="content content--center">
+      <p class="sec-num" data-speed="1.4">02</p>
+      <h2 class="sec-title" data-speed="0.4">Research</h2>
+      <p class="sec-tags" data-speed="0.9">Plan &nbsp;·&nbsp; Product Analysis &nbsp;·&nbsp; Aesthetics &nbsp;·&nbsp; Materials</p>
+    </div>
+  </section>
+
+  <!-- ===================== RESEARCH PLAN ===================== -->
+  <section class="slide slide--tall" data-deep="#0a0c18" data-light="#2f4a9c" data-accent="#7fb0ff" data-label="Research Plan">
+    <div class="content content--wide">
+      <p class="eyebrow" data-speed="1.2">2a · Research Plan</p>
+      <h3 class="head" data-speed="0.5">What I need to find out.</h3>
+      <div class="rtable" data-speed="0.7">
+        <div class="rtable-head">
+          <span>Investigation Area</span><span>Information Needed</span><span>Resources</span>
+        </div>
+        <div class="rtable-row">
+          <span class="rt-area">Reliability</span>
+          <span>Ways the toy can be fixed if damaged · features that make repairs easier</span>
+          <span>Methods to improve the strength &amp; lifespan of wooden toys · include glue or spare parts for simple repairs</span>
+        </div>
+        <div class="rtable-row">
+          <span class="rt-area">Materials</span>
+          <span>Best type of wood to use · suitable paint or finish</span>
+          <span>Wood types matching the shape &amp; brief · strong woods (oak, maple, cherry), decorative woods (cedar, pine, poplar)</span>
+        </div>
+        <div class="rtable-row">
+          <span class="rt-area">Aesthetics</span>
+          <span>Colour combinations that work · current styles children like · how appearance improves usability</span>
+          <span>Review successful toys already on the market · study attractive colour schemes</span>
+        </div>
+        <div class="rtable-row">
+          <span class="rt-area">Playability</span>
+          <span>Comfortable size for children · how the toy is played with · ways to make it more engaging</span>
+          <span>Consider average children's hand sizes · research popular toys &amp; trends</span>
+        </div>
+        <div class="rtable-row">
+          <span class="rt-area">Manufacturing</span>
+          <span>Machines &amp; tools required to make the product</span>
+          <span>Learn about suitable workshop machinery · explore efficient ways to produce each part</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRODUCT ANALYSIS 1 ===================== -->
+  <section class="slide slide--tall" data-deep="#0e0a16" data-light="#5e3b8e" data-accent="#c79bff" data-label="Product Analysis #1">
+    <div class="content content--wide">
+      <p class="eyebrow" data-speed="1.2">2b · Product Analysis #1</p>
+      <h3 class="head" data-speed="0.5">Hot Wheels vs Buzzy Bee.</h3>
+      <div class="cards" data-speed="0.7">
+        <article class="pcard">
+          <header class="pcard-head"><h4>Hot Wheels</h4><span class="pcard-meta">Mattel · ≈ $2.80 NZD</span></header>
+          <dl>
+            <dt>Repairability</dt><dd>Not repairable. If the wheels or axles break, it's cheaper to replace the whole toy than fix it.</dd>
+            <dt>Material</dt><dd>Die-cast metal body with plastic parts.</dd>
+            <dt>Aesthetics</dt><dd>Small, detailed and eye-catching. Realistic styling and bright colours appeal to children and collectors.</dd>
+            <dt>Playability</dt><dd>Rolls smoothly, easy to use with tracks or floor play. Good for quick, imaginative play and collecting.</dd>
+            <dt>Manufacturing</dt><dd>Mass-produced, keeping the price low and availability high.</dd>
+            <dt>Environment</dt><dd>Metal can be recycled, but plastic parts reduce sustainability. Small size uses fewer materials.</dd>
+            <dt>Ergonomics</dt><dd>Small and lightweight, fits comfortably in one hand.</dd>
+          </dl>
+        </article>
+        <article class="pcard pcard--alt">
+          <header class="pcard-head"><h4>Buzzy Bee Pull Toy</h4><span class="pcard-meta">Buzzy Bee · ≈ $39.95 NZD</span></header>
+          <dl>
+            <dt>Repairability</dt><dd>More repairable than plastic toys because it's wood. Small damaged parts can often be glued or replaced.</dd>
+            <dt>Material</dt><dd>Wood with a non-toxic finish.</dd>
+            <dt>Aesthetics</dt><dd>Bright, classic and recognisable. Its colourful design gives it a strong New Zealand identity.</dd>
+            <dt>Playability</dt><dd>Easy for toddlers to pull along. The clicking sound and moving wings make it interactive and fun.</dd>
+            <dt>Manufacturing</dt><dd>Made as a traditional wooden toy — a more classic, durable feel than modern plastic toys.</dd>
+            <dt>Environment</dt><dd>Wooden body is renewable and longer-lasting than plastic. Non-toxic paint is a plus.</dd>
+            <dt>Ergonomics</dt><dd>Easy pull-string handle and lightweight size for toddlers.</dd>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PRODUCT ANALYSIS 2 ===================== -->
+  <section class="slide slide--tall" data-deep="#100913" data-light="#7a356b" data-accent="#ff9ad5" data-label="Product Analysis #2">
+    <div class="content content--wide">
+      <p class="eyebrow" data-speed="1.2">2b · Product Analysis #2</p>
+      <h3 class="head" data-speed="0.5">Melissa &amp; Doug vs Lego Creator.</h3>
+      <div class="cards" data-speed="0.7">
+        <article class="pcard">
+          <header class="pcard-head"><h4>Shape-Sorting Dump Truck</h4><span class="pcard-meta">Melissa &amp; Doug · ≈ $26.99 USD</span></header>
+          <dl>
+            <dt>Repairability</dt><dd>More repairable than electronic toys — it's wooden with simple moving parts, so it may stay usable even if one part breaks.</dd>
+            <dt>Material</dt><dd>Wood with colourful shape blocks.</dd>
+            <dt>Aesthetics</dt><dd>Colourful, friendly and educational. The dump-truck design is attractive to younger children.</dd>
+            <dt>Playability</dt><dd>Combines truck play with shape sorting — fun and useful for learning. Moving parts add extra interaction.</dd>
+            <dt>Manufacturing</dt><dd>A sturdy wooden educational toy focused on durability and hands-on play.</dd>
+            <dt>Environment</dt><dd>Wooden construction is durable and lasts longer, reducing waste. Safer paints improve sustainability.</dd>
+            <dt>Ergonomics</dt><dd>Large shapes are easy to grip; smooth edges improve safety.</dd>
+          </dl>
+        </article>
+        <article class="pcard pcard--alt">
+          <header class="pcard-head"><h4>Creator 3-in-1 Sports Car</h4><span class="pcard-meta">Lego · ≈ $26.99 USD</span></header>
+          <dl>
+            <dt>Repairability</dt><dd>Repairable — if a piece is lost or damaged it can usually be replaced without throwing away the whole toy.</dd>
+            <dt>Material</dt><dd>Plastic Lego bricks.</dd>
+            <dt>Aesthetics</dt><dd>Bright and sporty with detailed features. The different build options make it visually interesting.</dd>
+            <dt>Playability</dt><dd>Very high play value — children can build, rebuild and play with different models.</dd>
+            <dt>Manufacturing</dt><dd>Precision-made and mass-produced, so pieces are consistent and fit accurately.</dd>
+            <dt>Environment</dt><dd>Bricks are durable and reusable for years, though plastic is less eco-friendly than wood.</dd>
+            <dt>Ergonomics</dt><dd>Small bricks fit children's hands, but younger children may find pieces hard to handle.</dd>
+          </dl>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== AESTHETICS ANALYSIS ===================== -->
+  <section class="slide slide--tall" data-deep="#120814" data-light="#8c2f5e" data-accent="#ff8fb0" data-label="Aesthetics">
+    <div class="content content--wide">
+      <p class="eyebrow" data-speed="1.2">2c · Aesthetics Analysis</p>
+      <h3 class="head" data-speed="0.5">Colour &amp; feel.</h3>
+      <div class="trio" data-speed="0.7">
+        <div class="trio-col">
+          <h4>Colour</h4>
+          <p>Bright primary colours like red, blue and yellow attract attention and create excitement. Colours opposite each other on the colour wheel complement each other and help products stand out, while softer pastels create a calm, friendly look for younger children.</p>
+        </div>
+        <div class="trio-col">
+          <h4>Feel</h4>
+          <p>Smooth surfaces feel comfortable, safe and pleasant to touch, giving a higher-quality feel that suits children's products. Rough surfaces feel unfinished and less appealing — sharp or uneven textures also reduce safety and comfort.</p>
+        </div>
+        <div class="trio-col">
+          <h4>Examples</h4>
+          <p><b>Rubik's Cube</b> — bright contrasting colours that are easy to recognise; smooth plastic and rounded edges feel good to hold and the turning motion is satisfying.</p>
+          <p><b>NeeDoh</b> — vibrant, playful colours; soft, stretchy, squishy texture that's relaxing to squeeze, with a smooth surface that encourages repeated sensory use.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MATERIALS · WOOD ===================== -->
+  <section class="slide slide--tall" data-deep="#120c06" data-light="#8a5a1c" data-accent="#ffbe63" data-label="Materials · Wood">
+    <div class="content content--wide">
+      <p class="eyebrow" data-speed="1.2">2d · Materials</p>
+      <h3 class="head" data-speed="0.5">Wood options.</h3>
+      <div class="mtable" data-speed="0.7">
+        <div class="mtable-head"><span>Wood</span><span>Pros</span><span>Cons</span><span>Description</span></div>
+        <div class="mtable-row">
+          <span class="mt-name">Pine</span>
+          <span>Lightweight · easy to cut · affordable · readily available</span>
+          <span>Soft surface dents easily · can warp · less durable than hardwoods</span>
+          <span>Pale yellow timber · common building wood · budget friendly</span>
+        </div>
+        <div class="mtable-row">
+          <span class="mt-name">Fijian Mahogany</span>
+          <span>Durable · attractive grain · moisture resistant · strong</span>
+          <span>Expensive · heavier than pine · harder to source</span>
+          <span>Rich reddish-brown hardwood · premium finish · quality furniture timber</span>
+        </div>
+        <div class="mtable-row">
+          <span class="mt-name">Beech</span>
+          <span>Strong · smooth grain · easy to machine · good value</span>
+          <span>Heavy · can absorb moisture · not rot resistant outdoors</span>
+          <span>Light cream hardwood · fine texture · popular for furniture &amp; toys</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MATERIALS · OTHER ===================== -->
+  <section class="slide slide--tall" data-deep="#0f0d08" data-light="#6f6a3a" data-accent="#e8d27a" data-label="Materials · Other">
+    <div class="content content--wide">
+      <p class="eyebrow" data-speed="1.2">2d · Materials</p>
+      <h3 class="head" data-speed="0.5">Plastic &amp; metal options.</h3>
+      <div class="mtable" data-speed="0.7">
+        <div class="mtable-head"><span>Material</span><span>Pros</span><span>Cons</span><span>Description</span></div>
+        <div class="mtable-row">
+          <span class="mt-name">Acrylic</span>
+          <span>Lightweight · strong · easy to shape · weather resistant · smooth finish</span>
+          <span>Scratches easily · can crack under pressure · not eco-friendly · can be expensive</span>
+          <span>Clear or coloured plastic · modern appearance · common in display products</span>
+        </div>
+        <div class="mtable-row">
+          <span class="mt-name">Aluminium</span>
+          <span>Lightweight · rust resistant · strong for weight · recyclable · modern look</span>
+          <span>More expensive than steel · can dent · requires tools to shape</span>
+          <span>Silver-grey metal · low maintenance · used in frames &amp; products</span>
+        </div>
+        <div class="mtable-row">
+          <span class="mt-name">Steel</span>
+          <span>Very strong · durable · long lasting · cost effective · widely available</span>
+          <span>Heavy · can rust if untreated · harder to cut and shape</span>
+          <span>Grey metal · high strength · used in structures &amp; tools</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== PLACEHOLDER · RESEARCH SUMMARY ===================== -->
+  <section class="slide" data-deep="#0a0d10" data-light="#3a5560" data-accent="#8fd6e6" data-label="Coming next">
+    <div class="content content--center">
+      <p class="eyebrow" data-speed="1.2">2d · Research Summary &amp; Specifications</p>
+      <h3 class="head head--ghost" data-speed="0.5">In progress.</h3>
+      <p class="body body--centered" data-speed="0.8">This is one of the empty spaces from the portfolio — we'll fill the research summary and the design specifications in here later.</p>
+      <span class="ghost-tag" data-speed="1.1">PLACEHOLDER</span>
+    </div>
+  </section>
+
+  <!-- ===================== TEASER · SECTION 03 ===================== -->
+  <section class="slide slide--divider" data-deep="#070910" data-light="#26406e" data-accent="#7fd4ff" data-label="Section 03">
+    <div class="content content--center">
+      <p class="sec-num" data-speed="1.4">03</p>
+      <h2 class="sec-title" data-speed="0.4">Design Ideas</h2>
+      <p class="sec-tags" data-speed="0.9">An interactive 3D wooden jet lives here — coming soon.</p>
+      <span class="ghost-tag" data-speed="1.1">3D · BUILDING NEXT</span>
+    </div>
+  </section>
+
+</main>
+
+<script src="js/fog.js"></script>
+<script src="js/scroll.js"></script>
+</body>
+</html>
