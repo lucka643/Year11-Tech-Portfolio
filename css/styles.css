@@ -302,6 +302,48 @@ body{
   padding:9px 18px; text-transform:uppercase;
 }
 
+/* ============================================================
+   LARGE / HIGH-RES DISPLAYS — scale column width + type up so the
+   layout fills big monitors instead of floating tiny in the middle
+   ============================================================ */
+@media (min-width:1500px){
+  :root{ --maxw:1380px; }
+  .content--narrow{ max-width:820px; }
+}
+@media (min-width:1800px){
+  :root{ --maxw:1580px; }
+  .content--narrow{ max-width:900px; }
+  .head{ font-size:clamp(34px,5vw,98px); }
+  .body{ font-size:22px; }
+  .body--lead{ font-size:24px; }
+  .eyebrow{ font-size:14px; }
+  .sec-tags{ font-size:15px; }
+  .pcard dd{ font-size:16px; }
+  .pcard dt{ font-size:11px; }
+  .pcard-head h4{ font-size:30px; }
+  .rtable-row, .mtable-row{ font-size:16px; }
+  .rt-area{ font-size:19px; }
+  .mt-name{ font-size:18px; }
+  .trio-col p{ font-size:16px; }
+  .trio-col h4{ font-size:25px; }
+  .rtable-head span, .rtable-row span,
+  .mtable-head span, .mtable-row span{ padding:20px 26px; }
+}
+@media (min-width:2300px){
+  :root{ --maxw:1900px; }
+  .content--narrow{ max-width:1040px; }
+  .body{ font-size:25px; }
+  .body--lead{ font-size:28px; }
+  .eyebrow{ font-size:16px; letter-spacing:.3em; }
+  .pcard dd, .trio-col p{ font-size:18px; }
+  .pcard dt{ font-size:12px; }
+  .pcard-head h4{ font-size:36px; }
+  .rtable-row, .mtable-row{ font-size:18px; }
+  .rt-area{ font-size:22px; }
+  .mt-name{ font-size:21px; }
+  .trio-col h4{ font-size:29px; }
+}
+
 /* ---------- Reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
   html{ scroll-behavior:auto; }
