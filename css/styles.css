@@ -390,6 +390,18 @@ body{
 /* ---------- deck: summary-style paragraph columns ---------- */
 .deck-colp{ font-size:clamp(13.5px,1vw,16px); line-height:1.55; color:var(--ink-dim); }
 
+/* deck--text: no media column; Summary/Specification fill the width as cards */
+.deck--text .deck-panel.is-active{ grid-template-columns:1fr; gap:clamp(18px,2.4vw,30px); }
+.deck--text .deck-media{ display:none; }
+.deck--text .deck-info h4{ font-size:clamp(30px,3.8vw,58px); margin-bottom:6px; }
+.deck--text .deck-cols{ gap:clamp(18px,2.4vw,34px); margin-bottom:0; }
+.deck--text .deck-cols > div{
+  background:var(--panel); border:1px solid var(--panel-line); border-radius:14px;
+  padding:clamp(20px,2.1vw,30px);
+  backdrop-filter:blur(var(--panel-blur)); -webkit-backdrop-filter:blur(var(--panel-blur));
+}
+.deck--text .deck-colp{ font-size:clamp(15px,1.15vw,19px); }
+
 /* ============================================================
    GALLERY — manufacturing machines grid
    ============================================================ */
