@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=4" />
+<link rel="stylesheet" href="css/styles.css?v=5" />
 </head>
 <body>
 
@@ -126,34 +126,119 @@
     <div class="content content--wide">
       <p class="eyebrow" data-speed="1.2">2a · Research Plan</p>
       <h3 class="head" data-speed="0.5">What I need to find out.</h3>
-      <div class="rtable" data-speed="0.7">
-        <div class="rtable-head">
-          <span>Investigation Area</span><span>Information Needed</span><span>Resources</span>
+      <div class="deck" data-speed="0.7">
+        <div class="deck-bar" role="tablist" aria-label="Research areas">
+          <button class="deck-tab is-active"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg>Reliability</button>
+          <button class="deck-tab"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg>Materials</button>
+          <button class="deck-tab"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18c1.4 0 2-.9 2-1.8 0-1.1-1-1.6-1-2.7 0-.8.7-1.5 1.6-1.5H18a3 3 0 003-3c0-4-4-9-9-9z"/><circle cx="7.5" cy="11" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="16" cy="11" r="1"/></svg>Aesthetics</button>
+          <button class="deck-tab"><svg viewBox="0 0 24 24"><path d="M10 4a2 2 0 114 0v1h4v4a2 2 0 110 4v4h-4a2 2 0 11-4 0H6v-4a2 2 0 110-4V5h4V4z"/></svg>Playability</button>
+          <button class="deck-tab"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2.2 2.2M16.8 16.8L19 19M19 5l-2.2 2.2M7.2 16.8L5 19"/></svg>Manufacturing</button>
         </div>
-        <div class="rtable-row">
-          <span class="rt-area">Reliability</span>
-          <span>Ways the toy can be fixed if damaged · features that make repairs easier</span>
-          <span>Methods to improve the strength &amp; lifespan of wooden toys · include glue or spare parts for simple repairs</span>
-        </div>
-        <div class="rtable-row">
-          <span class="rt-area">Materials</span>
-          <span>Best type of wood to use · suitable paint or finish</span>
-          <span>Wood types matching the shape &amp; brief · strong woods (oak, maple, cherry), decorative woods (cedar, pine, poplar)</span>
-        </div>
-        <div class="rtable-row">
-          <span class="rt-area">Aesthetics</span>
-          <span>Colour combinations that work · current styles children like · how appearance improves usability</span>
-          <span>Review successful toys already on the market · study attractive colour schemes</span>
-        </div>
-        <div class="rtable-row">
-          <span class="rt-area">Playability</span>
-          <span>Comfortable size for children · how the toy is played with · ways to make it more engaging</span>
-          <span>Consider average children's hand sizes · research popular toys &amp; trends</span>
-        </div>
-        <div class="rtable-row">
-          <span class="rt-area">Manufacturing</span>
-          <span>Machines &amp; tools required to make the product</span>
-          <span>Learn about suitable workshop machinery · explore efficient ways to produce each part</span>
+        <div class="deck-stage">
+
+          <article class="deck-panel is-active">
+            <div class="deck-media is-icon"><svg viewBox="0 0 24 24"><path d="M12 3l7 3v5c0 4-3 7-7 9-4-2-7-5-7-9V6l7-3z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <div class="deck-info">
+              <h4>Reliability</h4>
+              <p class="deck-lead">How easily the toy can be repaired decides how long it survives — especially for young children who are tough on their things. A toy that gets fixed instead of binned is central to my eco-friendly brief.</p>
+              <div class="deck-cols">
+                <div><h5>Information Needed</h5><ul>
+                  <li>Ways the toy can be fixed if a part breaks</li>
+                  <li>Which joints are most likely to fail</li>
+                  <li>What makes a repair simple for a parent at home</li>
+                </ul></div>
+                <div><h5>Resources / Approach</h5><ul>
+                  <li>Methods to strengthen wooden joints (dowels, glue types)</li>
+                  <li>Possibly include a small tube of glue or spare parts</li>
+                  <li>Design parts to be individually replaceable</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>Why it matters:</b> a long-lasting, repairable toy keeps plastic and timber out of landfill — the core problem this whole project is solving.</p>
+            </div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media is-icon"><svg viewBox="0 0 24 24"><path d="M12 3l9 5-9 5-9-5 9-5z"/><path d="M3 13l9 5 9-5"/></svg></div>
+            <div class="deck-info">
+              <h4>Materials</h4>
+              <p class="deck-lead">The right material has to balance durability, safety, cost and environmental impact all at once. This research feeds directly into the Materials section later in the portfolio.</p>
+              <div class="deck-cols">
+                <div><h5>Information Needed</h5><ul>
+                  <li>The best wood for the shape and strength needed</li>
+                  <li>A suitable non-toxic paint or finish</li>
+                </ul></div>
+                <div><h5>Resources / Approach</h5><ul>
+                  <li>Compare local woods: pine, beech, Fijian mahogany</li>
+                  <li>Strong woods (oak, maple, cherry) vs decorative (cedar, pine, poplar)</li>
+                  <li>Research child-safe paints and varnishes</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>Why it matters:</b> the material choice affects safety, cost, weight and how eco-friendly the finished toy actually is.</p>
+            </div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media is-icon"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 100 18c1.4 0 2-.9 2-1.8 0-1.1-1-1.6-1-2.7 0-.8.7-1.5 1.6-1.5H18a3 3 0 003-3c0-4-4-9-9-9z"/><circle cx="7.5" cy="11" r="1"/><circle cx="12" cy="8" r="1"/><circle cx="16" cy="11" r="1"/></svg></div>
+            <div class="deck-info">
+              <h4>Aesthetics</h4>
+              <p class="deck-lead">A toy first has to catch a child's eye before any of its other qualities matter. Colour, shape and finish all decide whether it gets picked up off the shelf in the first place.</p>
+              <div class="deck-cols">
+                <div><h5>Information Needed</h5><ul>
+                  <li>Colour combinations that work well together</li>
+                  <li>Styles and themes children are drawn to</li>
+                  <li>How appearance can improve how the toy is used</li>
+                </ul></div>
+                <div><h5>Resources / Approach</h5><ul>
+                  <li>Review successful toys already on the market</li>
+                  <li>Study colour theory — complementary colours, bold primaries vs pastels</li>
+                  <li>Analyse the look of popular wooden toys</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>Why it matters:</b> children influence the buying decision, so visual appeal is what gets a parent to the checkout.</p>
+            </div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media is-icon"><svg viewBox="0 0 24 24"><path d="M10 4a2 2 0 114 0v1h4v4a2 2 0 110 4v4h-4a2 2 0 11-4 0H6v-4a2 2 0 110-4V5h4V4z"/></svg></div>
+            <div class="deck-info">
+              <h4>Playability</h4>
+              <p class="deck-lead">Playability is why a child keeps coming back to a toy. It depends on the size, how it's handled, and how engaging the interaction is.</p>
+              <div class="deck-cols">
+                <div><h5>Information Needed</h5><ul>
+                  <li>A comfortable size for small hands</li>
+                  <li>How the toy will actually be played with</li>
+                  <li>Ways to make it more engaging (moving parts, sound)</li>
+                </ul></div>
+                <div><h5>Resources / Approach</h5><ul>
+                  <li>Research average children's hand sizes (anthropometrics)</li>
+                  <li>Look at popular toys and current trends</li>
+                  <li>Test grip and part sizes on real users</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>Why it matters:</b> the moving wings, ailerons and opening canopy on my jet are all aimed squarely at playability.</p>
+            </div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media is-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2.2 2.2M16.8 16.8L19 19M19 5l-2.2 2.2M7.2 16.8L5 19"/></svg></div>
+            <div class="deck-info">
+              <h4>Manufacturing</h4>
+              <p class="deck-lead">I also need to confirm the toy can actually be built with the tools and skills available in the workshop — efficiently, safely, and to a good standard.</p>
+              <div class="deck-cols">
+                <div><h5>Information Needed</h5><ul>
+                  <li>Which machines and tools each part needs</li>
+                  <li>How each part is cut, shaped and joined</li>
+                </ul></div>
+                <div><h5>Resources / Approach</h5><ul>
+                  <li>Learn the workshop machinery — bandsaw, disc sander, laser cutter, drill press</li>
+                  <li>Plan the most efficient order to build parts</li>
+                  <li>Keep every process within my skill level</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>Why it matters:</b> a great design is useless if I can't actually make it — manufacturing keeps the project realistic.</p>
+            </div>
+          </article>
+
         </div>
       </div>
     </div>
@@ -255,25 +340,87 @@
     <div class="content content--wide">
       <p class="eyebrow" data-speed="1.2">2d · Materials</p>
       <h3 class="head" data-speed="0.5">Wood options.</h3>
-      <div class="mtable" data-speed="0.7">
-        <div class="mtable-head"><span>Wood</span><span>Pros</span><span>Cons</span><span>Description</span></div>
-        <div class="mtable-row">
-          <span class="mt-name">Pine</span>
-          <span>Lightweight · easy to cut · affordable · readily available</span>
-          <span>Soft surface dents easily · can warp · less durable than hardwoods</span>
-          <span>Pale yellow timber · common building wood · budget friendly</span>
+      <div class="deck" data-speed="0.7">
+        <div class="deck-bar" role="tablist" aria-label="Wood options">
+          <button class="deck-tab is-active">Pine</button>
+          <button class="deck-tab">Fijian Mahogany</button>
+          <button class="deck-tab">Beech</button>
         </div>
-        <div class="mtable-row">
-          <span class="mt-name">Fijian Mahogany</span>
-          <span>Durable · attractive grain · moisture resistant · strong</span>
-          <span>Expensive · heavier than pine · harder to source</span>
-          <span>Rich reddish-brown hardwood · premium finish · quality furniture timber</span>
-        </div>
-        <div class="mtable-row">
-          <span class="mt-name">Beech</span>
-          <span>Strong · smooth grain · easy to machine · good value</span>
-          <span>Heavy · can absorb moisture · not rot resistant outdoors</span>
-          <span>Light cream hardwood · fine texture · popular for furniture &amp; toys</span>
+        <div class="deck-stage">
+
+          <article class="deck-panel is-active">
+            <div class="deck-media"><img src="assets/materials/pine.jpg" alt="Close-up of pine wood grain"><span class="deck-cap">Pine</span></div>
+            <div class="deck-info">
+              <h4>Pine</h4>
+              <p class="deck-lead">Pine is a softwood and one of the cheapest, most available timbers in New Zealand. It's pale, lightweight and very easy to cut, sand and glue — which makes it perfect for fast prototyping and testing shapes before committing to a more expensive wood.</p>
+              <div class="deck-cols">
+                <div><h5>Pros</h5><ul>
+                  <li>Lightweight and easy to handle</li>
+                  <li>Soft enough to cut and shape by hand or machine</li>
+                  <li>Inexpensive (~NZ$10.95 per linear metre)</li>
+                  <li>Readily available everywhere</li>
+                  <li>Takes paint, glue and varnish well</li>
+                  <li>Fast-growing and renewable</li>
+                </ul></div>
+                <div><h5>Cons</h5><ul>
+                  <li>Soft surface dents and scratches easily</li>
+                  <li>Can warp, split or crack over time</li>
+                  <li>Knots create weak points in thin parts</li>
+                  <li>Least durable of my three options</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>For this project:</b> pine is ideal for early models and test pieces, but its softness is a real risk on thin parts like the jet's wings and tail — a child throwing or stepping on it could snap or dent those areas. Better as a prototyping wood than the final toy.</p>
+            </div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/materials/mahogany.jpg" alt="Close-up of Fijian mahogany wood grain"><span class="deck-cap">Fijian Mahogany</span></div>
+            <div class="deck-info">
+              <h4>Fijian Mahogany</h4>
+              <p class="deck-lead">Fijian mahogany is a plantation-grown hardwood with a rich reddish-brown colour and a tight, even grain. It's a premium, furniture-grade timber that's prized for its strength, durability and clean finish — and importantly it's grown sustainably.</p>
+              <div class="deck-cols">
+                <div><h5>Pros</h5><ul>
+                  <li>Strong and very durable</li>
+                  <li>Beautiful reddish grain &amp; premium finish</li>
+                  <li>Moisture and rot resistant</li>
+                  <li>Splinter resistant — safer for children</li>
+                  <li>Plantation-grown, so eco-friendly</li>
+                  <li>Machines and sands cleanly</li>
+                </ul></div>
+                <div><h5>Cons</h5><ul>
+                  <li>More expensive than pine</li>
+                  <li>Heavier to work with and carry</li>
+                  <li>Harder to source locally</li>
+                  <li>Arguably overkill for a small model</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>For this project:</b> the durability and splinter resistance make this a strong candidate for the final toy, where it needs to survive years of rough play safely. Its sustainable sourcing also lines up directly with the eco-friendly design brief.</p>
+            </div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/materials/beech.jpg" alt="Close-up of beech wood grain"><span class="deck-cap">Beech</span></div>
+            <div class="deck-info">
+              <h4>Beech</h4>
+              <p class="deck-lead">Beech is a pale, fine-grained hardwood that has been the classic choice for wooden toys for generations — think building blocks, trains and pull-along toys. It's strong, machines beautifully and finishes to a very smooth, splinter-free surface.</p>
+              <div class="deck-cols">
+                <div><h5>Pros</h5><ul>
+                  <li>Strong and hard-wearing</li>
+                  <li>Very fine, even grain → smooth, safe finish</li>
+                  <li>Machines, turns and sands cleanly</li>
+                  <li>Good value for a hardwood (~$11.50 / 8"×24")</li>
+                  <li>Traditional, proven toy material</li>
+                </ul></div>
+                <div><h5>Cons</h5><ul>
+                  <li>Heavy compared to pine</li>
+                  <li>Absorbs moisture / can warp if unsealed</li>
+                  <li>Not rot-resistant outdoors</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>For this project:</b> beech is the strongest all-round option — tough enough to handle being thrown and stepped on, yet fine-grained enough to sand splinter-free for a child-safe finish. Its long history in toy-making makes it a safe, sensible choice for the build.</p>
+            </div>
+          </article>
+
         </div>
       </div>
     </div>
@@ -284,25 +431,86 @@
     <div class="content content--wide">
       <p class="eyebrow" data-speed="1.2">2d · Materials</p>
       <h3 class="head" data-speed="0.5">Plastic &amp; metal options.</h3>
-      <div class="mtable" data-speed="0.7">
-        <div class="mtable-head"><span>Material</span><span>Pros</span><span>Cons</span><span>Description</span></div>
-        <div class="mtable-row">
-          <span class="mt-name">Acrylic</span>
-          <span>Lightweight · strong · easy to shape · weather resistant · smooth finish</span>
-          <span>Scratches easily · can crack under pressure · not eco-friendly · can be expensive</span>
-          <span>Clear or coloured plastic · modern appearance · common in display products</span>
+      <div class="deck" data-speed="0.7">
+        <div class="deck-bar" role="tablist" aria-label="Plastic and metal options">
+          <button class="deck-tab is-active">Acrylic</button>
+          <button class="deck-tab">Aluminium</button>
+          <button class="deck-tab">Steel</button>
         </div>
-        <div class="mtable-row">
-          <span class="mt-name">Aluminium</span>
-          <span>Lightweight · rust resistant · strong for weight · recyclable · modern look</span>
-          <span>More expensive than steel · can dent · requires tools to shape</span>
-          <span>Silver-grey metal · low maintenance · used in frames &amp; products</span>
-        </div>
-        <div class="mtable-row">
-          <span class="mt-name">Steel</span>
-          <span>Very strong · durable · long lasting · cost effective · widely available</span>
-          <span>Heavy · can rust if untreated · harder to cut and shape</span>
-          <span>Grey metal · high strength · used in structures &amp; tools</span>
+        <div class="deck-stage">
+
+          <article class="deck-panel is-active">
+            <div class="deck-media"><img src="assets/materials/acrylic.jpg" alt="Sheet of acrylic plastic"><span class="deck-cap">Acrylic</span></div>
+            <div class="deck-info">
+              <h4>Acrylic</h4>
+              <p class="deck-lead">Acrylic (PMMA) is a clear or coloured plastic that can be laser-cut and shaped very precisely. Its glassy, transparent finish makes it the obvious candidate for a part like a see-through cockpit canopy on the jet.</p>
+              <div class="deck-cols">
+                <div><h5>Pros</h5><ul>
+                  <li>Lightweight yet strong</li>
+                  <li>Laser-cuts and shapes precisely</li>
+                  <li>Weather and water resistant</li>
+                  <li>Smooth, glossy finish</li>
+                  <li>Available clear or in bright colours</li>
+                </ul></div>
+                <div><h5>Cons</h5><ul>
+                  <li>Scratches easily</li>
+                  <li>Can crack or shatter under sharp impact</li>
+                  <li>Not biodegradable or recyclable easily</li>
+                  <li>Cut edges can be sharp</li>
+                  <li>Can be expensive</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>For this project:</b> perfect for a transparent canopy, but it pulls against the eco-friendly brief — so I'd limit it to a single small feature part rather than the body, and sand any cut edges smooth for child safety.</p>
+            </div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/materials/aluminium.jpg" alt="Brushed aluminium metal"><span class="deck-cap">Aluminium</span></div>
+            <div class="deck-info">
+              <h4>Aluminium</h4>
+              <p class="deck-lead">Aluminium is a lightweight silver-grey metal that's strong for its weight, corrosion resistant and fully recyclable. It's used anywhere a clean, modern, low-maintenance metal part is needed.</p>
+              <div class="deck-cols">
+                <div><h5>Pros</h5><ul>
+                  <li>Lightweight for a metal</li>
+                  <li>Rust and corrosion resistant</li>
+                  <li>Strong relative to its weight</li>
+                  <li>Fully recyclable</li>
+                  <li>Clean, modern appearance</li>
+                </ul></div>
+                <div><h5>Cons</h5><ul>
+                  <li>More expensive than steel</li>
+                  <li>Dents under impact</li>
+                  <li>Needs metalworking tools to shape</li>
+                  <li>Cold and hard — less inviting for a toy</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>For this project:</b> could suit a small structural fitting or an axle, but metal parts add cost and take away from the warm, safe, wooden feel I'm aiming for. Best kept to hidden fittings if used at all.</p>
+            </div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/materials/steel.jpg" alt="Steel metal surface"><span class="deck-cap">Steel</span></div>
+            <div class="deck-info">
+              <h4>Steel</h4>
+              <p class="deck-lead">Steel is a very strong, widely available metal alloy used wherever maximum strength and durability matter. It's the toughest material I looked at — but also the heaviest and least suited to a young child's toy.</p>
+              <div class="deck-cols">
+                <div><h5>Pros</h5><ul>
+                  <li>Extremely strong and durable</li>
+                  <li>Very long lasting</li>
+                  <li>Cost-effective</li>
+                  <li>Widely available</li>
+                </ul></div>
+                <div><h5>Cons</h5><ul>
+                  <li>Heavy</li>
+                  <li>Rusts if left untreated</li>
+                  <li>Hard to cut and shape</li>
+                  <li>Hard, cold and unsafe edges for young kids</li>
+                </ul></div>
+              </div>
+              <p class="deck-note"><b>For this project:</b> too heavy and hard for a children's toy, and shaping it needs equipment beyond what's practical. More useful for the <b>jigs and tooling</b> used to make the toy than for the toy itself.</p>
+            </div>
+          </article>
+
         </div>
       </div>
     </div>
@@ -332,5 +540,6 @@
 
 <script src="js/fog.js"></script>
 <script src="js/scroll.js"></script>
+<script src="js/deck.js"></script>
 </body>
 </html>
