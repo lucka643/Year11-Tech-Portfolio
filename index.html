@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=8" />
+<link rel="stylesheet" href="css/styles.css?v=9" />
 </head>
 <body>
 
@@ -635,17 +635,82 @@
     <div class="content content--wide">
       <p class="eyebrow" data-speed="1.2">2d · Manufacturing Analysis</p>
       <h3 class="head" data-speed="0.5">Workshop machines.</h3>
-      <div class="gallery" data-speed="0.7">
-        <div class="gcard"><img src="assets/mfg/domino.jpg" alt="Domino joiner"><div class="gcard-body"><h5>Domino</h5><p>Cuts accurate joining slots in wood. Connects pieces strongly and neatly during assembly.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/table-router.jpg" alt="Table router"><div class="gcard-body"><h5>Table Router</h5><p>Shapes edges and cuts grooves into wood. Produces smooth decorative and functional finishes.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/laser-cutter.jpg" alt="Laser cutter"><div class="gcard-body"><h5>Laser Cutter</h5><p>Uses a laser beam to cut or engrave precisely. Ideal for detailed designs and accuracy.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/drill-press.jpg" alt="Drill press"><div class="gcard-body"><h5>Drill Press</h5><p>Drills straight, accurate holes. Safer and more precise than hand drilling.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/lathe.jpg" alt="Lathe"><div class="gcard-body"><h5>Lathe</h5><p>Spins material while cutting tools shape it. Best for round parts like wheels.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/drop-saw.jpg" alt="Drop saw"><div class="gcard-body"><h5>Drop Saw</h5><p>Fast, accurate crosscuts or angled cuts. Good for cutting wood to length.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/orbital-sander.jpg" alt="Orbital sander"><div class="gcard-body"><h5>Orbital Sander</h5><p>Smooths rough surfaces and removes imperfections. Preps wood for painting or finishing.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/router.jpg" alt="Handheld router"><div class="gcard-body"><h5>Router</h5><p>Handheld machine to cut grooves and shape edges. Useful for detailed woodwork.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/bandsaw.jpg" alt="Bandsaw"><div class="gcard-body"><h5>Bandsaw</h5><p>Curved cuts, straight cuts and shaping wood. Good for thicker materials.</p></div></div>
-        <div class="gcard"><img src="assets/mfg/table-saw.jpg" alt="Table saw"><div class="gcard-body"><h5>Table Saw</h5><p>Long straight rip cuts in sheets. Accurate and efficient for sizing wood.</p></div></div>
+      <div class="deck deck--gallery" data-speed="0.7">
+        <div class="deck-stage">
+
+          <article class="deck-panel is-active">
+            <div class="deck-media"><img src="assets/mfg/domino.jpg?v=2" alt="Domino joiner"><span class="deck-cap">01 · Domino</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 01 / 10</span><h4>Domino</h4>
+              <p class="deck-lead">Cuts accurate joining slots (mortises) so two pieces slot together around a loose tenon. It makes strong, neat, hidden joints during assembly — ideal for joining the jet's fuselage sections solidly without visible screws.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/table-router.jpg?v=2" alt="Table router"><span class="deck-cap">02 · Table Router</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 02 / 10</span><h4>Table Router</h4>
+              <p class="deck-lead">Shapes edges and cuts grooves into wood, producing smooth decorative and functional profiles. Good for rounding over edges so there are no sharp corners on the toy, and for cutting the channels the control-surface rods sit in.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/laser-cutter.jpg?v=2" alt="Laser cutter"><span class="deck-cap">03 · Laser Cutter</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 03 / 10</span><h4>Laser Cutter</h4>
+              <p class="deck-lead">Uses a focused laser beam to cut or engrave materials with high precision. Ideal for detailed parts and engraved detail — it could cut the thin acrylic canopy or engrave panel lines into the jet.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/drill-press.jpg?v=2" alt="Drill press"><span class="deck-cap">04 · Drill Press</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 04 / 10</span><h4>Drill Press</h4>
+              <p class="deck-lead">Drills straight, accurate holes into materials — far safer and more precise than a hand drill. Perfect for the axle holes and the rod holes that run through the wings, elevators and rudder.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/lathe.jpg?v=2" alt="Lathe"><span class="deck-cap">05 · Lathe</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 05 / 10</span><h4>Lathe</h4>
+              <p class="deck-lead">Spins the material while cutting tools shape it. Best for round parts — exactly how the wooden wheels and any cylindrical sections of the jet would be turned.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/drop-saw.jpg?v=2" alt="Drop saw"><span class="deck-cap">06 · Drop Saw</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 06 / 10</span><h4>Drop Saw</h4>
+              <p class="deck-lead">Used for fast, accurate crosscuts and angled cuts. Good for quickly cutting stock to length and for the angled facets that give the jet its shape.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/orbital-sander.jpg?v=2" alt="Orbital sander"><span class="deck-cap">07 · Orbital Sander</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 07 / 10</span><h4>Orbital Sander</h4>
+              <p class="deck-lead">Smooths rough surfaces and removes imperfections with a circular sanding motion. It preps every part for painting and, crucially, sands edges splinter-free so the toy is safe to handle.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/router.jpg?v=2" alt="Handheld router"><span class="deck-cap">08 · Router</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 08 / 10</span><h4>Router</h4>
+              <p class="deck-lead">A handheld machine to cut grooves and shape edges. Useful for detailed work and finishing edges where a fixed table router can't reach.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/bandsaw.jpg?v=2" alt="Bandsaw"><span class="deck-cap">09 · Bandsaw</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 09 / 10</span><h4>Bandsaw</h4>
+              <p class="deck-lead">Used for curved cuts, straight cuts and shaping thicker wood. The main tool for roughing out the curved profile of the fuselage and wings from solid timber.</p></div>
+          </article>
+
+          <article class="deck-panel">
+            <div class="deck-media"><img src="assets/mfg/table-saw.jpg?v=2" alt="Table saw"><span class="deck-cap">10 · Table Saw</span></div>
+            <div class="deck-info"><span class="deck-num">Machine 10 / 10</span><h4>Table Saw</h4>
+              <p class="deck-lead">Used for long straight rip cuts in sheet material. Accurate and efficient for sizing boards down to the dimensions each part starts from.</p></div>
+          </article>
+
+        </div>
+        <div class="deck-bar deck-thumbs" role="tablist" aria-label="Workshop machines">
+          <button class="deck-tab is-active" title="Domino"><img src="assets/mfg/domino.jpg?v=2" alt="Domino"></button>
+          <button class="deck-tab" title="Table Router"><img src="assets/mfg/table-router.jpg?v=2" alt="Table Router"></button>
+          <button class="deck-tab" title="Laser Cutter"><img src="assets/mfg/laser-cutter.jpg?v=2" alt="Laser Cutter"></button>
+          <button class="deck-tab" title="Drill Press"><img src="assets/mfg/drill-press.jpg?v=2" alt="Drill Press"></button>
+          <button class="deck-tab" title="Lathe"><img src="assets/mfg/lathe.jpg?v=2" alt="Lathe"></button>
+          <button class="deck-tab" title="Drop Saw"><img src="assets/mfg/drop-saw.jpg?v=2" alt="Drop Saw"></button>
+          <button class="deck-tab" title="Orbital Sander"><img src="assets/mfg/orbital-sander.jpg?v=2" alt="Orbital Sander"></button>
+          <button class="deck-tab" title="Router"><img src="assets/mfg/router.jpg?v=2" alt="Router"></button>
+          <button class="deck-tab" title="Bandsaw"><img src="assets/mfg/bandsaw.jpg?v=2" alt="Bandsaw"></button>
+          <button class="deck-tab" title="Table Saw"><img src="assets/mfg/table-saw.jpg?v=2" alt="Table Saw"></button>
+        </div>
       </div>
     </div>
   </section>

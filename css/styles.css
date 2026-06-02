@@ -402,6 +402,31 @@ body{
 }
 .deck--text .deck-colp{ font-size:clamp(15px,1.15vw,19px); }
 
+/* deck--gallery: big featured image + clickable thumbnail filmstrip */
+.deck--gallery .deck-stage{ order:1; }
+.deck--gallery .deck-thumbs{ order:2; justify-content:center; gap:10px; flex-wrap:wrap; }
+.deck--gallery .deck-tab{
+  padding:0; border-radius:10px; overflow:hidden;
+  width:clamp(58px,5.2vw,90px); height:clamp(44px,3.8vw,64px);
+  background:transparent;
+}
+.deck--gallery .deck-tab img{
+  width:100%; height:100%; object-fit:cover; display:block;
+  opacity:.5; transition:opacity .25s, transform .25s;
+}
+.deck--gallery .deck-tab:hover{ transform:translateY(-2px); }
+.deck--gallery .deck-tab:hover img{ opacity:.85; }
+.deck--gallery .deck-tab.is-active{
+  background:transparent; border-color:var(--accent);
+  box-shadow:0 0 0 2px var(--accent), 0 10px 24px -8px var(--accent);
+}
+.deck--gallery .deck-tab.is-active img{ opacity:1; }
+.deck--gallery .deck-media{ aspect-ratio:16/10; }
+.deck--gallery .deck-num{
+  font-family:"JetBrains Mono", monospace; font-size:12px; letter-spacing:.2em;
+  color:var(--accent); margin-bottom:10px; display:block;
+}
+
 /* ============================================================
    GALLERY — manufacturing machines grid
    ============================================================ */
