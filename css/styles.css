@@ -413,6 +413,14 @@ body{
   background:var(--panel); backdrop-filter:blur(var(--panel-blur));
   -webkit-backdrop-filter:blur(var(--panel-blur));
   display:flex; flex-direction:column;
+  position:relative; z-index:1;
+  transition:transform .3s var(--ease), box-shadow .3s var(--ease), border-color .3s;
+}
+.gcard:hover{
+  transform:scale(1.12);
+  z-index:5;
+  border-color:var(--accent);
+  box-shadow:0 26px 64px -22px rgba(0,0,0,.85);
 }
 .gcard img{ width:100%; aspect-ratio:16/11; object-fit:cover; display:block; }
 .gcard-body{ padding:12px 14px; }
