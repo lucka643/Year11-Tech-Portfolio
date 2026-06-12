@@ -174,6 +174,31 @@
       </div>`;
     },
 
+    stack(b) {
+      const n = b.items.length;
+      return `<div class="blk stack-blk" id="${b.id}">
+        <p class="eyebrow rv">${b.eyebrow}</p>
+        <h3 class="head rv" style="--d:.06s">${b.head}</h3>
+        ${b.body ? `<p class="body rv" style="--d:.1s">${b.body}</p>` : ""}
+        <div class="stack" data-n="${n}" style="--n:${n}">
+          <div class="stack-sticky">
+            <div class="stack-imgs">
+              ${b.items.map((it, i) => `<figure class="stack-img" data-i="${i}" style="z-index:${i + 1}"><img src="${it.img}" alt="${it.title}" loading="lazy"></figure>`).join("")}
+            </div>
+            <div class="stack-side">
+              <p class="stack-count"><span class="sc-cur">01</span> / ${String(n).padStart(2, "0")}</p>
+              <div class="stack-texts">
+                ${b.items.map((it, i) => `<div class="stack-text ${i === 0 ? "on" : ""}" data-i="${i}">
+                    <h4>${it.title}</h4><p>${it.text}</p>
+                  </div>`).join("")}
+              </div>
+              <p class="stack-hint">KEEP SCROLLING ↓</p>
+            </div>
+          </div>
+        </div>
+      </div>`;
+    },
+
     quotes(b) {
       return `<div class="blk" id="${b.id}">
         <p class="eyebrow rv">${b.eyebrow}</p>
@@ -274,11 +299,50 @@
       root.querySelectorAll(".rv").forEach((el) => el.classList.add("in"));
     }
 
+    /* scrollytelling stacks */
+    const stacks = [...root.querySelectorAll(".stack")].map((el) => ({
+      el,
+      n: parseInt(el.dataset.n, 10),
+      imgs: [...el.querySelectorAll(".stack-img")],
+      texts: [...el.querySelectorAll(".stack-text")],
+      cur: el.querySelector(".sc-cur"),
+      last: -1,
+    }));
+    const clamp01 = (v) => Math.min(1, Math.max(0, v));
+
+    function driveStacks() {
+      if (reduce) return;
+      for (const s of stacks) {
+        const r = s.el.getBoundingClientRect();
+        const total = r.height - innerHeight;
+        if (total <= 0) continue;
+        const p = clamp01(-r.top / total);
+        const f = p * (s.n - 1);
+        const idx = Math.min(Math.floor(f), s.n - 1);
+        const t = f - idx;
+        for (let k = 0; k < s.n; k++) {
+          const el = s.imgs[k];
+          let y;
+          if (k <= idx) y = 0;
+          else if (k === idx + 1) y = (1 - t) * 102;
+          else y = 102;
+          el.style.transform = `translateY(${y.toFixed(2)}%)`;
+        }
+        const active = t > 0.55 && idx < s.n - 1 ? idx + 1 : idx;
+        if (active !== s.last) {
+          s.last = active;
+          s.texts.forEach((tx, k) => tx.classList.toggle("on", k === active));
+          s.cur.textContent = String(active + 1).padStart(2, "0");
+        }
+      }
+    }
+
     /* scroll progress bar */
     const bar = document.querySelector("#progress i");
     const onScroll = () => {
       const max = document.body.scrollHeight - innerHeight;
       bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + "%";
+      driveStacks();
     };
     addEventListener("scroll", onScroll, { passive: true });
     onScroll();

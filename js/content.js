@@ -333,18 +333,31 @@ window.SECTIONS = [
       ],
       img:"assets/designer/f16.jpg", cap:"F-16 Fighting Falcon" },
 
-    { t:"gallery", id:"designer-gallery", eyebrow:"3a · Influence", head:"The two aircraft.", wide:true,
-      imgs:[
-        { src:"assets/designer/f16.jpg", cap:"F-16 — lightweight, agile, cost-effective" },
-        { src:"assets/designer/f16xl.jpg", cap:"F-16XL — cranked-arrow delta development" }
-      ] },
-
-    { t:"gallery", id:"sketches", eyebrow:"3b · Design Ideas", head:"Fourteen concepts.", wide:true,
-      body:"Every concept I considered, hand-drawn and annotated with piece counts, complexity and who it's for — from vehicles and games to sensory toys. Click any sheet to zoom.",
-      imgs:[
-        { src:"assets/sketches/sheet-1.jpg", cap:"Sheet 1 — Golf cart · Flatbed truck · Digger · Helicopter · NFL game · Fighter jet" },
-        { src:"assets/sketches/sheet-2.jpg", cap:"Sheet 2 — Truck · Scooter · Golf · Curling · Car · Train · Tik-tak-toe · Shape puzzle" },
-        { src:"assets/sketches/sheet-3.jpg", cap:"Sheet 3 — Ring toss · Semi-circle toy · Whack-a-mole · Tool box · Spinner · Drums · Toy camera · String spinner" }
+    { t:"stack", id:"sketches", eyebrow:"3b · Design Ideas", head:"Every concept, one by one.",
+      body:"All twenty-two hand-drawn concepts. Keep scrolling — each new design slides up over the last.",
+      items:[
+        { img:"assets/sketches/items/golf-cart.jpg", title:"Golf Cart", text:"+17 pieces · complex design. A realistic cart with working steering and wheels — fun, but a lot of fiddly parts for the play value it gives back." },
+        { img:"assets/sketches/items/flatbed-truck.jpg", title:"Flatbed Truck", text:"10 pieces · complex design. Working doors and wheels with a flat deck for carrying other toys. Solid, but very similar to toys already everywhere." },
+        { img:"assets/sketches/items/digger.jpg", title:"Digger", text:"12 pieces · complex design. Role-play and realism in one — a strong yellow/black identity. Made the final shortlist of four." },
+        { img:"assets/sketches/items/helicopter.jpg", title:"Helicopter", text:"7 pieces · simple design, easy to make. Aimed at a younger audience with a smaller propeller for safety." },
+        { img:"assets/sketches/items/nfl.jpg", title:"NFL Game", text:"+13 pieces · simple design, interactable. A figure throws the ball into hoops for points; magnets let the figure be moved around the board." },
+        { img:"assets/sketches/items/fighter-jet.jpg", title:"Fighter Jet", text:"+25 pieces · complex, realistic, hard to make — but with working wheels, flaps, stabiliser, rudder and elevators plus detailed vents. The eventual winner." },
+        { img:"assets/sketches/items/truck.jpg", title:"Container Truck", text:"+8 pieces · simple design. Working doors and wheels with a detachable container for role-play." },
+        { img:"assets/sketches/items/scooter.jpg", title:"Scooter", text:"+12 pieces · complex design. A realistic role-play scooter with nice curves — tricky ones to cut in timber." },
+        { img:"assets/sketches/items/golf.jpg", title:"Golf", text:"+13 pieces · complex design. A metal plate under felt grass lets a spring-powered figure stick on while it swings a club to hit the ball. Realistic but mechanically ambitious." },
+        { img:"assets/sketches/items/curling.jpg", title:"Curling", text:"6 pieces · simple design, easy to make. A smooth surface for gliding weighted circle pieces — a 2-player tabletop game." },
+        { img:"assets/sketches/items/car.jpg", title:"Car", text:"5 pieces · simple design, easy to make. Classic role-play for a younger audience." },
+        { img:"assets/sketches/items/train.jpg", title:"Train", text:"14 pieces · simple design, easy to make, looks good. A timeless wooden-toy shape." },
+        { img:"assets/sketches/items/tik-tak-toe.jpg", title:"Tik-Tak-Toe", text:"15 pieces · 2-player, simple design. Chunky noughts-and-crosses pieces on a wooden board." },
+        { img:"assets/sketches/items/shape-puzzle.jpg", title:"Shape Puzzle", text:"8 pieces · simple design, easy to make. A learning toy for a younger audience — match the shapes to the holes." },
+        { img:"assets/sketches/items/ring-toss.jpg", title:"Ring Toss", text:"2-player · 7 pieces for the base + 6 rings. Easy assembly and disassembly for storage and portability." },
+        { img:"assets/sketches/items/semi-circle.jpg", title:"Semi-Circle Toy", text:"5 pieces · simple design. Stacking rainbow arches — a classic sensory toy for little hands." },
+        { img:"assets/sketches/items/whack-a-mole.jpg", title:"Whack-a-Mole", text:"12 pieces · interactable. Flip the object to restart the game; reinforced hammer to survive enthusiastic whacking. Made the final shortlist." },
+        { img:"assets/sketches/items/toy-camera.jpg", title:"Toy Camera", text:"14 pieces · a fake camera prop for role-play, with working buttons and dial. Realistic." },
+        { img:"assets/sketches/items/tool-box.jpg", title:"Tool Box", text:"10 pieces · role-play and pretend. Sharp or dangerous edges removed or dulled; a case for storage including a right-angle ruler, screwdriver with bits, saw and caliper. Made the final shortlist." },
+        { img:"assets/sketches/items/spinner.jpg", title:"Spinner", text:"1 piece · the simplest design of all, made for spinning." },
+        { img:"assets/sketches/items/drums.jpg", title:"Drums", text:"+4 pieces · simple design. Toy drums that work — cuts in the drum surface allow vibration, with a reinforced drumstick." },
+        { img:"assets/sketches/items/string-spinner.jpg", title:"String-Powered Spinner", text:"5 pieces · simple design. Pulling the string spins the spinner very fast and it pops out onto the surface below." }
       ] },
 
     { t:"matrix", id:"evaluation", eyebrow:"3c · Evaluation of Design & Specification", head:"Scoring the shortlist.",
@@ -396,30 +409,29 @@ window.SECTIONS = [
     { t:"gallery", id:"first-model", eyebrow:"4a · First Model", head:"The foam jet.",
       body:"My first model, cut from foam. The goal wasn't beauty — it was to get the proportions right and find out how many parts the jet really needs. Building it taught me three things: the wing sweep needed to move further back for the jet to look balanced; the fuselage works best as one solid spine with everything attaching to it; and the twin tail fins from my sketch were too fiddly at this scale, so the final design uses a single rudder. It also let me count and refine the real part list before committing to timber.",
       imgs:[
-        { src:"assets/models/foam-1.jpg", cap:"Top view — full airframe" },
-        { src:"assets/models/foam-2.jpg", cap:"Rear three-quarter view" },
+        { src:"assets/models/foam-1.jpg", cap:"Front view" },
+        { src:"assets/models/foam-2.jpg", cap:"Elevator — pitch control surface" },
         { src:"assets/models/foam-3.jpg", cap:"All parts laid out" },
-        { src:"assets/models/foam-4.jpg", cap:"Assembled, nose-on" },
-        { src:"assets/models/foam-5.jpg", cap:"Tail section test fit" },
-        { src:"assets/models/foam-6.jpg", cap:"Part-by-part breakdown" },
-        { src:"assets/models/foam-7.jpg", cap:"Wing & fuselage joint" }
+        { src:"assets/models/foam-5.jpg", cap:"Top view — bird's eye" },
+        { src:"assets/models/foam-6.jpg", cap:"Rear view" },
+        { src:"assets/models/foam-7.jpg", cap:"Exploded view — every part on its rods" }
       ] },
 
     { t:"gallery", id:"additional-model", eyebrow:"4b · Additional Model", head:"The wing & flap mechanism.",
       body:"My second model focuses on the single most important mechanism in the jet: the moving control surface. A wooden rod runs through the wing, and the flap is cut out and mounted on that rod so it can tilt up and down. This foam version proved the idea works — the flap rotates smoothly through its cutout without binding — and showed me the tolerances matter: too tight and the flap jams, too loose and it flops. The same rod-and-cutout mechanism will be repeated on the ailerons, elevators and rudder of the final jet.",
       imgs:[
-        { src:"assets/models/flap-1.jpg", cap:"Wing with flap mounted on rod" },
-        { src:"assets/models/flap-2.jpg", cap:"Flap tilted — mechanism working" },
-        { src:"assets/models/flap-3.jpg", cap:"Rod & cutout detail" },
-        { src:"assets/models/addl-1.jpg", cap:"Flap removed from wing" },
-        { src:"assets/models/addl-2.jpg", cap:"Underside of the mechanism" }
+        { src:"assets/models/addl-1.jpg", cap:"Wing flat — flap on its rods, slot visible" },
+        { src:"assets/models/addl-2.jpg", cap:"Flap deflected upward on its rod" },
+        { src:"assets/models/addl-3.jpg", cap:"Slot cutout & dowel from above" },
+        { src:"assets/models/addl-4.jpg", cap:"Flap fully raised — on the bench" },
+        { src:"assets/models/addl-5.jpg", cap:"Flap mid-deflection" }
       ] },
 
     { t:"cards", id:"justification", eyebrow:"4c · Model Justification", head:"Why I built each model.", cols:2,
       cards:[
         { img:"assets/models/foam-1.jpg", title:"First Model", meta:"Whole-jet foam mock-up",
           body:"This is my first model, made out of foam. I misjudged some of the proportions in my planning, so this model helped me understand and refine the sizes of each part — especially the wing sweep and the length of the nose. It also helped me figure out which components were necessary and which I could get rid of, which is how the twin tail became a single rudder and the part count came down to something I can actually build." },
-        { img:"assets/models/flap-1.jpg", title:"Additional Model", meta:"Wing + control-surface mechanism",
+        { img:"assets/models/addl-4.jpg", title:"Additional Model", meta:"Wing + control-surface mechanism",
           body:"My second model is smaller but just as important: it's a working test of the flap mechanism that makes my jet special. The control surfaces are the whole reason a child would pick this jet over a solid one, so the rod-and-cutout joint had to be proven before I build it four times in hardwood. If the flaps don't move smoothly, the playability score I chose this design for disappears." }
       ] },
 
@@ -429,7 +441,7 @@ window.SECTIONS = [
         "Danish Oil brought out the grain nicely but felt like it would need constant re-coating on a toy that gets handled this much. Mirotone gave the hardest shell but the fumes and spray application make it impractical for me. The two Cabothane coats were the clear winners — tough, easy to brush on, and child-safe once cured.",
         "<b>Verdict:</b> Cabothane Clear, in <b>matt</b> — the gloss looked great on the test board but shows fingerprints and glare, while the matt keeps the wood looking natural and hides the wear a toy collects."
       ],
-      img:"assets/models/finish-strip.jpg", cap:"Test strip — four finishes applied" },
+      img:"assets/models/finish-strip.jpg", cap:"The test strip — four labelled finishes on one board" },
 
     { t:"cards", id:"dev-conclusion", eyebrow:"4e · Development Testing Conclusion", head:"What development decided.", cols:2,
       cards:[
@@ -514,7 +526,7 @@ window.SECTIONS = [
   id:7, slug:"evaluation", title:"Evaluation & Testing",
   tag:"Against Spec · Reviews · Improvements",
   accent:"#8fd6e6", deep:"#0a0d10", light:"#3a5560",
-  preview:"assets/models/flap-2.jpg",
+  preview:"assets/models/addl-2.jpg",
   blocks:[
     { t:"intro", lead:"Did the jet do what the research said it must? The specification re-tested against the finished product, outside feedback, and where the design goes next." },
 
@@ -558,7 +570,7 @@ window.SECTIONS = [
 
     { t:"cards", id:"issues", eyebrow:"7e · Issues I Came Across", head:"What went wrong (and what it taught me).", cols:2,
       cards:[
-        { img:"assets/models/flap-3.jpg", title:"Flap cutout tolerance", meta:"Found in the foam model",
+        { img:"assets/models/addl-3.jpg", title:"Flap cutout tolerance", meta:"Found in the foam model",
           body:"My first flap cutout was sized exactly to the flap and it jammed solid the moment the rod went in. Foam compresses, wood doesn't — so in timber it would have been worse. Adding 1–2 mm clearance to every control-surface cutout fixed it, and that clearance is now written into the production plan rather than left to memory." },
         { img:"assets/models/addl-2.jpg", title:"Rod alignment across parts", meta:"Found in the additional model",
           body:"Drilling the rod channel through the wing and the flap separately left the two holes slightly out of line, so the flap rotated with a wobble. The fix was drilling both parts together in one pass with the flap taped in its cutout — a small jig that becomes part of step five of the production plan." }
