@@ -16,11 +16,11 @@ opens an **interactive 3D viewer** of the jet.
 - **Live WebGL fog background** that changes colour per section.
 - **Section pages** with scroll-triggered reveals, parallax media, tabbed decks,
   galleries with lightbox, tables and timelines.
-- **3D viewer** (Three.js): orbit/zoom, hover-highlight parts, click a part to
-  fly the camera to it and read about it; control surfaces oscillate, the canopy
-  opens. Currently a procedural stand-in jet — drop the real CAD export at
-  `assets/jet.glb` (nodes named `fuselage, canopy, wingL, wingR, tail, fin, gear`
-  and movers `aileronL, aileronR, elevL, elevR, rudder`) and it swaps in.
+- **3D viewer** (Three.js): Luca's real Tinkercad jet, loaded as 15 separate
+  part GLBs (`assets/jet-parts/`) that share one design coordinate space and
+  assemble exactly. Orbit/zoom, hover-highlight any part, click to fly the
+  camera to it and read about it — and the ailerons, elevators and rudders
+  physically articulate on hinge pivots.
 
 ## Files
 
@@ -47,4 +47,4 @@ Open <http://localhost:8099>.
 
 - Exploded drawing (Section 3) · working drawing (Section 5)
 - Build/diary photos + finished-product photos (Sections 5–6)
-- Two real reviewers (Section 7) · `assets/jet.glb` (3D viewer)
+- Two real reviewers (Section 7)
