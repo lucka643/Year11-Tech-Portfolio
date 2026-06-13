@@ -110,12 +110,10 @@ async function loadPartsJet() {
      Y-up (conversion baked into their nodes) or still Z-up. */
   const probe = new THREE.Group();
   scenes.forEach(({ node }) => probe.add(node));
+  probe.updateMatrixWorld(true);
   let pbox = new THREE.Box3().setFromObject(probe);
   let psize = pbox.getSize(new THREE.Vector3());
   const yUp = psize.y <= psize.x && psize.y <= psize.z;   // up = smallest extent
-  /* axes in this space: length = X; up & span are Y/Z depending on yUp */
-  const flapAxis = yUp ? "z" : "y";      // hinge runs spanwise
-  const rudderAxis = yUp ? "y" : "z";    // hinge runs vertically
 
   /* which X end is the tail? (the vertical stabilizers live there) */
   const vstabs = scenes.filter(({ p }) => p.key.startsWith("vstab"));
@@ -125,7 +123,60 @@ async function loadPartsJet() {
     return a + (b.min.x + b.max.x) / 2;
   }, 0) / Math.max(1, vstabs.length);
   const tailAtPlusX = tailX > centreX;
-  const forwardEdge = tailAtPlusX ? "min" : "max";        // hinge on the nose-facing face
+  const noseDir = new THREE.Vector3(tailAtPlusX ? -1 : 1, 0, 0);
+
+  /* sample a part's vertices in assembly space */
+  function sampleVerts(node, max = 3000) {
+    const out = [];
+    node.traverse((o) => {
+      if (!o.isMesh) return;
+      const pos = o.geometry.attributes.position;
+      const step = Math.max(1, Math.floor(pos.count / max));
+      const v = new THREE.Vector3();
+      for (let i = 0; i < pos.count; i += step) {
+        out.push(v.fromBufferAttribute(pos, i).applyMatrix4(o.matrixWorld).clone());
+      }
+    });
+    return out;
+  }
+
+  /* hinge for a swept control surface: rotation axis = the part's own
+     long axis (dominant eigenvector of its vertex cloud), through the
+     leading (nose-facing) edge. Rotating about a global axis instead
+     makes swept flaps "flap like a bird" — pitch + roll mixed. */
+  function computeHinge(node) {
+    const verts = sampleVerts(node);
+    const c = new THREE.Vector3();
+    verts.forEach((v) => c.add(v)); c.divideScalar(verts.length);
+    /* covariance */
+    let xx = 0, xy = 0, xz = 0, yy = 0, yz = 0, zz = 0;
+    for (const v of verts) {
+      const dx = v.x - c.x, dy = v.y - c.y, dz = v.z - c.z;
+      xx += dx * dx; xy += dx * dy; xz += dx * dz; yy += dy * dy; yz += dy * dz; zz += dz * dz;
+    }
+    /* dominant eigenvector by power iteration */
+    let d = new THREE.Vector3(1, 0.31, 0.71).normalize();
+    for (let i = 0; i < 30; i++) {
+      d.set(
+        xx * d.x + xy * d.y + xz * d.z,
+        xy * d.x + yy * d.y + yz * d.z,
+        xz * d.x + yz * d.y + zz * d.z
+      ).normalize();
+    }
+    /* leading edge: most nose-ward cluster, measured perpendicular to d */
+    const n0 = noseDir.clone().sub(d.clone().multiplyScalar(noseDir.dot(d)));
+    if (n0.lengthSq() < 1e-6) n0.copy(noseDir); else n0.normalize();
+    let sMax = -Infinity;
+    const sVals = verts.map((v) => {
+      const s = v.clone().sub(c).dot(n0);
+      if (s > sMax) sMax = s;
+      return s;
+    });
+    const p0 = new THREE.Vector3(); let nLead = 0;
+    verts.forEach((v, i) => { if (sVals[i] >= sMax * 0.82) { p0.add(v); nLead++; } });
+    p0.divideScalar(Math.max(1, nLead));
+    return { p0, axis: d };
+  }
 
   /* part colours matching Luca's Tinkercad design */
   const COLOURS = {
@@ -139,6 +190,9 @@ async function loadPartsJet() {
     intakeL: 0xf5921e, intakeR: 0xf5921e,
   };
 
+  /* build into LOCAL maps; mount() adopts them on resolve (avoids
+     races with cleanup/fallback resetting the module-level maps) */
+  const mySelectable = {}, myMovers = {};
   const assembly = new THREE.Group();
   for (const { p, node } of scenes) {
     node.traverse((o) => {
@@ -151,19 +205,18 @@ async function loadPartsJet() {
       }
     });
     if (p.mover) {
-      const box = new THREE.Box3().setFromObject(node);
-      const c = box.getCenter(new THREE.Vector3());
-      const pivotPos = new THREE.Vector3(box[forwardEdge].x, c.y, c.z);
+      node.updateMatrixWorld(true);
+      const { p0, axis } = computeHinge(node);
       const pivot = new THREE.Group();
-      pivot.position.copy(pivotPos);
-      node.position.sub(pivotPos);
+      pivot.position.copy(p0);
+      node.position.sub(p0);
       pivot.add(node);
       assembly.add(pivot);
-      movers[p.key] = { pivot, axis: p.mover.kind === "rudder" ? rudderAxis : flapAxis };
-      selectable[p.key] = node;
+      myMovers[p.key] = { pivot, axisVec: axis, angle: 0 };
+      mySelectable[p.key] = node;
     } else {
       assembly.add(node);
-      selectable[p.key] = node;
+      mySelectable[p.key] = node;
     }
   }
 
@@ -187,8 +240,7 @@ async function loadPartsJet() {
   const centre = box.getCenter(new THREE.Vector3());
   rotY.position.sub(centre);
 
-  window.__v3d = { model, movers, size: box.getSize(new THREE.Vector3()) };
-  return model;
+  return { model, selectable: mySelectable, movers: myMovers, size: box.getSize(new THREE.Vector3()) };
 }
 
 /* ============================================================
@@ -254,9 +306,12 @@ export function mount(appRoot) {
 
   jet = null;
   loadPartsJet()
-    .then((real) => {
-      if (real) { jet = real; scene.add(jet); }
-      else { selectable = {}; movers = {}; jet = buildProceduralJet(); scene.add(jet); }
+    .then((res) => {
+      if (res) {
+        selectable = res.selectable; movers = res.movers;
+        jet = res.model; scene.add(jet);
+        window.__v3d = res;
+      } else { selectable = {}; movers = {}; jet = buildProceduralJet(); scene.add(jet); }
     })
     .catch((e) => {
       console.warn("Part GLBs failed, using stand-in:", e);
@@ -392,13 +447,15 @@ export function mount(appRoot) {
       }
     } else { label.style.opacity = 0; }
 
-    /* articulate the selected part's control surfaces */
+    /* articulate the selected part's control surfaces — each rotates
+       ONLY about its own hinge line (single axis, no flapping) */
     const active = selected ? (ACTION[selected] || []) : [];
     const osc = Math.sin(t * 2.2) * 0.38;
     for (const mk in movers) {
       const m = movers[mk];
       const target = active.includes(mk) ? osc : 0;
-      m.pivot.rotation[m.axis] += (target - m.pivot.rotation[m.axis]) * Math.min(dt * 6, 1);
+      m.angle += (target - m.angle) * Math.min(dt * 6, 1);
+      m.pivot.setRotationFromAxisAngle(m.axisVec, m.angle);
     }
 
     if (camAnim) {
