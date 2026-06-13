@@ -591,6 +591,50 @@ body[data-route="section"] .progress{opacity:1;}
   font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.3em;color:var(--ink-dim);text-transform:uppercase;
 }
 
+/* ============================================================
+   MOBILE (≤760px) — layout/UX only; desktop is untouched
+   ============================================================ */
+@media (max-width:760px){
+  /* HUD: drop the course tag, tighten so BACK + name fit one line */
+  .hud{padding:15px 16px;}
+  .hud-course{display:none;}
+  .hud-left{gap:12px;}
+  .hud-name{font-size:11px;letter-spacing:.16em;}
+  .hud-back{padding:7px 13px 7px 10px;}
+
+  /* 3D VIEWER: info becomes a bottom sheet so it never covers the jet */
+  .v-card{
+    left:0;right:0;top:auto;bottom:0;width:auto;
+    transform:translateY(118%);
+    max-height:56vh;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    border-radius:22px 22px 0 0;border-bottom:none;
+    padding:20px 20px calc(22px + env(safe-area-inset-bottom,0px));
+  }
+  .v-card.on{transform:translateY(0);}
+  .v-card h3{font-size:27px;margin-bottom:10px;}
+  .v-card p{font-size:14.5px;}
+  .v-back{margin-top:14px;padding:12px 18px;}
+  /* drag tip → top of screen, clear of the bottom sheet; no hover label */
+  .v-hint{bottom:auto;top:70px;font-size:9px;padding:8px 15px;max-width:88vw;white-space:normal;text-align:center;line-height:1.5;}
+  .v-label{display:none;}
+
+  /* tighter page gutters + a touch more breathing room between blocks */
+  .sec{padding:0 18px 8vh;}
+  .home{padding:14vh 18px 10vh;}
+  .sec-head{padding:17vh 0 7vh;}
+  .blk{margin-bottom:64px;}
+
+  /* lightbox close button clear of the notch */
+  .lightbox-x{top:calc(16px + env(safe-area-inset-top,0px));right:16px;}
+}
+
+/* very small phones: stop big display type overflowing */
+@media (max-width:430px){
+  .home-title{font-size:clamp(56px,21vw,86px);}
+  .sec-head-title{font-size:clamp(40px,15vw,64px);}
+  .stack-text h4{font-size:24px;}
+}
+
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion:reduce){
   .view,.view.leaving{animation:none;}

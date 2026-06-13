@@ -401,7 +401,8 @@ export function mount(appRoot) {
     if (info.moving && hasAction) { mv.hidden = false; mv.querySelector("span").textContent = info.moving; }
     else mv.hidden = true;
     card.classList.add("on");
-    document.getElementById("vHint").textContent = "CLICK EMPTY SPACE OR BACK TO RETURN";
+    document.getElementById("vHint").textContent = "TAP EMPTY SPACE OR BACK TO RETURN";
+    applyFraming();
   }
 
   function deselect() {
@@ -409,10 +410,23 @@ export function mount(appRoot) {
     highlight(selected, false); selected = null;
     card.classList.remove("on");
     flyTo(HOME_POS, HOME_TGT);
-    document.getElementById("vHint").textContent = "DRAG TO ROTATE · SCROLL TO ZOOM · CLICK A PART";
+    document.getElementById("vHint").textContent = "DRAG TO ROTATE · PINCH/SCROLL TO ZOOM · TAP A PART";
+    applyFraming();
   }
   document.getElementById("vcBack").addEventListener("click", deselect);
   window.__v3dSelect = select; window.__v3dDeselect = deselect;   // debug/testing hooks
+
+  /* On phones a part's info appears as a bottom sheet (~half the screen),
+     so shift the render UP while a part is selected to keep the jet clear
+     of the sheet. Desktop is unaffected (full-screen card on the side). */
+  function applyFraming() {
+    const mobile = innerWidth <= 760;
+    if (mobile && selected) {
+      camera.setViewOffset(innerWidth, innerHeight, 0, Math.round(innerHeight * 0.26), innerWidth, innerHeight);
+    } else {
+      camera.clearViewOffset();
+    }
+  }
 
   function onKey(e) {
     if (e.key === "Escape" && selected) { e.stopImmediatePropagation(); deselect(); }
@@ -422,6 +436,7 @@ export function mount(appRoot) {
   function onResize() {
     camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix();
     renderer.setSize(innerWidth, innerHeight);
+    applyFraming();
   }
   addEventListener("resize", onResize);
 
