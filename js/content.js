@@ -90,9 +90,9 @@ window.SECTIONS = [
           note:"<b>Why it matters:</b> a great design is useless if I can't actually make it." }
       ] },
 
-    { t:"cards", id:"pa1", eyebrow:"2b · Product Analysis #1", head:"Hot Wheels vs Buzzy Bee.", cols:2,
+    { t:"cards", id:"pa1", eyebrow:"2b · Product Analysis #1", head:"Hot Wheels vs Buzzy Bee.", cols:2, imgFit:"product",
       cards:[
-        { title:"Hot Wheels", meta:"Mattel · ≈ $2.80 NZD",
+        { title:"Hot Wheels", meta:"Mattel · ≈ $2.80 NZD", img:"assets/products/hot-wheels.jpg",
           dl:[["Repairability","Not repairable. If the wheels or axles break, it's cheaper to replace the whole toy than fix it."],
               ["Material","Die-cast metal body with plastic parts."],
               ["Aesthetics","Small, detailed and eye-catching. Realistic styling and bright colours appeal to children and collectors."],
@@ -100,7 +100,7 @@ window.SECTIONS = [
               ["Manufacturing","Mass-produced, keeping the price low and availability high."],
               ["Environment","Metal can be recycled, but plastic parts reduce sustainability."],
               ["Ergonomics","Small and lightweight, fits comfortably in one hand."]] },
-        { title:"Buzzy Bee Pull Toy", meta:"Buzzy Bee · ≈ $39.95 NZD",
+        { title:"Buzzy Bee Pull Toy", meta:"Buzzy Bee · ≈ $39.95 NZD", img:"assets/products/buzzy-bee.jpg",
           dl:[["Repairability","More repairable than plastic toys because it's wood. Small damaged parts can often be glued or replaced."],
               ["Material","Wood with a non-toxic finish."],
               ["Aesthetics","Bright, classic and recognisable, a strong New Zealand identity."],
@@ -110,9 +110,9 @@ window.SECTIONS = [
               ["Ergonomics","Easy pull-string handle and lightweight size for toddlers."]] }
       ] },
 
-    { t:"cards", id:"pa2", eyebrow:"2b · Product Analysis #2", head:"Melissa & Doug vs Lego Creator.", cols:2,
+    { t:"cards", id:"pa2", eyebrow:"2b · Product Analysis #2", head:"Melissa & Doug vs Lego Creator.", cols:2, imgFit:"product",
       cards:[
-        { title:"Shape-Sorting Dump Truck", meta:"Melissa & Doug · ≈ $26.99 USD",
+        { title:"Shape-Sorting Dump Truck", meta:"Melissa & Doug · ≈ $26.99 USD", img:"assets/products/md.jpg",
           dl:[["Repairability","More repairable than electronic toys, wooden with simple moving parts, so it stays usable even if one part breaks."],
               ["Material","Wood with colourful shape blocks."],
               ["Aesthetics","Colourful, friendly and educational, attractive to younger children."],
@@ -120,7 +120,7 @@ window.SECTIONS = [
               ["Manufacturing","A sturdy wooden educational toy focused on durability."],
               ["Environment","Wooden construction lasts longer, reducing waste."],
               ["Ergonomics","Large shapes are easy to grip; smooth edges improve safety."]] },
-        { title:"Creator 3-in-1 Sports Car", meta:"Lego · ≈ $26.99 USD",
+        { title:"Creator 3-in-1 Sports Car", meta:"Lego · ≈ $26.99 USD", img:"assets/products/lego.jpg",
           dl:[["Repairability","Repairable, lost or damaged pieces can be replaced without binning the whole toy."],
               ["Material","Plastic Lego bricks."],
               ["Aesthetics","Bright and sporty with detailed features; the 3 build options keep it interesting."],

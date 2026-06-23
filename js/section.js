@@ -37,7 +37,7 @@
         <p class="eyebrow rv">${b.eyebrow}</p>
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
         ${b.body ? `<p class="body rv" style="--d:.1s">${b.body}</p>` : ""}
-        <div class="cards ${b.imgFit === "contain" ? "cards--contain" : ""}" data-cols="${b.cols || 2}">
+        <div class="cards ${b.imgFit ? "cards--" + b.imgFit : ""}" data-cols="${b.cols || 2}">
           ${b.cards.map((c, i) => `
             <article class="card glass rv" style="--d:${0.08 + i * 0.07}s">
               ${c.img ? `<img src="${c.img}" alt="${c.title}" loading="lazy">` : ""}
@@ -335,17 +335,20 @@
         const t = f - idx;
         for (let k = 0; k < s.n; k++) {
           const el = s.imgs[k];
-          if (k < idx) {
-            /* already dealt: rest at its own angle in the pile */
+          if (k <= idx) {
+            /* dealt + current: rest in the pile at their OWN fixed angle, forever */
             el.style.transform = "translateY(0%) rotate(var(--rot))";
-          } else if (k === idx) {
-            /* current card straightening as the next one comes in */
-            el.style.transform = `translateY(0%) rotate(calc(var(--rot) * ${(1 - t).toFixed(3)}))`;
+            el.style.opacity = "1";
           } else if (k === idx + 1) {
-            /* incoming card slides up over the pile, rotating to its angle */
-            el.style.transform = `translateY(${((1 - t) * 105).toFixed(2)}%) rotate(calc(var(--rot) * ${t.toFixed(3)}))`;
+            /* the one incoming card slides up over the pile, holding its fixed angle.
+               fades in over the first slice of travel so no sliver shows at the bottom */
+            const y = ((1 - t) * 112).toFixed(2);
+            el.style.transform = `translateY(${y}%) rotate(var(--rot))`;
+            el.style.opacity = clamp01(t * 6).toFixed(3);
           } else {
-            el.style.transform = "translateY(106%) rotate(0deg)";
+            /* not reached yet: parked off-screen and hidden, never visible below */
+            el.style.transform = "translateY(120%) rotate(var(--rot))";
+            el.style.opacity = "0";
           }
         }
         const active = t > 0.5 && idx < s.n - 1 ? idx + 1 : idx;

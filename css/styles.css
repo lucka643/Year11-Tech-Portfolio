@@ -224,7 +224,13 @@ body[data-route="section"] .progress{opacity:1;}
 .stack-imgs{
   position:relative;height:min(72vh,760px);
 }
-@media (max-width:860px){.stack-imgs{height:48vh;}}
+@media (max-width:860px){
+  /* clip the card zone so rising cards stay in their window and never cover the text */
+  .stack-imgs{height:46vh;overflow:hidden;border-radius:16px;}
+  .stack-img{inset:3% 7%;border-radius:12px;box-shadow:0 16px 36px -16px rgba(0,0,0,.7);}
+  .stack-side{min-height:0;gap:10px;position:relative;z-index:2;}
+  .stack-texts{min-height:clamp(120px,20vh,180px);}
+}
 /* each slide is a physical photo-card that piles up at a slight angle */
 .stack-img{
   position:absolute;inset:3% 6%;will-change:transform;
@@ -361,6 +367,8 @@ body[data-route="section"] .progress{opacity:1;}
 .card img{width:100%;aspect-ratio:16/11;object-fit:cover;border-radius:10px;}
 /* 2C aesthetics: show the whole image (no crop), transparent (no white box) */
 .cards--contain .card img{aspect-ratio:4/3;object-fit:contain;background:transparent;border-radius:0;}
+/* 2B product analysis: white-background product shots sit on a clean white tile */
+.cards--product .card img{aspect-ratio:4/3;object-fit:contain;background:#fff;border-radius:10px;padding:14px;}
 .card h4{font-family:"Bricolage Grotesque",sans-serif;font-weight:700;font-size:clamp(18px,1.7vw,26px);letter-spacing:-.01em;}
 .card .meta{font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.16em;color:var(--accent);text-transform:uppercase;}
 .card p{font-size:clamp(13.5px,1vw,16px);line-height:1.55;color:var(--ink-dim);}

@@ -57,7 +57,7 @@
       scrollTo(0, 0);
       app.innerHTML = `<div class="view"><div class="v-loading">LOADING 3D VIEWER…</div></div>`;
       try {
-        viewerMod = viewerMod || await import("./viewer3d.js?v=26");
+        viewerMod = viewerMod || await import("./viewer3d.js?v=27");
         app.innerHTML = "";
         destroy = viewerMod.mount(app);
       } catch (err) {
