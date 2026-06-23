@@ -23,7 +23,7 @@ window.renderHome = function (root) {
       <div class="home-hero-main">
         <p class="home-kicker stag" style="--d:.05s">DESIGN TECHNOLOGY PORTFOLIO · 2026 · KING'S COLLEGE</p>
         <h1 class="home-title stag" style="--d:.12s">Toys<span class="amp">&amp;</span><br>Games</h1>
-        <p class="home-sub stag" style="--d:.2s">A sustainable <b>wooden fighter jet</b> with working control surfaces — designed, modelled and built from problem to prototype.</p>
+        <p class="home-sub stag" style="--d:.2s">A sustainable <b>wooden fighter jet</b> with working control surfaces, designed, modelled and built from problem to prototype.</p>
       </div>
       <aside class="home-meta stag" style="--d:.26s">
         <div><i>STUDENT</i><b>Luca Carlisle</b></div>
@@ -33,7 +33,7 @@ window.renderHome = function (root) {
       </aside>
     </header>
 
-    <p class="home-index-label stag" style="--d:.28s">INDEX — SELECT A SECTION</p>
+    <p class="home-index-label stag" style="--d:.28s">INDEX / SELECT A SECTION</p>
     <nav class="rows" aria-label="Portfolio sections">${rowsHtml}</nav>
 
     <button class="hangar stag" style="--d:${0.34 + S.length * 0.06}s" data-go="#/viewer"

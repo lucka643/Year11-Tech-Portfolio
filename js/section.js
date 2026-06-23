@@ -26,7 +26,7 @@
           <h3 class="head rv" style="--d:.06s">${b.head}</h3>
           ${b.body.map((p, i) => `<p class="body rv" style="--d:${0.1 + i * 0.05}s">${p}</p>`).join("")}
         </div>
-        <div class="split-media rv rv-img" style="--d:.15s" data-px="0.06">
+        <div class="split-media rv" style="--d:.15s">
           <figure class="figure"><img src="${b.img}" alt="${b.cap || ""}" loading="lazy"><figcaption>${b.cap || ""}</figcaption></figure>
         </div>
       </div>`;
@@ -37,7 +37,7 @@
         <p class="eyebrow rv">${b.eyebrow}</p>
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
         ${b.body ? `<p class="body rv" style="--d:.1s">${b.body}</p>` : ""}
-        <div class="cards" data-cols="${b.cols || 2}">
+        <div class="cards ${b.imgFit === "contain" ? "cards--contain" : ""}" data-cols="${b.cols || 2}">
           ${b.cards.map((c, i) => `
             <article class="card glass rv" style="--d:${0.08 + i * 0.07}s">
               ${c.img ? `<img src="${c.img}" alt="${c.title}" loading="lazy">` : ""}
@@ -54,11 +54,11 @@
       const thumbs = !!b.thumbs, text = !!b.text;
       const bar = b.tabs.map((tab, i) =>
         `<button class="deck-tab ${i === 0 ? "is-active" : ""}" role="tab" aria-selected="${i === 0}" title="${tab.label}">
-           ${thumbs ? `<img src="${tab.img}" alt="${tab.label}" loading="lazy">` : tab.label}
+           ${thumbs ? `<img src="${tab.img}" alt="${tab.label}" decoding="async">` : tab.label}
          </button>`).join("");
       const panels = b.tabs.map((tab, i) => `
         <article class="deck-panel ${i === 0 ? "is-active" : ""} ${text ? "deck-panel--text" : ""}">
-          ${!text ? `<div class="deck-media"><img src="${tab.img}" alt="${tab.label}" loading="lazy"><span class="cap">${tab.cap || tab.label}</span></div>` : ""}
+          ${!text ? `<div class="deck-media"><img src="${tab.img}" alt="${tab.label}" decoding="async"><span class="cap">${tab.cap || tab.label}</span></div>` : ""}
           <div class="deck-info">
             ${thumbs ? `<p class="eyebrow" style="margin-bottom:8px">Machine ${String(i + 1).padStart(2, "0")} / ${b.tabs.length}</p>` : ""}
             <h4>${tab.title}</h4>
@@ -166,10 +166,9 @@
         <p class="eyebrow rv">${b.eyebrow}</p>
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
         <div class="ph rv" style="--d:.12s">
-          <span class="ph-tag">Placeholder · waiting on asset</span>
-          <h4>${b.head}</h4>
-          <p>${b.body}</p>
-          <p style="margin-top:14px"><b style="color:var(--accent)">Needed:</b> ${b.need}</p>
+          <span class="ph-tag">${b.tag || "Waiting on asset"}</span>
+          ${b.body ? `<p style="margin-top:8px">${b.body}</p>` : ""}
+          ${b.need ? `<p style="margin-top:14px"><b style="color:var(--accent)">Needed:</b> ${b.need}</p>` : ""}
         </div>
       </div>`;
     },
@@ -183,7 +182,10 @@
         <div class="stack" data-n="${n}" style="--n:${n}">
           <div class="stack-sticky">
             <div class="stack-imgs">
-              ${b.items.map((it, i) => `<figure class="stack-img" data-i="${i}" style="z-index:${i + 1}"><img src="${it.img}" alt="${it.title}" loading="lazy"></figure>`).join("")}
+              ${b.items.map((it, i) => {
+                const rot = [-4, 3.2, -2.6, 4.2, -3.4, 2.4, -4.5, 3.6][i % 8];
+                return `<figure class="stack-img" data-i="${i}" style="z-index:${i + 1};--rot:${rot}deg"><img src="${it.img}" alt="${it.title}" loading="lazy"></figure>`;
+              }).join("")}
             </div>
             <div class="stack-side">
               <p class="stack-count"><span class="sc-cur">01</span> / ${String(n).padStart(2, "0")}</p>
@@ -257,14 +259,39 @@
       });
     });
 
-    /* deck tab behaviour */
+    /* deck tab behaviour + preload (instant switching) + swipe */
     root.querySelectorAll(".deck").forEach((deck) => {
       const tabs = [...deck.querySelectorAll(".deck-tab")];
       const panels = [...deck.querySelectorAll(".deck-panel")];
-      tabs.forEach((tab, i) => tab.addEventListener("click", () => {
+      let cur = Math.max(0, panels.findIndex((p) => p.classList.contains("is-active")));
+
+      /* preload every panel image up-front so switching is instant */
+      deck.querySelectorAll(".deck-media img").forEach((im) => {
+        const pre = new Image(); pre.decoding = "async"; pre.src = im.currentSrc || im.src;
+      });
+
+      const show = (i) => {
+        i = (i + panels.length) % panels.length;
+        cur = i;
         tabs.forEach((t, j) => { t.classList.toggle("is-active", j === i); t.setAttribute("aria-selected", j === i); });
         panels.forEach((p, j) => p.classList.toggle("is-active", j === i));
-      }));
+      };
+      tabs.forEach((tab, i) => tab.addEventListener("click", () => show(i)));
+
+      /* swipe left/right on the image area to change part (great on phones) */
+      const stage = deck.querySelector(".deck-stage");
+      if (stage) {
+        let sx = 0, sy = 0, t0 = 0;
+        stage.addEventListener("touchstart", (e) => {
+          sx = e.touches[0].clientX; sy = e.touches[0].clientY; t0 = Date.now();
+        }, { passive: true });
+        stage.addEventListener("touchend", (e) => {
+          const dx = e.changedTouches[0].clientX - sx, dy = e.changedTouches[0].clientY - sy;
+          if (Date.now() - t0 < 600 && Math.abs(dx) > 45 && Math.abs(dx) > Math.abs(dy) * 1.6) {
+            show(cur + (dx < 0 ? 1 : -1));
+          }
+        }, { passive: true });
+      }
     });
 
     /* gallery lightbox */
@@ -273,28 +300,14 @@
       f.addEventListener("click", () => { lbImg.src = f.dataset.full; lb.hidden = false; });
     });
 
-    /* reveal engine */
+    /* reveal engine — one-time fade-in only (no scroll-linked movement) */
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    let io = null, pxItems = [], rafId = null;
+    let io = null;
     if (!reduce) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
       }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
       root.querySelectorAll(".rv").forEach((el) => io.observe(el));
-
-      /* light parallax on tagged media */
-      pxItems = [...root.querySelectorAll("[data-px]")].map((el) => ({ el, k: parseFloat(el.dataset.px) }));
-      const tick = () => {
-        const vh = innerHeight;
-        for (const it of pxItems) {
-          const r = it.el.getBoundingClientRect();
-          if (r.bottom < -80 || r.top > vh + 80) continue;
-          const c = (r.top + r.height / 2 - vh / 2) / vh;
-          it.el.style.transform = `translateY(${(-c * vh * it.k).toFixed(1)}px)`;
-        }
-        rafId = requestAnimationFrame(tick);
-      };
-      if (pxItems.length) rafId = requestAnimationFrame(tick);
     } else {
       root.querySelectorAll(".rv").forEach((el) => el.classList.add("in"));
     }
@@ -322,13 +335,20 @@
         const t = f - idx;
         for (let k = 0; k < s.n; k++) {
           const el = s.imgs[k];
-          let y;
-          if (k <= idx) y = 0;
-          else if (k === idx + 1) y = (1 - t) * 102;
-          else y = 102;
-          el.style.transform = `translateY(${y.toFixed(2)}%)`;
+          if (k < idx) {
+            /* already dealt: rest at its own angle in the pile */
+            el.style.transform = "translateY(0%) rotate(var(--rot))";
+          } else if (k === idx) {
+            /* current card straightening as the next one comes in */
+            el.style.transform = `translateY(0%) rotate(calc(var(--rot) * ${(1 - t).toFixed(3)}))`;
+          } else if (k === idx + 1) {
+            /* incoming card slides up over the pile, rotating to its angle */
+            el.style.transform = `translateY(${((1 - t) * 105).toFixed(2)}%) rotate(calc(var(--rot) * ${t.toFixed(3)}))`;
+          } else {
+            el.style.transform = "translateY(106%) rotate(0deg)";
+          }
         }
-        const active = t > 0.55 && idx < s.n - 1 ? idx + 1 : idx;
+        const active = t > 0.5 && idx < s.n - 1 ? idx + 1 : idx;
         if (active !== s.last) {
           s.last = active;
           s.texts.forEach((tx, k) => tx.classList.toggle("on", k === active));
@@ -349,7 +369,6 @@
 
     return () => {
       if (io) io.disconnect();
-      if (rafId) cancelAnimationFrame(rafId);
       removeEventListener("scroll", onScroll);
     };
   };
