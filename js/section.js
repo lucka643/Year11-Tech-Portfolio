@@ -367,14 +367,18 @@
         - the gesture that scrolls you INTO the stack only settles it into place,
           it never deals a card;
         - one scroll/swipe = exactly one card;
-        - the scroll must fall back to zero (a brief input silence) AND at least
-          half a second must pass before another card can be dealt;
+        - every fresh push registers, but a trackpad's momentum tail does NOT add
+          extra cards;
         - at the first/last card, pushing further releases to normal page scroll. */
-    let engagedPrev = false, canStep = true, quietId = null, lastDeal = -1e9;
+    let engagedPrev = false, lastDeal = -1e9, lastEvent = -1e9, lastAbs = 0;
     let touchY = null, engagedAtStart = false;
-    const QUIET = 220;        // ms of input silence ("scroll back to zero") before the next card
-    const MIN = 500;          // and at least this long between cards (max ~1 card / 0.5s)
-    const armQuiet = () => { if (quietId) clearTimeout(quietId); quietId = setTimeout(() => { canStep = true; }, QUIET); };
+    /* a card fires on a FRESH push, detected either by a gap since the last wheel
+       event OR by a re-acceleration spike (so a new flick mid-momentum still counts).
+       a momentum tail just decays => no gap, no spike => no extra card. COOLDOWN
+       caps the rate and stops one swipe's acceleration from dealing twice. */
+    const GAP = 80;           // ms since the last wheel event = a fresh push
+    const SPIKE = 1.6;        // |deltaY| jumping this x over the last = a new flick mid-momentum
+    const COOLDOWN = 320;     // min ms between cards
     const activeStack = () => {
       for (const s of stacks) {
         if (s.n <= 1) continue;
@@ -394,26 +398,29 @@
       };
       requestAnimationFrame(frame);
     };
-    const canDeal = () => canStep && (performance.now() - lastDeal >= MIN);
     const deal = (s, dir) => {
       const nx = s.cur + dir;
       if (nx < 0 || nx > s.n - 1) return;
-      s.cur = nx; canStep = false; lastDeal = performance.now(); render(s);
+      s.cur = nx; lastDeal = performance.now(); render(s);
     };
     const atEnd = (s, dir) => (dir > 0 && s.cur >= s.n - 1) || (dir < 0 && s.cur <= 0);
     const onWheel = (e) => {
       if (reduce) return;
+      const t = performance.now();
       const s = activeStack();
-      if (!s) { engagedPrev = false; return; }              // not on the stack: normal page scroll
+      if (!s) { engagedPrev = false; lastEvent = t; return; }          // off the stack: track time, normal scroll
       const dir = e.deltaY > 0 ? 1 : (e.deltaY < 0 ? -1 : 0);
       if (!dir) return;
-      if (!engagedPrev) {                                    // the gesture that scrolled us IN: settle only
-        engagedPrev = true; canStep = false; e.preventDefault(); snapInto(s); armQuiet(); return;
+      if (!engagedPrev) {                                              // the gesture that scrolled us IN: settle only
+        engagedPrev = true; e.preventDefault(); snapInto(s);
+        lastEvent = t; lastAbs = Math.abs(e.deltaY); return;
       }
-      if (atEnd(s, dir)) return;                              // at an end: release to page scroll (engagedPrev stays true => no snap-back; resets when fully off)
-      e.preventDefault();                                     // own the gesture (freeze the page)
-      if (canDeal()) deal(s, dir);
-      armQuiet();                                             // any input re-arms -> must fall silent again
+      if (atEnd(s, dir)) { lastEvent = t; return; }                    // at an end: release (no snap-back; resets when fully off)
+      e.preventDefault();                                              // own the gesture (freeze the page)
+      const a = Math.abs(e.deltaY);
+      const fresh = (t - lastEvent > GAP) || (a > lastAbs * SPIKE && a > 8);
+      lastEvent = t; lastAbs = a;
+      if (fresh && t - lastDeal > COOLDOWN) deal(s, dir);              // one card per fresh push, rate-capped
     };
     const onTouchStart = (e) => { touchY = e.touches[0].clientY; if (!activeStack()) engagedPrev = false; engagedAtStart = engagedPrev && !!activeStack(); };
     const onTouchMove = (e) => {
@@ -433,7 +440,7 @@
       const dy = (endY != null && touchY != null) ? endY - touchY : 0;
       touchY = null;
       if (!s || !engagedAtStart) return;                     // entered via this swipe: no deal
-      if (Math.abs(dy) >= 24 && canDeal()) deal(s, dy < 0 ? 1 : -1);
+      if (Math.abs(dy) >= 24 && performance.now() - lastDeal > COOLDOWN) deal(s, dy < 0 ? 1 : -1);
     };
     const onKey = (e) => {
       if (reduce) return;
@@ -444,7 +451,7 @@
       if (!engagedPrev) { engagedPrev = true; e.preventDefault(); snapInto(s); return; }
       if (atEnd(s, dir)) return;
       e.preventDefault();
-      if (canDeal()) deal(s, dir);
+      if (performance.now() - lastDeal > COOLDOWN) deal(s, dir);
     };
     if (stacks.length) {
       addEventListener("wheel", onWheel, { passive: false });
@@ -456,7 +463,6 @@
 
     return () => {
       if (io) io.disconnect();
-      if (quietId) clearTimeout(quietId);
       removeEventListener("scroll", onScroll);
       removeEventListener("wheel", onWheel);
       removeEventListener("touchstart", onTouchStart);
