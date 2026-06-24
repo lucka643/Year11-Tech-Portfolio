@@ -392,13 +392,21 @@
     /* ---- discrete stepping: exactly ONE card per scroll/swipe gesture ----
        The .stack is a tall sticky runway, so native scroll is always the safe
        fallback (can never trap). While the stack fills the viewport and isn't at
-       an end, we swallow the gesture and tween the page by exactly one card-band;
-       at the ends we let the page scroll away normally. A lock makes momentum /
-       big flings count as a single step. */
-    let stepLock = false, tweenId = null;
+       an end, we own the gesture and tween the page by exactly one card-band; at
+       the ends we let the page scroll away normally.
+       Two guards stop over-counting:
+        - ENTRY guard: the gesture that scrolls you INTO (or back to) the stack
+          only settles on the card you land on, it never also deals one.
+        - QUIET guard: after a step we wait for the wheel stream to fall silent
+          before allowing the next, so a Mac trackpad's momentum tail can't sneak
+          in a 2nd card. One physical swipe = one card, however hard you flick. */
+    let stepLock = false, tweenId = null, canStep = true, quietId = null;
+    let engagedPrev = false, touchY = null, engagedAtStart = false;
+    const QUIET = 250;                                   // ms of wheel silence = gesture ended (covers Mac momentum tail)
     const tween = (to) => {
       if (tweenId) cancelAnimationFrame(tweenId);
-      const from = scrollY, d = to - from, t0 = performance.now(), dur = 620;
+      if (document.hidden) { scrollTo(0, to); stepLock = false; return; }  // bg tab: rAF is paused, jump
+      const from = scrollY, d = to - from, t0 = performance.now(), dur = 560;
       const frame = (now) => {
         const k = Math.min(1, (now - t0) / dur);
         scrollTo(0, from + d * (1 - Math.pow(1 - k, 3)));   // ease-out settle
@@ -407,6 +415,7 @@
       };
       tweenId = requestAnimationFrame(frame);
     };
+    const armQuiet = () => { if (quietId) clearTimeout(quietId); quietId = setTimeout(() => { canStep = true; }, QUIET); };
     const engagedStack = () => {
       for (const s of stacks) {
         if (s.n <= 1) continue;
@@ -415,44 +424,50 @@
       }
       return null;
     };
-    const idxOf = (s) => {
-      const total = s.el.offsetHeight - innerHeight;
-      return Math.round(clamp01((scrollY - s.el.offsetTop) / total) * (s.n - 1));
-    };
+    const docTop = (s) => s.el.getBoundingClientRect().top + scrollY;   // document-absolute, layout-shift proof
+    const totalOf = (s) => s.el.offsetHeight - innerHeight;
+    const idxOf = (s) => Math.round(clamp01((scrollY - docTop(s)) / totalOf(s)) * (s.n - 1));
+    const align = (s) => scrollTo(0, docTop(s) + (idxOf(s) / (s.n - 1)) * totalOf(s));   // rest exactly on a card
     const atEnd = (s, dir) => { const i = idxOf(s); return (dir > 0 && i >= s.n - 1) || (dir < 0 && i <= 0); };
     const step = (s, dir) => {
       if (stepLock) return;
       const i = idxOf(s);
       stepLock = true;
-      tween(s.el.offsetTop + ((i + dir) / (s.n - 1)) * (s.el.offsetHeight - innerHeight));
+      tween(docTop(s) + ((i + dir) / (s.n - 1)) * totalOf(s));
     };
     const onWheel = (e) => {
       if (reduce) return;
-      const s = engagedStack(); if (!s) return;
+      const s = engagedStack();
+      if (!s) { engagedPrev = false; return; }              // not on the stack: normal page scroll
       const dir = e.deltaY > 0 ? 1 : (e.deltaY < 0 ? -1 : 0);
-      if (!dir || atEnd(s, dir)) return;            // at an end: let the page scroll out
-      e.preventDefault();                            // otherwise capture the gesture
-      step(s, dir);
+      if (!dir) return;
+      if (atEnd(s, dir)) { engagedPrev = false; return; }    // at an end: let the page scroll out
+      e.preventDefault();                                     // otherwise we own this gesture
+      if (!engagedPrev) {                                     // the gesture that scrolled us IN: just settle
+        engagedPrev = true; canStep = false; align(s); armQuiet(); return;
+      }
+      if (canStep && !stepLock) { canStep = false; step(s, dir); }
+      armQuiet();                                             // momentum keeps re-arming -> canStep stays false
     };
-    let touchY = null;
-    const onTouchStart = (e) => { touchY = e.touches[0].clientY; };
+    const onTouchStart = (e) => { touchY = e.touches[0].clientY; engagedAtStart = !!engagedStack(); };
     const onTouchMove = (e) => {
       if (reduce || touchY == null) return;
       const s = engagedStack(); if (!s) return;
       const dy = e.touches[0].clientY - touchY;
       if (Math.abs(dy) < 6) return;
-      const dir = dy < 0 ? 1 : -1;                   // swipe up = next card
-      if (atEnd(s, dir)) return;                      // at an end: allow native scroll out
-      e.preventDefault();                             // freeze the page so the swipe deals, not scrolls
+      const dir = dy < 0 ? 1 : -1;                            // swipe up = next card
+      if (atEnd(s, dir)) return;                               // at an end: allow native scroll out
+      e.preventDefault();                                      // freeze the page so the swipe deals, not scrolls
     };
     const onTouchEnd = (e) => {
-      if (reduce || touchY == null) return;
+      if (reduce) { touchY = null; return; }
       const s = engagedStack();
-      const endY = (e.changedTouches && e.changedTouches[0] ? e.changedTouches[0].clientY : touchY);
-      const dy = endY - touchY; touchY = null;
-      if (!s || Math.abs(dy) < 24) return;            // ignore taps / tiny moves
-      const dir = dy < 0 ? 1 : -1;
-      if (!atEnd(s, dir)) step(s, dir);
+      const endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : touchY;
+      const dy = (endY != null && touchY != null) ? endY - touchY : 0;
+      touchY = null;
+      if (!s) return;
+      if (!engagedAtStart) { align(s); return; }              // this swipe scrolled us IN: settle, don't deal
+      if (Math.abs(dy) >= 24) { const dir = dy < 0 ? 1 : -1; if (!atEnd(s, dir)) step(s, dir); }
     };
     const onKey = (e) => {
       if (reduce) return;
@@ -461,7 +476,7 @@
                 : ["ArrowUp", "PageUp"].includes(e.key) ? -1 : 0;
       if (!dir || atEnd(s, dir)) return;
       e.preventDefault();
-      step(s, dir);
+      if (!stepLock) step(s, dir);
     };
     if (stacks.length) {
       addEventListener("wheel", onWheel, { passive: false });
@@ -474,6 +489,7 @@
     return () => {
       if (io) io.disconnect();
       if (tweenId) cancelAnimationFrame(tweenId);
+      if (quietId) clearTimeout(quietId);
       removeEventListener("scroll", onScroll);
       removeEventListener("wheel", onWheel);
       removeEventListener("touchstart", onTouchStart);

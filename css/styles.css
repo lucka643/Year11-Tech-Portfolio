@@ -237,7 +237,7 @@ body[data-route="section"] .progress{opacity:1;}
   position:absolute;inset:4% 7%;will-change:transform;
   transform:translate(240%,0);transform-origin:center center;
   background:#f4f2ec;border-radius:14px;padding:clamp(10px,1.4vw,18px);
-  box-shadow:0 26px 60px -20px rgba(0,0,0,.72);
+  box-shadow:0 4px 12px -6px rgba(0,0,0,.4);
 }
 .stack-img img{width:100%;height:100%;object-fit:contain;border-radius:5px;}
 .stack-side{display:flex;flex-direction:column;gap:18px;min-height:40vh;justify-content:center;position:relative;}
