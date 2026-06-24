@@ -312,71 +312,45 @@
       root.querySelectorAll(".rv").forEach((el) => el.classList.add("in"));
     }
 
-    /* scrollytelling stacks */
-    const clamp01 = (v) => Math.min(1, Math.max(0, v));
-    const easeOut = (t) => 1 - Math.pow(1 - t, 3);   // decelerate + settle
+    /* ---- 3b card stack: DISCRETE, gesture-driven ----
+       The card index changes ONLY on a deliberate gesture, never from scroll
+       position, so scrolling INTO the section can't sweep through several cards.
+       Each card flies in via a CSS transition. */
     const stacks = [...root.querySelectorAll(".stack")].map((el) => {
       const imgs = [...el.querySelectorAll(".stack-img")];
-      /* give every card its own random throw: a direction it flies in from,
-         a little spin while flying, and a final resting tilt. computed ONCE so
-         it stays put while scrolling, but differs per card = hand-dealt look */
+      /* each card gets its own random throw: a direction it flies in from, a spin
+         while flying, and a resting tilt. computed once = hand-dealt, not robotic */
       const cards = imgs.map((im) => {
-        const ang = Math.random() * Math.PI * 2;           // any direction
+        const ang = Math.random() * Math.PI * 2;
         const dist = 240;                                   // start fully off the window edge
-        let tilt = Math.random() * 6.5 + 2;                 // resting tilt 2 to 8.5deg
-        if (Math.random() < 0.5) tilt = -tilt;
-        let spin = Math.random() * 22 + 9;                  // extra spin 9 to 31deg while flying
-        if (Math.random() < 0.5) spin = -spin;
+        let tilt = Math.random() * 6.5 + 2; if (Math.random() < 0.5) tilt = -tilt;
+        let spin = Math.random() * 22 + 9;  if (Math.random() < 0.5) spin = -spin;
         return { el: im, sx: Math.cos(ang) * dist, sy: Math.sin(ang) * dist, tilt, spin };
       });
       return {
-        el, cards, imgs,
+        el, cards, imgs, cur: 0,
         n: parseInt(el.dataset.n, 10),
         texts: [...el.querySelectorAll(".stack-text")],
-        cur: el.querySelector(".sc-cur"),
-        last: -1,
+        curEl: el.querySelector(".sc-cur"),
       };
     });
 
-    function driveStacks() {
-      if (reduce) return;
-      for (const s of stacks) {
-        const r = s.el.getBoundingClientRect();
-        const total = r.height - innerHeight;
-        if (total <= 0) continue;
-        const p = clamp01(-r.top / total);
-        const f = p * (s.n - 1);
-        const idx = Math.min(Math.floor(f), s.n - 1);
-        const t = f - idx;
-        for (let k = 0; k < s.n; k++) {
-          const c = s.cards[k];
-          const el = c.el;
-          if (k <= idx) {
-            /* dealt + current: settled in the pile at their OWN resting tilt, forever */
-            el.style.transform = `translate(0%,0%) rotate(${c.tilt.toFixed(2)}deg)`;
-            el.style.opacity = "1";
-          } else if (k === idx + 1) {
-            /* the one incoming card flies in from its own direction, spinning as it
-               goes, and eases to a stop at its resting tilt (overshoot then settle) */
-            const te = easeOut(t);
-            const x = ((1 - te) * c.sx).toFixed(1);
-            const y = ((1 - te) * c.sy).toFixed(1);
-            const r = (c.tilt + (1 - te) * c.spin).toFixed(2);
-            el.style.transform = `translate(${x}%,${y}%) rotate(${r}deg)`;
-            el.style.opacity = "1";
-          } else {
-            /* not reached yet: parked off the table in its start spot, fully hidden */
-            el.style.transform = `translate(${c.sx.toFixed(1)}%,${c.sy.toFixed(1)}%) rotate(${(c.tilt + c.spin).toFixed(2)}deg)`;
-            el.style.opacity = "0";
-          }
-        }
-        const active = t > 0.5 && idx < s.n - 1 ? idx + 1 : idx;
-        if (active !== s.last) {
-          s.last = active;
-          s.texts.forEach((tx, k) => tx.classList.toggle("on", k === active));
-          s.cur.textContent = String(active + 1).padStart(2, "0");
+    const render = (s) => {
+      for (let k = 0; k < s.n; k++) {
+        const c = s.cards[k];
+        if (k <= s.cur) {                                   // dealt + current: settled at its own tilt
+          c.el.style.transform = `translate(0%,0%) rotate(${c.tilt.toFixed(2)}deg)`;
+          c.el.style.opacity = "1";
+        } else {                                            // not reached: parked off-window, hidden
+          c.el.style.transform = `translate(${c.sx.toFixed(1)}%,${c.sy.toFixed(1)}%) rotate(${(c.tilt + c.spin).toFixed(2)}deg)`;
+          c.el.style.opacity = "0";
         }
       }
+      s.texts.forEach((tx, k) => tx.classList.toggle("on", k === s.cur));
+      if (s.curEl) s.curEl.textContent = String(s.cur + 1).padStart(2, "0");
+    };
+    if (!reduce) {
+      for (const s of stacks) { render(s); s.imgs.forEach((el) => el.classList.add("anim")); }
     }
 
     /* scroll progress bar */
@@ -384,99 +358,93 @@
     const onScroll = () => {
       const max = document.body.scrollHeight - innerHeight;
       bar.style.width = (max > 0 ? (scrollY / max) * 100 : 0) + "%";
-      driveStacks();
     };
     addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    /* ---- discrete stepping: exactly ONE card per scroll/swipe gesture ----
-       The .stack is a tall sticky runway, so native scroll is always the safe
-       fallback (can never trap). While the stack fills the viewport and isn't at
-       an end, we own the gesture and tween the page by exactly one card-band; at
-       the ends we let the page scroll away normally.
-       Two guards stop over-counting:
-        - ENTRY guard: the gesture that scrolls you INTO (or back to) the stack
-          only settles on the card you land on, it never also deals one.
-        - QUIET guard: after a step we wait for the wheel stream to fall silent
-          before allowing the next, so a Mac trackpad's momentum tail can't sneak
-          in a 2nd card. One physical swipe = one card, however hard you flick. */
-    let stepLock = false, tweenId = null, canStep = true, quietId = null;
-    let engagedPrev = false, touchY = null, engagedAtStart = false;
-    const QUIET = 250;                                   // ms of wheel silence = gesture ended (covers Mac momentum tail)
-    const tween = (to) => {
-      if (tweenId) cancelAnimationFrame(tweenId);
-      if (document.hidden) { scrollTo(0, to); stepLock = false; return; }  // bg tab: rAF is paused, jump
-      const from = scrollY, d = to - from, t0 = performance.now(), dur = 560;
-      const frame = (now) => {
-        const k = Math.min(1, (now - t0) / dur);
-        scrollTo(0, from + d * (1 - Math.pow(1 - k, 3)));   // ease-out settle
-        if (k < 1) tweenId = requestAnimationFrame(frame);
-        else { tweenId = null; stepLock = false; }
-      };
-      tweenId = requestAnimationFrame(frame);
-    };
+    /* ---- gesture-driven dealing ----
+       Rules the user asked for:
+        - the gesture that scrolls you INTO the stack only settles it into place,
+          it never deals a card;
+        - one scroll/swipe = exactly one card;
+        - the scroll must fall back to zero (a brief input silence) AND at least
+          half a second must pass before another card can be dealt;
+        - at the first/last card, pushing further releases to normal page scroll. */
+    let engagedPrev = false, canStep = true, quietId = null, lastDeal = -1e9;
+    let touchY = null, engagedAtStart = false;
+    const QUIET = 220;        // ms of input silence ("scroll back to zero") before the next card
+    const MIN = 500;          // and at least this long between cards (max ~1 card / 0.5s)
     const armQuiet = () => { if (quietId) clearTimeout(quietId); quietId = setTimeout(() => { canStep = true; }, QUIET); };
-    const engagedStack = () => {
+    const activeStack = () => {
       for (const s of stacks) {
         if (s.n <= 1) continue;
         const r = s.el.getBoundingClientRect();
-        if (r.top <= 1 && r.bottom >= innerHeight - 1) return s;   // sticky pinned = stack fills viewport
+        if (r.top <= innerHeight * 0.5 && r.bottom >= innerHeight * 0.5) return s;   // stack covers the viewport centre
       }
       return null;
     };
-    const docTop = (s) => s.el.getBoundingClientRect().top + scrollY;   // document-absolute, layout-shift proof
-    const totalOf = (s) => s.el.offsetHeight - innerHeight;
-    const idxOf = (s) => Math.round(clamp01((scrollY - docTop(s)) / totalOf(s)) * (s.n - 1));
-    const align = (s) => scrollTo(0, docTop(s) + (idxOf(s) / (s.n - 1)) * totalOf(s));   // rest exactly on a card
-    const atEnd = (s, dir) => { const i = idxOf(s); return (dir > 0 && i >= s.n - 1) || (dir < 0 && i <= 0); };
-    const step = (s, dir) => {
-      if (stepLock) return;
-      const i = idxOf(s);
-      stepLock = true;
-      tween(docTop(s) + ((i + dir) / (s.n - 1)) * totalOf(s));
+    const snapInto = (s) => {                               // smoothly settle the stack into view (no deal)
+      const to = scrollY + s.el.getBoundingClientRect().top;
+      if (document.hidden) { scrollTo(0, to); return; }     // bg tab: rAF is paused, jump
+      const from = scrollY, d = to - from, t0 = performance.now();
+      const frame = (t) => {
+        const k = Math.min(1, (t - t0) / 380);
+        scrollTo(0, from + d * (1 - Math.pow(1 - k, 3)));
+        if (k < 1) requestAnimationFrame(frame);
+      };
+      requestAnimationFrame(frame);
     };
+    const canDeal = () => canStep && (performance.now() - lastDeal >= MIN);
+    const deal = (s, dir) => {
+      const nx = s.cur + dir;
+      if (nx < 0 || nx > s.n - 1) return;
+      s.cur = nx; canStep = false; lastDeal = performance.now(); render(s);
+    };
+    const atEnd = (s, dir) => (dir > 0 && s.cur >= s.n - 1) || (dir < 0 && s.cur <= 0);
     const onWheel = (e) => {
       if (reduce) return;
-      const s = engagedStack();
+      const s = activeStack();
       if (!s) { engagedPrev = false; return; }              // not on the stack: normal page scroll
       const dir = e.deltaY > 0 ? 1 : (e.deltaY < 0 ? -1 : 0);
       if (!dir) return;
-      if (atEnd(s, dir)) { engagedPrev = false; return; }    // at an end: let the page scroll out
-      e.preventDefault();                                     // otherwise we own this gesture
-      if (!engagedPrev) {                                     // the gesture that scrolled us IN: just settle
-        engagedPrev = true; canStep = false; align(s); armQuiet(); return;
+      if (!engagedPrev) {                                    // the gesture that scrolled us IN: settle only
+        engagedPrev = true; canStep = false; e.preventDefault(); snapInto(s); armQuiet(); return;
       }
-      if (canStep && !stepLock) { canStep = false; step(s, dir); }
-      armQuiet();                                             // momentum keeps re-arming -> canStep stays false
+      if (atEnd(s, dir)) return;                              // at an end: release to page scroll (engagedPrev stays true => no snap-back; resets when fully off)
+      e.preventDefault();                                     // own the gesture (freeze the page)
+      if (canDeal()) deal(s, dir);
+      armQuiet();                                             // any input re-arms -> must fall silent again
     };
-    const onTouchStart = (e) => { touchY = e.touches[0].clientY; engagedAtStart = !!engagedStack(); };
+    const onTouchStart = (e) => { touchY = e.touches[0].clientY; if (!activeStack()) engagedPrev = false; engagedAtStart = engagedPrev && !!activeStack(); };
     const onTouchMove = (e) => {
       if (reduce || touchY == null) return;
-      const s = engagedStack(); if (!s) return;
+      const s = activeStack(); if (!s) return;
       const dy = e.touches[0].clientY - touchY;
       if (Math.abs(dy) < 6) return;
+      if (!engagedPrev) { engagedPrev = true; e.preventDefault(); snapInto(s); return; }   // entry: settle only
       const dir = dy < 0 ? 1 : -1;                            // swipe up = next card
       if (atEnd(s, dir)) return;                               // at an end: allow native scroll out
       e.preventDefault();                                      // freeze the page so the swipe deals, not scrolls
     };
     const onTouchEnd = (e) => {
       if (reduce) { touchY = null; return; }
-      const s = engagedStack();
+      const s = activeStack();
       const endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : touchY;
       const dy = (endY != null && touchY != null) ? endY - touchY : 0;
       touchY = null;
-      if (!s) return;
-      if (!engagedAtStart) { align(s); return; }              // this swipe scrolled us IN: settle, don't deal
-      if (Math.abs(dy) >= 24) { const dir = dy < 0 ? 1 : -1; if (!atEnd(s, dir)) step(s, dir); }
+      if (!s || !engagedAtStart) return;                     // entered via this swipe: no deal
+      if (Math.abs(dy) >= 24 && canDeal()) deal(s, dy < 0 ? 1 : -1);
     };
     const onKey = (e) => {
       if (reduce) return;
-      const s = engagedStack(); if (!s) return;
+      const s = activeStack(); if (!s) return;
       const dir = ["ArrowDown", "PageDown", " ", "Spacebar"].includes(e.key) ? 1
                 : ["ArrowUp", "PageUp"].includes(e.key) ? -1 : 0;
-      if (!dir || atEnd(s, dir)) return;
+      if (!dir) return;
+      if (!engagedPrev) { engagedPrev = true; e.preventDefault(); snapInto(s); return; }
+      if (atEnd(s, dir)) return;
       e.preventDefault();
-      if (!stepLock) step(s, dir);
+      if (canDeal()) deal(s, dir);
     };
     if (stacks.length) {
       addEventListener("wheel", onWheel, { passive: false });
@@ -488,7 +456,6 @@
 
     return () => {
       if (io) io.disconnect();
-      if (tweenId) cancelAnimationFrame(tweenId);
       if (quietId) clearTimeout(quietId);
       removeEventListener("scroll", onScroll);
       removeEventListener("wheel", onWheel);

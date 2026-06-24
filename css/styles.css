@@ -214,7 +214,7 @@ body[data-route="section"] .progress{opacity:1;}
 /* ============================================================
    STACK — scrollytelling: pinned image deck, slides cover upward
    ============================================================ */
-.stack{height:calc(var(--n) * 58vh + 100vh);position:relative;}
+.stack{height:100vh;position:relative;}
 .stack-sticky{
   position:sticky;top:0;height:100vh;
   display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(26px,4vw,70px);
@@ -239,6 +239,8 @@ body[data-route="section"] .progress{opacity:1;}
   background:#f4f2ec;border-radius:14px;padding:clamp(10px,1.4vw,18px);
   box-shadow:0 4px 12px -6px rgba(0,0,0,.4);
 }
+/* enabled after the first paint so each dealt card flies in (no animation on load) */
+.stack-img.anim{transition:transform .5s cubic-bezier(.22,.61,.36,1), opacity .4s ease;}
 .stack-img img{width:100%;height:100%;object-fit:contain;border-radius:5px;}
 .stack-side{display:flex;flex-direction:column;gap:18px;min-height:40vh;justify-content:center;position:relative;}
 .stack-count{
