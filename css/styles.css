@@ -222,21 +222,22 @@ body[data-route="section"] .progress{opacity:1;}
 }
 @media (max-width:860px){.stack-sticky{grid-template-columns:1fr;align-content:center;gap:18px;}}
 .stack-imgs{
-  position:relative;height:min(72vh,760px);
+  /* a defined "table": cards fly in from any edge and get clipped outside it,
+     so they never cross over the text column on the right */
+  position:relative;height:min(72vh,760px);overflow:hidden;border-radius:18px;
 }
 @media (max-width:860px){
-  /* clip the card zone so rising cards stay in their window and never cover the text */
-  .stack-imgs{height:46vh;overflow:hidden;border-radius:16px;}
-  .stack-img{inset:3% 7%;border-radius:12px;box-shadow:0 16px 36px -16px rgba(0,0,0,.7);}
+  .stack-imgs{height:46vh;border-radius:16px;}
+  .stack-img{inset:6% 8%;border-radius:12px;box-shadow:0 16px 36px -16px rgba(0,0,0,.7);}
   .stack-side{min-height:0;gap:10px;position:relative;z-index:2;}
   .stack-texts{min-height:clamp(120px,20vh,180px);}
 }
-/* each slide is a physical photo-card that piles up at a slight angle */
+/* each slide is a physical photo-card that piles up at its own slight angle */
 .stack-img{
-  position:absolute;inset:3% 6%;will-change:transform;
-  transform:translateY(106%);transform-origin:center center;
+  position:absolute;inset:6% 9%;will-change:transform;
+  transform:translate(175%,0);transform-origin:center center;
   background:#f4f2ec;border-radius:14px;padding:clamp(10px,1.4vw,18px);
-  box-shadow:0 26px 60px -20px rgba(0,0,0,.72);
+  box-shadow:0 22px 50px -18px rgba(0,0,0,.72);
 }
 .stack-img img{width:100%;height:100%;object-fit:contain;border-radius:5px;}
 .stack-side{display:flex;flex-direction:column;gap:18px;min-height:40vh;justify-content:center;position:relative;}

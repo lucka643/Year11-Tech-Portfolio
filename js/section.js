@@ -313,15 +313,30 @@
     }
 
     /* scrollytelling stacks */
-    const stacks = [...root.querySelectorAll(".stack")].map((el) => ({
-      el,
-      n: parseInt(el.dataset.n, 10),
-      imgs: [...el.querySelectorAll(".stack-img")],
-      texts: [...el.querySelectorAll(".stack-text")],
-      cur: el.querySelector(".sc-cur"),
-      last: -1,
-    }));
     const clamp01 = (v) => Math.min(1, Math.max(0, v));
+    const easeOut = (t) => 1 - Math.pow(1 - t, 3);   // decelerate + settle
+    const stacks = [...root.querySelectorAll(".stack")].map((el) => {
+      const imgs = [...el.querySelectorAll(".stack-img")];
+      /* give every card its own random throw: a direction it flies in from,
+         a little spin while flying, and a final resting tilt. computed ONCE so
+         it stays put while scrolling, but differs per card = hand-dealt look */
+      const cards = imgs.map((im) => {
+        const ang = Math.random() * Math.PI * 2;           // any direction
+        const dist = 175;                                   // far enough to start off the table
+        let tilt = Math.random() * 6.5 + 2;                 // resting tilt 2 to 8.5deg
+        if (Math.random() < 0.5) tilt = -tilt;
+        let spin = Math.random() * 22 + 9;                  // extra spin 9 to 31deg while flying
+        if (Math.random() < 0.5) spin = -spin;
+        return { el: im, sx: Math.cos(ang) * dist, sy: Math.sin(ang) * dist, tilt, spin };
+      });
+      return {
+        el, cards, imgs,
+        n: parseInt(el.dataset.n, 10),
+        texts: [...el.querySelectorAll(".stack-text")],
+        cur: el.querySelector(".sc-cur"),
+        last: -1,
+      };
+    });
 
     function driveStacks() {
       if (reduce) return;
@@ -334,20 +349,24 @@
         const idx = Math.min(Math.floor(f), s.n - 1);
         const t = f - idx;
         for (let k = 0; k < s.n; k++) {
-          const el = s.imgs[k];
+          const c = s.cards[k];
+          const el = c.el;
           if (k <= idx) {
-            /* dealt + current: rest in the pile at their OWN fixed angle, forever */
-            el.style.transform = "translateY(0%) rotate(var(--rot))";
+            /* dealt + current: settled in the pile at their OWN resting tilt, forever */
+            el.style.transform = `translate(0%,0%) rotate(${c.tilt.toFixed(2)}deg)`;
             el.style.opacity = "1";
           } else if (k === idx + 1) {
-            /* the one incoming card slides up over the pile, holding its fixed angle.
-               fades in over the first slice of travel so no sliver shows at the bottom */
-            const y = ((1 - t) * 112).toFixed(2);
-            el.style.transform = `translateY(${y}%) rotate(var(--rot))`;
-            el.style.opacity = clamp01(t * 6).toFixed(3);
+            /* the one incoming card flies in from its own direction, spinning as it
+               goes, and eases to a stop at its resting tilt (overshoot then settle) */
+            const te = easeOut(t);
+            const x = ((1 - te) * c.sx).toFixed(1);
+            const y = ((1 - te) * c.sy).toFixed(1);
+            const r = (c.tilt + (1 - te) * c.spin).toFixed(2);
+            el.style.transform = `translate(${x}%,${y}%) rotate(${r}deg)`;
+            el.style.opacity = "1";
           } else {
-            /* not reached yet: parked off-screen and hidden, never visible below */
-            el.style.transform = "translateY(120%) rotate(var(--rot))";
+            /* not reached yet: parked off the table in its start spot, fully hidden */
+            el.style.transform = `translate(${c.sx.toFixed(1)}%,${c.sy.toFixed(1)}%) rotate(${(c.tilt + c.spin).toFixed(2)}deg)`;
             el.style.opacity = "0";
           }
         }
