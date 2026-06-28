@@ -27,10 +27,13 @@ body{
 img{display:block;max-width:100%;}
 button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 
-/* ---------- background layers ---------- */
-#fog{position:fixed;inset:0;width:100vw;height:100vh;display:block;z-index:-2;}
+/* ---------- background layers ----------
+   100lvh = the LARGEST viewport height (iOS toolbars retracted) so the fixed
+   background always covers the whole screen, with no cut-off band when Safari's
+   top/bottom bars show or hide. */
+#fog{position:fixed;top:0;left:0;width:100vw;height:100vh;height:100lvh;display:block;z-index:-2;}
 .grain{
-  position:fixed;inset:0;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
+  position:fixed;top:0;left:0;width:100vw;height:100vh;height:100lvh;z-index:-1;pointer-events:none;opacity:.5;mix-blend-mode:overlay;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
@@ -212,45 +215,38 @@ body[data-route="section"] .progress{opacity:1;}
 @media (max-width:760px){.hangar{grid-template-columns:auto 1fr;}.hangar-cta{display:none;}}
 
 /* ============================================================
-   STACK — scrollytelling: pinned image deck, slides cover upward
+   STACK — 3b swipe-through card deck (no scroll-locking)
+   Top card is swiped (touch) or clicked (mouse) away in any direction;
+   it goes to the back of the deck and the next drawing is revealed.
    ============================================================ */
-.stack{height:100vh;position:relative;}
-.stack-sticky{
-  position:sticky;top:0;height:100vh;
-  display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(26px,4vw,70px);
-  align-items:center;overflow:hidden;
+.stack{
+  display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(26px,4vw,64px);
+  align-items:center;margin-top:30px;
 }
-@media (max-width:860px){.stack-sticky{grid-template-columns:1fr;align-content:center;gap:18px;}}
-.stack-imgs{
-  /* the stage. cards are visible across the WHOLE window and only get clipped at
-     the window edge by .stack-sticky, so you see them fly in from off-screen */
-  position:relative;height:min(72vh,760px);
+@media (max-width:860px){.stack{grid-template-columns:1fr;gap:18px;}}
+.stack-deck{
+  position:relative;height:min(60vh,540px);overflow:hidden;border-radius:18px;
 }
-@media (max-width:860px){
-  .stack-imgs{height:46vh;}
-  .stack-img{inset:5% 7%;}
-  .stack-side{min-height:0;gap:10px;position:relative;z-index:2;}
-  .stack-texts{min-height:clamp(120px,20vh,180px);}
-}
-/* each slide is a physical photo-card that piles up at its own slight angle */
+@media (max-width:860px){.stack-deck{height:min(52vh,440px);}}
+/* every card fills the deck; JS stacks them with a slight offset/scale per depth */
 .stack-img{
-  position:absolute;inset:4% 7%;will-change:transform;
-  transform:translate(240%,0);transform-origin:center center;
+  position:absolute;inset:0;will-change:transform,opacity;transform-origin:center center;
   background:#f4f2ec;border-radius:14px;padding:clamp(10px,1.4vw,18px);
-  box-shadow:0 4px 12px -6px rgba(0,0,0,.4);
+  box-shadow:0 10px 30px -16px rgba(0,0,0,.55);
+  pointer-events:none;-webkit-user-select:none;user-select:none;
 }
-/* enabled after the first paint so each dealt card flies in (no animation on load) */
-.stack-img.anim{transition:transform .5s cubic-bezier(.22,.61,.36,1), opacity .4s ease;}
-.stack-img img{width:100%;height:100%;object-fit:contain;border-radius:5px;}
-.stack-side{display:flex;flex-direction:column;gap:18px;min-height:40vh;justify-content:center;position:relative;}
+.stack-img.anim{transition:transform .45s cubic-bezier(.22,.61,.36,1), opacity .4s ease;}
+.stack-img.top{pointer-events:auto;cursor:pointer;touch-action:none;}
+.stack-img img{width:100%;height:100%;object-fit:contain;border-radius:6px;pointer-events:none;-webkit-user-drag:none;}
+.stack-side{display:flex;flex-direction:column;gap:16px;}
 .stack-count{
   font-family:"JetBrains Mono",monospace;font-size:13px;letter-spacing:.3em;color:var(--ink-faint);
 }
 .stack-count .sc-cur{color:var(--accent);font-weight:700;}
-.stack-texts{position:relative;min-height:clamp(170px,24vh,260px);}
+.stack-texts{position:relative;min-height:clamp(150px,22vh,230px);}
 .stack-text{
-  position:absolute;inset:0;opacity:0;transform:translateY(14px);
-  transition:opacity .4s var(--ease),transform .4s var(--ease);pointer-events:none;
+  position:absolute;inset:0;opacity:0;transform:translateY(12px);
+  transition:opacity .35s var(--ease),transform .35s var(--ease);pointer-events:none;
 }
 .stack-text.on{opacity:1;transform:none;}
 .stack-text h4{
@@ -259,16 +255,17 @@ body[data-route="section"] .progress{opacity:1;}
 }
 .stack-text p{font-size:clamp(14px,1.15vw,18px);line-height:1.6;color:var(--ink-dim);max-width:46ch;}
 .stack-hint{
-  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.26em;color:var(--ink-faint);
+  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.22em;color:var(--ink-faint);
+  text-transform:uppercase;line-height:1.6;
 }
+.stack-reset{
+  align-self:flex-start;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.16em;
+  text-transform:uppercase;color:var(--ink-dim);padding:9px 16px;border-radius:999px;
+  border:1px solid rgba(255,255,255,.18);transition:border-color .25s,color .25s,background .25s;
+}
+.stack-reset:hover{color:var(--ink);border-color:var(--accent);background:rgba(255,255,255,.04);}
 @media (prefers-reduced-motion:reduce){
-  .stack{height:auto;}
-  .stack-sticky{position:static;height:auto;overflow:visible;display:block;}
-  .stack-imgs{height:auto;}
-  .stack-img{position:static;transform:none !important;margin-bottom:12px;}
-  .stack-img img{height:auto;}
-  .stack-texts{min-height:0;}
-  .stack-text{position:static;opacity:1;transform:none;margin-bottom:22px;}
+  .stack-img.anim{transition:none;}
 }
 
 .home-foot{

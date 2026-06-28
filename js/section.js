@@ -179,23 +179,20 @@
         <p class="eyebrow rv">${b.eyebrow}</p>
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
         ${b.body ? `<p class="body rv" style="--d:.1s">${b.body}</p>` : ""}
-        <div class="stack" data-n="${n}" style="--n:${n}">
-          <div class="stack-sticky">
-            <div class="stack-imgs">
-              ${b.items.map((it, i) => {
-                const rot = [-4, 3.2, -2.6, 4.2, -3.4, 2.4, -4.5, 3.6][i % 8];
-                return `<figure class="stack-img" data-i="${i}" style="z-index:${i + 1};--rot:${rot}deg"><img src="${it.img}" alt="${it.title}" loading="lazy"></figure>`;
-              }).join("")}
+        <div class="stack rv" data-n="${n}" style="--d:.14s">
+          <div class="stack-deck">
+            ${b.items.map((it, i) =>
+              `<figure class="stack-img" data-i="${i}"><img src="${it.img}" alt="${it.title}" draggable="false" loading="lazy"></figure>`).join("")}
+          </div>
+          <div class="stack-side">
+            <p class="stack-count"><span class="sc-cur">01</span> / ${String(n).padStart(2, "0")}</p>
+            <div class="stack-texts">
+              ${b.items.map((it, i) => `<div class="stack-text ${i === 0 ? "on" : ""}" data-i="${i}">
+                  <h4>${it.title}</h4><p>${it.text}</p>
+                </div>`).join("")}
             </div>
-            <div class="stack-side">
-              <p class="stack-count"><span class="sc-cur">01</span> / ${String(n).padStart(2, "0")}</p>
-              <div class="stack-texts">
-                ${b.items.map((it, i) => `<div class="stack-text ${i === 0 ? "on" : ""}" data-i="${i}">
-                    <h4>${it.title}</h4><p>${it.text}</p>
-                  </div>`).join("")}
-              </div>
-              <p class="stack-hint">SCROLL OR SWIPE TO DEAL ↓</p>
-            </div>
+            <p class="stack-hint"></p>
+            <button type="button" class="stack-reset">Go to front</button>
           </div>
         </div>
       </div>`;
@@ -312,45 +309,122 @@
       root.querySelectorAll(".rv").forEach((el) => el.classList.add("in"));
     }
 
-    /* ---- 3b card stack: DISCRETE, gesture-driven ----
-       The card index changes ONLY on a deliberate gesture, never from scroll
-       position, so scrolling INTO the section can't sweep through several cards.
-       Each card flies in via a CSS transition. */
-    const stacks = [...root.querySelectorAll(".stack")].map((el) => {
-      const imgs = [...el.querySelectorAll(".stack-img")];
-      /* each card gets its own random throw: a direction it flies in from, a spin
-         while flying, and a resting tilt. computed once = hand-dealt, not robotic */
-      const cards = imgs.map((im) => {
-        const ang = Math.random() * Math.PI * 2;
-        const dist = 240;                                   // start fully off the window edge
-        let tilt = Math.random() * 6.5 + 2; if (Math.random() < 0.5) tilt = -tilt;
-        let spin = Math.random() * 22 + 9;  if (Math.random() < 0.5) spin = -spin;
-        return { el: im, sx: Math.cos(ang) * dist, sy: Math.sin(ang) * dist, tilt, spin };
+    /* ---- 3b · swipe-through card DECK (no scroll-locking) ----
+       A pile of drawings. Swipe the top card away in any direction (touch) or click
+       it (mouse, flings a random way); the swiped card goes to the BACK of the deck
+       and the next drawing is revealed. It loops. The "Go to front" button and
+       scrolling the deck out of view both reset it to the first drawing. */
+    const coarse = matchMedia("(pointer: coarse)").matches;
+    const decks = [...root.querySelectorAll(".stack")].map((el) => {
+      const cards = [...el.querySelectorAll(".stack-img")].map((im) => {
+        let rot = Math.random() * 4 + 1.5; if (Math.random() < 0.5) rot = -rot;   // gentle pile tilt
+        return { el: im, rot };
       });
-      return {
-        el, cards, imgs, cur: 0,
-        n: parseInt(el.dataset.n, 10),
+      const s = {
+        el, cards, n: cards.length,
+        deckEl: el.querySelector(".stack-deck"),
+        order: cards.map((_, i) => i),       // order[0] = top of the deck
         texts: [...el.querySelectorAll(".stack-text")],
         curEl: el.querySelector(".sc-cur"),
+        animating: false,
       };
+      const hint = el.querySelector(".stack-hint");
+      if (hint) hint.textContent = coarse ? "Swipe the drawing away to see the next one"
+                                          : "Click the drawing to see the next one";
+      const rb = el.querySelector(".stack-reset");
+      if (rb) rb.addEventListener("click", () => resetDeck(s));
+      return s;
     });
 
-    const render = (s) => {
-      for (let k = 0; k < s.n; k++) {
-        const c = s.cards[k];
-        if (k <= s.cur) {                                   // dealt + current: settled at its own tilt
-          c.el.style.transform = `translate(0%,0%) rotate(${c.tilt.toFixed(2)}deg)`;
-          c.el.style.opacity = "1";
-        } else {                                            // not reached: parked off-window, hidden
-          c.el.style.transform = `translate(${c.sx.toFixed(1)}%,${c.sy.toFixed(1)}%) rotate(${(c.tilt + c.spin).toFixed(2)}deg)`;
-          c.el.style.opacity = "0";
+    const renderDeck = (s, snapIdx) => {
+      s.order.forEach((ci, p) => {
+        const c = s.cards[ci], el = c.el, top = p === 0, depth = Math.min(p, 4);
+        const tf = `translate(0px, ${depth * 12}px) scale(${(1 - depth * 0.05).toFixed(3)}) rotate(${(top ? c.rot : c.rot * 0.5).toFixed(2)}deg)`;
+        el.classList.toggle("top", top);
+        el.style.zIndex = String(s.n - p);
+        if (ci === snapIdx) {                  // just-swiped card: snap to the back, no animation
+          el.style.transition = "none";
+          el.style.transform = tf; el.style.opacity = "0";
+          void el.offsetWidth;                 // reflow so the snap isn't animated
+          el.style.transition = "";
+        } else {
+          el.style.transform = tf;
+          el.style.opacity = p <= 4 ? "1" : "0";
         }
-      }
-      s.texts.forEach((tx, k) => tx.classList.toggle("on", k === s.cur));
-      if (s.curEl) s.curEl.textContent = String(s.cur + 1).padStart(2, "0");
+      });
+      const topIdx = s.order[0];
+      s.texts.forEach((tx, k) => tx.classList.toggle("on", k === topIdx));
+      if (s.curEl) s.curEl.textContent = String(topIdx + 1).padStart(2, "0");
     };
-    if (!reduce) {
-      for (const s of stacks) { render(s); s.imgs.forEach((el) => el.classList.add("anim")); }
+    const dismiss = (s, dx, dy) => {
+      if (s.animating || s.n <= 1) return;
+      if (reduce) { s.order.push(s.order.shift()); renderDeck(s); return; }   // no motion
+      s.animating = true;
+      const topIdx = s.order[0], el = s.cards[topIdx].el;
+      const ang = Math.atan2(dy, dx);
+      const fx = Math.cos(ang) * 165, fy = Math.sin(ang) * 165;       // fling off the deck that way
+      const spin = (dx >= 0 ? 1 : -1) * (14 + Math.random() * 16);
+      el.classList.remove("top");
+      el.style.transition = "transform .42s cubic-bezier(.4,0,.7,1), opacity .42s ease";
+      el.style.transform = `translate(${fx.toFixed(0)}%, ${fy.toFixed(0)}%) rotate(${spin.toFixed(1)}deg)`;
+      el.style.opacity = "0";
+      setTimeout(() => {
+        s.order.push(s.order.shift());          // front -> back; next drawing rises to top
+        renderDeck(s, topIdx);
+        s.animating = false;
+      }, 430);
+    };
+    const resetDeck = (s) => {
+      s.order = s.cards.map((_, i) => i);
+      s.animating = false;
+      renderDeck(s);
+    };
+    for (const s of decks) {
+      renderDeck(s);
+      requestAnimationFrame(() => s.cards.forEach((c) => c.el.classList.add("anim")));   // transitions on after first paint
+    }
+
+    /* swipe / drag / click the top card — Pointer Events cover mouse + touch */
+    let drag = null;
+    const topCard = (s) => s.cards[s.order[0]].el;
+    const onPointerDown = (e) => {
+      const s = decks.find((d) => d.deckEl && d.deckEl.contains(e.target));
+      if (!s || s.animating || !topCard(s).contains(e.target)) return;     // must start on the top card
+      drag = { s, id: e.pointerId, x0: e.clientX, y0: e.clientY, type: e.pointerType };
+      topCard(s).style.transition = "none";                                // follow the pointer 1:1
+    };
+    const onPointerMove = (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const dx = e.clientX - drag.x0, dy = e.clientY - drag.y0;
+      topCard(drag.s).style.transform = `translate(${dx}px, ${dy}px) rotate(${(dx * 0.04).toFixed(2)}deg)`;
+    };
+    const onPointerUp = (e) => {
+      if (!drag || e.pointerId !== drag.id) return;
+      const d = drag; drag = null;
+      const dx = e.clientX - d.x0, dy = e.clientY - d.y0, dist = Math.hypot(dx, dy);
+      topCard(d.s).style.transition = "";                                  // .anim takes over again
+      if (d.type !== "touch" && dist < 8) {                                // a click: fling a random way
+        const a = Math.random() * Math.PI * 2; dismiss(d.s, Math.cos(a), Math.sin(a));
+      } else if (dist >= 64) {                                             // a real swipe: fling that way
+        dismiss(d.s, dx, dy);
+      } else {                                                             // too small: settle back
+        renderDeck(d.s);
+      }
+    };
+
+    /* reset the deck when it scrolls out of view, ready for next time */
+    let deckIO = null;
+    if (decks.length && "IntersectionObserver" in window) {
+      deckIO = new IntersectionObserver((ents) => {
+        ents.forEach((en) => { if (!en.isIntersecting) { const s = decks.find((d) => d.deckEl === en.target); if (s) resetDeck(s); } });
+      }, { threshold: 0 });
+      decks.forEach((s) => s.deckEl && deckIO.observe(s.deckEl));
+    }
+    if (decks.length) {
+      addEventListener("pointerdown", onPointerDown);
+      addEventListener("pointermove", onPointerMove);
+      addEventListener("pointerup", onPointerUp);
+      addEventListener("pointercancel", onPointerUp);
     }
 
     /* scroll progress bar */
@@ -362,113 +436,14 @@
     addEventListener("scroll", onScroll, { passive: true });
     onScroll();
 
-    /* ---- gesture-driven dealing ----
-       Rules the user asked for:
-        - the gesture that scrolls you INTO the stack only settles it into place,
-          it never deals a card;
-        - one scroll/swipe = exactly one card;
-        - every fresh push registers, but a trackpad's momentum tail does NOT add
-          extra cards;
-        - at the first/last card, pushing further releases to normal page scroll. */
-    let engagedPrev = false, lastDeal = -1e9, lastEvent = -1e9, lastAbs = 0;
-    let touchY = null, engagedAtStart = false;
-    /* a card fires on a FRESH push, detected either by a gap since the last wheel
-       event OR by a re-acceleration spike (so a new flick mid-momentum still counts).
-       a momentum tail just decays => no gap, no spike => no extra card. COOLDOWN
-       caps the rate and stops one swipe's acceleration from dealing twice. */
-    const GAP = 80;           // ms since the last wheel event = a fresh push
-    const SPIKE = 1.6;        // |deltaY| jumping this x over the last = a new flick mid-momentum
-    const COOLDOWN = 320;     // min ms between cards
-    const activeStack = () => {
-      for (const s of stacks) {
-        if (s.n <= 1) continue;
-        const r = s.el.getBoundingClientRect();
-        if (r.top <= innerHeight * 0.5 && r.bottom >= innerHeight * 0.5) return s;   // stack covers the viewport centre
-      }
-      return null;
-    };
-    const snapInto = (s) => {                               // smoothly settle the stack into view (no deal)
-      const to = scrollY + s.el.getBoundingClientRect().top;
-      if (document.hidden) { scrollTo(0, to); return; }     // bg tab: rAF is paused, jump
-      const from = scrollY, d = to - from, t0 = performance.now();
-      const frame = (t) => {
-        const k = Math.min(1, (t - t0) / 380);
-        scrollTo(0, from + d * (1 - Math.pow(1 - k, 3)));
-        if (k < 1) requestAnimationFrame(frame);
-      };
-      requestAnimationFrame(frame);
-    };
-    const deal = (s, dir) => {
-      const nx = s.cur + dir;
-      if (nx < 0 || nx > s.n - 1) return;
-      s.cur = nx; lastDeal = performance.now(); render(s);
-    };
-    const atEnd = (s, dir) => (dir > 0 && s.cur >= s.n - 1) || (dir < 0 && s.cur <= 0);
-    const onWheel = (e) => {
-      if (reduce) return;
-      const t = performance.now();
-      const s = activeStack();
-      if (!s) { engagedPrev = false; lastEvent = t; return; }          // off the stack: track time, normal scroll
-      const dir = e.deltaY > 0 ? 1 : (e.deltaY < 0 ? -1 : 0);
-      if (!dir) return;
-      if (!engagedPrev) {                                              // the gesture that scrolled us IN: settle only
-        engagedPrev = true; e.preventDefault(); snapInto(s);
-        lastEvent = t; lastAbs = Math.abs(e.deltaY); return;
-      }
-      if (atEnd(s, dir)) { lastEvent = t; return; }                    // at an end: release (no snap-back; resets when fully off)
-      e.preventDefault();                                              // own the gesture (freeze the page)
-      const a = Math.abs(e.deltaY);
-      const fresh = (t - lastEvent > GAP) || (a > lastAbs * SPIKE && a > 8);
-      lastEvent = t; lastAbs = a;
-      if (fresh && t - lastDeal > COOLDOWN) deal(s, dir);              // one card per fresh push, rate-capped
-    };
-    const onTouchStart = (e) => { touchY = e.touches[0].clientY; if (!activeStack()) engagedPrev = false; engagedAtStart = engagedPrev && !!activeStack(); };
-    const onTouchMove = (e) => {
-      if (reduce || touchY == null) return;
-      const s = activeStack(); if (!s) return;
-      const dy = e.touches[0].clientY - touchY;
-      if (Math.abs(dy) < 6) return;
-      if (!engagedPrev) { engagedPrev = true; e.preventDefault(); snapInto(s); return; }   // entry: settle only
-      const dir = dy < 0 ? 1 : -1;                            // swipe up = next card
-      if (atEnd(s, dir)) return;                               // at an end: allow native scroll out
-      e.preventDefault();                                      // freeze the page so the swipe deals, not scrolls
-    };
-    const onTouchEnd = (e) => {
-      if (reduce) { touchY = null; return; }
-      const s = activeStack();
-      const endY = (e.changedTouches && e.changedTouches[0]) ? e.changedTouches[0].clientY : touchY;
-      const dy = (endY != null && touchY != null) ? endY - touchY : 0;
-      touchY = null;
-      if (!s || !engagedAtStart) return;                     // entered via this swipe: no deal
-      if (Math.abs(dy) >= 24 && performance.now() - lastDeal > COOLDOWN) deal(s, dy < 0 ? 1 : -1);
-    };
-    const onKey = (e) => {
-      if (reduce) return;
-      const s = activeStack(); if (!s) return;
-      const dir = ["ArrowDown", "PageDown", " ", "Spacebar"].includes(e.key) ? 1
-                : ["ArrowUp", "PageUp"].includes(e.key) ? -1 : 0;
-      if (!dir) return;
-      if (!engagedPrev) { engagedPrev = true; e.preventDefault(); snapInto(s); return; }
-      if (atEnd(s, dir)) return;
-      e.preventDefault();
-      if (performance.now() - lastDeal > COOLDOWN) deal(s, dir);
-    };
-    if (stacks.length) {
-      addEventListener("wheel", onWheel, { passive: false });
-      addEventListener("touchstart", onTouchStart, { passive: true });
-      addEventListener("touchmove", onTouchMove, { passive: false });
-      addEventListener("touchend", onTouchEnd, { passive: true });
-      addEventListener("keydown", onKey);
-    }
-
     return () => {
       if (io) io.disconnect();
+      if (deckIO) deckIO.disconnect();
       removeEventListener("scroll", onScroll);
-      removeEventListener("wheel", onWheel);
-      removeEventListener("touchstart", onTouchStart);
-      removeEventListener("touchmove", onTouchMove);
-      removeEventListener("touchend", onTouchEnd);
-      removeEventListener("keydown", onKey);
+      removeEventListener("pointerdown", onPointerDown);
+      removeEventListener("pointermove", onPointerMove);
+      removeEventListener("pointerup", onPointerUp);
+      removeEventListener("pointercancel", onPointerUp);
     };
   };
 

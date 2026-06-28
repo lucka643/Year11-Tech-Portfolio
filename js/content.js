@@ -13,28 +13,28 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"Where the project starts: the problem with modern toys, the situation my toy has to survive, who it's for, and the brief that pulls it all together." },
 
-    { t:"split", id:"problem", eyebrow:"1a · Design Problem", head:"Plastic that never breaks down.",
+    { t:"split", id:"problem", eyebrow:"1a · Design Problem", head:"Design Problem",
       body:[
         "Most of the toys on the shelves are made from plastic that landfills can't break down. They're cheap to make and buy, and companies aren't looking to use other materials because biodegradable and recyclable options cost more.",
         "Using eco-friendly materials would let toys either break down naturally or be reused, cutting out a huge amount of the plastic waste being produced today."
       ],
       img:"assets/problem.jpg", cap:"Mass-produced plastic toys" },
 
-    { t:"split", id:"situation", eyebrow:"1b · Situation", head:"Built to survive rough play.", flip:true,
+    { t:"split", id:"situation", eyebrow:"1b · Situation", head:"Situation", flip:true,
       body:[
         "The audience for this product is children who are hard on their toys. It has to stand up to being thrown, dropped and stepped on without falling apart.",
         "Just as importantly, it can't pose any safety risk, no sharp edges and no small removable parts that could be swallowed."
       ],
       img:"assets/situation.jpg", cap:"Children at group play" },
 
-    { t:"split", id:"target", eyebrow:"1c · Target Market", head:"Loved by kids, bought by parents.",
+    { t:"split", id:"target", eyebrow:"1c · Target Market", head:"Target Market",
       body:[
         "Although children are the main users, they usually don't have the money to buy the product themselves. To sell it, the design first has to grab the child's attention and interest, which means age-appropriate toys they'll genuinely enjoy and connect with.",
         "It also has to appeal to parents, caregivers, family and friends, since they're the ones who make the final purchase decision."
       ],
       img:"assets/target.jpg", cap:"The toy aisle" },
 
-    { t:"prose", id:"brief", eyebrow:"1d · Design Brief", head:"The brief.",
+    { t:"prose", id:"brief", eyebrow:"1d · Design Brief", head:"Design Brief",
       body:[
         "<b>Supporting the development of young children requires a thoughtful balance of modern and traditional ideas.</b> The design should consider the different environments where children learn and interact, classrooms, social settings, independent activities and group play. While children may influence buying decisions, parents and families ultimately purchase products, so the design must also appeal to them by showing clear educational value.",
         "The product should be based on the client's needs and preferences, with market research like surveys and group discussions used to gather feedback. The first focus is an attractive appearance, followed by practical features that let it function effectively. Cost affects manufacturing methods and material choices, for this prototype, timber, plastic and metal are considered, with attention to local availability and environmental impact. Anthropometrics and ergonomics are also key, to keep the product comfortable, safe and suitable for children to use."
@@ -51,7 +51,7 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"Everything I needed to find out before designing: what's already on the market, which materials and finishes hold up, how parts get made, and what children actually want from a toy." },
 
-    { t:"deck", id:"plan", eyebrow:"2a · Research Plan", head:"What I need to find out.", text:true,
+    { t:"deck", id:"plan", eyebrow:"2a · Research Plan", head:"Research Plan", text:true,
       tabs:[
         { label:"Reliability", title:"Reliability",
           lead:"How easily the toy can be repaired decides how long it survives, especially with young children who are tough on their things.",
@@ -90,7 +90,7 @@ window.SECTIONS = [
           note:"<b>Why it matters:</b> a great design is useless if I can't actually make it." }
       ] },
 
-    { t:"cards", id:"pa1", eyebrow:"2b · Product Analysis #1", head:"Hot Wheels vs Buzzy Bee.", cols:2, imgFit:"product",
+    { t:"cards", id:"pa1", eyebrow:"2b · Product Analysis #1", head:"Product Analysis #1", cols:2, imgFit:"product",
       cards:[
         { title:"Hot Wheels", meta:"Mattel · ≈ $2.80 NZD", img:"assets/products/hot-wheels.png",
           dl:[["Repairability","Not repairable. If the wheels or axles break, it's cheaper to replace the whole toy than fix it."],
@@ -110,7 +110,7 @@ window.SECTIONS = [
               ["Ergonomics","Easy pull-string handle and lightweight size for toddlers."]] }
       ] },
 
-    { t:"cards", id:"pa2", eyebrow:"2b · Product Analysis #2", head:"Melissa & Doug vs Lego Creator.", cols:2, imgFit:"product",
+    { t:"cards", id:"pa2", eyebrow:"2b · Product Analysis #2", head:"Product Analysis #2", cols:2, imgFit:"product",
       cards:[
         { title:"Shape-Sorting Dump Truck", meta:"Melissa & Doug · ≈ $26.99 USD", img:"assets/products/md.png",
           dl:[["Repairability","More repairable than electronic toys, wooden with simple moving parts, so it stays usable even if one part breaks."],
@@ -130,7 +130,7 @@ window.SECTIONS = [
               ["Ergonomics","Small bricks fit children's hands, but younger children may struggle."]] }
       ] },
 
-    { t:"cards", id:"aesthetics", eyebrow:"2c · Aesthetics Analysis", head:"Colour & feel.", cols:4, imgFit:"contain",
+    { t:"cards", id:"aesthetics", eyebrow:"2c · Aesthetics Analysis", head:"Aesthetics Analysis", cols:4, imgFit:"contain",
       cards:[
         { img:"assets/aesthetics/rubiks.png", title:"Colour", body:"Bright primary colours like red, blue and yellow attract attention and create excitement. Complementary colours (opposites on the colour wheel) help products stand out, and the Rubik's Cube is instantly recognisable because of its bold, contrasting faces." },
         { img:"assets/aesthetics/smooth.png", title:"Feel: smooth", body:"Smooth surfaces feel comfortable, safe and pleasant to touch, giving a higher quality feel that suits children's products. A smooth sanded finish is also splinter free, which is really important for a wooden toy." },
@@ -138,7 +138,7 @@ window.SECTIONS = [
         { img:"assets/aesthetics/needoh.png", title:"Example: NeeDoh", body:"Vibrant, playful colours and a soft, squishy texture that is relaxing to squeeze. Its success shows how much the way a toy feels drives repeated sensory play." }
       ] },
 
-    { t:"deck", id:"wood", eyebrow:"2d · Materials", head:"Wood options.",
+    { t:"deck", id:"wood", eyebrow:"2d · Materials", head:"Materials",
       tabs:[
         { label:"Pine", img:"assets/materials/pine.jpg", cap:"Pine", title:"Pine",
           lead:"A softwood and one of the cheapest, most available timbers in New Zealand. Pale, lightweight and easy to cut, sand and glue, perfect for fast prototyping before committing to an expensive wood.",
@@ -163,7 +163,7 @@ window.SECTIONS = [
           note:"<b>For this project:</b> the strongest all-round option, tough enough to be thrown and stepped on, yet fine-grained enough to sand splinter-free for a child-safe finish." }
       ] },
 
-    { t:"deck", id:"other-materials", eyebrow:"2d · Materials", head:"Plastic & metal options.",
+    { t:"deck", id:"other-materials", eyebrow:"2d · Materials", head:"Materials",
       tabs:[
         { label:"Acrylic", img:"assets/materials/acrylic.jpg", cap:"Acrylic", title:"Acrylic",
           lead:"A clear or coloured plastic that can be laser-cut and shaped precisely. Its glassy, transparent finish makes it the obvious candidate for a see-through cockpit canopy.",
@@ -188,7 +188,7 @@ window.SECTIONS = [
           note:"<b>For this project:</b> too heavy and hard for a children's toy, more useful for the jigs and tooling used to make the toy than the toy itself." }
       ] },
 
-    { t:"deck", id:"finishes", eyebrow:"2d · Finishes", head:"Paint & finish options.",
+    { t:"deck", id:"finishes", eyebrow:"2d · Finishes", head:"Finishes",
       tabs:[
         { label:"Danish Oil", img:"assets/finishes/danish-oil.jpg", cap:"Danish Oil", title:"Danish Oil",
           lead:"A quick, easy-to-apply oil that soaks into the timber and brings out the natural grain. Good for getting a finish on quickly without much fuss.",
@@ -213,7 +213,7 @@ window.SECTIONS = [
           note:"<b>Description:</b> an industrial clear lacquer common in professional finishing. <b>For this project</b> it gives the toughest finish, but the fumes and spray equipment make it less practical than Cabothane." }
       ] },
 
-    { t:"deck", id:"wheels", eyebrow:"2d · Wheels", head:"Wheel options.",
+    { t:"deck", id:"wheels", eyebrow:"2d · Wheels", head:"Wheels",
       tabs:[
         { label:"Basic Wooden", img:"assets/wheels/basic.jpg", cap:"Basic wooden", title:"Basic Wooden Wheels",
           lead:"Simple round wooden wheels turned on a lathe, the easiest and cheapest option, and a perfect fit for the eco-friendly brief.",
@@ -238,7 +238,7 @@ window.SECTIONS = [
           note:"<b>Description:</b> plastic wheels with rubber-style tread, common on toy cars. <b>For this project</b> the better grip isn't worth the plastic, it works against the whole brief." }
       ] },
 
-    { t:"deck", id:"manufacturing", eyebrow:"2d · Manufacturing Analysis", head:"Workshop machines.", thumbs:true,
+    { t:"deck", id:"manufacturing", eyebrow:"2d · Manufacturing Analysis", head:"Manufacturing Analysis", thumbs:true,
       tabs:[
         { label:"Domino", img:"assets/mfg/domino.jpg", cap:"01 · Domino", title:"Domino",
           lead:"Cuts accurate joining slots (mortises) so two pieces slot together around a loose tenon. Strong, neat, hidden joints, ideal for joining the jet's fuselage sections without visible screws." },
@@ -262,7 +262,7 @@ window.SECTIONS = [
           lead:"Long, straight rip cuts in sheet material. Accurate and efficient for sizing boards down to the dimensions each part starts from." }
       ] },
 
-    { t:"duo", id:"ergonomics", eyebrow:"2d · Ergonomics", head:"Size & suitability.",
+    { t:"duo", id:"ergonomics", eyebrow:"2d · Ergonomics", head:"Ergonomics",
       cols:[
         { h:"Size", ps:[
           "The size of the toy has to suit the consumer. For a 3 to 8 year old it needs to be big enough that there are no small parts a child could swallow, but small and light enough for little hands to grip, lift and push around comfortably.",
@@ -274,7 +274,7 @@ window.SECTIONS = [
         ]}
       ] },
 
-    { t:"duo", id:"repair-play", eyebrow:"2d · Repairability & Playability", head:"Why toys last.",
+    { t:"duo", id:"repair-play", eyebrow:"2d · Repairability & Playability", head:"Repairability & Playability",
       cols:[
         { h:"Repairability", ps:[
           "Repairability refers to how easily a product can be fixed when parts become damaged or worn out. This matters for toys because children use them frequently and sometimes roughly. A toy that can be repaired usually lasts longer, saves money, and reduces waste."
@@ -284,7 +284,7 @@ window.SECTIONS = [
         ], eg:{ img:"assets/examples/uno.jpg", text:"<b>UNO</b> has strong playability, easy to learn, quick to play, and suited to groups. Bright colours and competitive gameplay keep players engaged across a wide audience." }}
       ] },
 
-    { t:"deck", id:"summary", eyebrow:"2e · Research Summary & Specifications", head:"What the research tells me.", text:true,
+    { t:"deck", id:"summary", eyebrow:"2e · Research Summary & Specifications", head:"Research Summary & Specifications", text:true,
       tabs:[
         { label:"Repairability", title:"Repairability",
           cols:[
@@ -324,7 +324,7 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"Twenty-two hand-drawn concepts, a study of the designer who inspired the winner, and the scoring that landed on the wooden fighter jet." },
 
-    { t:"split", id:"designer", eyebrow:"3a · Designer Influence Study", head:"Harry James Hillaker.",
+    { t:"split", id:"designer", eyebrow:"3a · Designer Influence Study", head:"Designer Influence Study",
       body:[
         "<b>Artist:</b> Harry James Hillaker &nbsp;·&nbsp; <b>Born:</b> 9 May 1919 to 8 February 2009 &nbsp;·&nbsp; <b>Notable designs:</b> F-16 &amp; F-16XL.",
         "<b>Speciality:</b> Hillaker prioritised a blend of cutting edge technology and common sense requirements such as flying performance and cost effectiveness.",
@@ -333,8 +333,8 @@ window.SECTIONS = [
       ],
       img:"assets/designer/f16.jpg", cap:"F-16 Fighting Falcon" },
 
-    { t:"stack", id:"sketches", eyebrow:"3b · Design Ideas", head:"Every concept, one by one.",
-      body:"All twenty-two hand-drawn concepts. Keep scrolling and each new design slides up over the last like a stack of cards.",
+    { t:"stack", id:"sketches", eyebrow:"3b · Design Ideas", head:"Design Ideas",
+      body:"All twenty-two of my hand-drawn concepts, stacked like a deck of cards. Move the top drawing aside to send it to the back and bring up the next one.",
       items:[
         { img:"assets/sketches/items/golf-cart.jpg", title:"Golf Cart", text:"+17 pieces · complex design. A realistic cart with working steering and wheels, fun, but a lot of fiddly parts for the play value it gives back." },
         { img:"assets/sketches/items/flatbed-truck.jpg", title:"Flatbed Truck", text:"10 pieces · complex design. Working doors and wheels with a flat deck for carrying other toys. Solid, but very similar to toys already everywhere." },
@@ -360,7 +360,7 @@ window.SECTIONS = [
         { img:"assets/sketches/items/string-spinner.jpg", title:"String-Powered Spinner", text:"5 pieces · simple design. Pulling the string spins the spinner very fast and it pops out onto the surface below." }
       ] },
 
-    { t:"matrix", id:"evaluation", eyebrow:"3c · Evaluation of Design & Specification", head:"Scoring the shortlist.",
+    { t:"matrix", id:"evaluation", eyebrow:"3c · Evaluation of Design & Specification", head:"Evaluation of Design & Specification",
       body:"I shortlisted four concepts and scored each one out of 5 against the five specification areas from my research.",
       criteria:["Repairability","Material","Aesthetics","Manufacturing","Playability"],
       rows:[
@@ -391,7 +391,7 @@ window.SECTIONS = [
       ],
       note:"<b>Decision:</b> the Fighter Jet wins on 21 out of 25. It is the hardest one to actually make, but it scores highest where my research says it matters most, which is aesthetics and playability. The moving control surfaces give it a level of fun none of the other ideas can match. I am keeping the build risk under control by testing every moving mechanism in foam first before I cut any real material." },
 
-    { t:"ph", id:"exploded", eyebrow:"3d · Exploded Drawing", head:"Exploded drawing." }
+    { t:"ph", id:"exploded", eyebrow:"3d · Exploded Drawing", head:"Exploded Drawing" }
   ]
 },
 
@@ -404,7 +404,7 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"Before cutting any real material, I modelled the jet in foam. First the whole aircraft, then a working wing and flap mechanism. I also tested four finishes on a piece of wood." },
 
-    { t:"gallery", id:"first-model", eyebrow:"4a · First Model", head:"The foam jet.",
+    { t:"gallery", id:"first-model", eyebrow:"4a · First Model", head:"First Model",
       body:"My first model was cut out of foam. The point was not to make it look pretty. It was to get the proportions right and to work out how many parts the jet actually needs. Building it taught me a lot. The foam model has twin tails and I really liked how that looked, so I am keeping twin tails on the real jet instead of the single tail from my first sketch. It also helped me see which parts I actually needed and let me count up the real part list before cutting any real material.",
       imgs:[
         { src:"assets/models/foam-1.jpg", cap:"Front view" },
@@ -415,7 +415,7 @@ window.SECTIONS = [
         { src:"assets/models/foam-7.jpg", cap:"Exploded view, every part on its rods" }
       ] },
 
-    { t:"gallery", id:"additional-model", eyebrow:"4b · Additional Model", head:"The wing and flap mechanism.",
+    { t:"gallery", id:"additional-model", eyebrow:"4b · Additional Model", head:"Additional Model",
       body:"My second model is all about the most important moving part on the jet, which is the control surface. The way it works is we use metal nails as the rod. On the main wing a cutout is made on the flap, and a little bit of the main wing sticks out and sits inside that hole in the flap. Then we drill holes that go through the flap and through that sticking out bit of the wing, and the metal nail goes inside that hole. That nail is what the flap tilts on. The tolerances really matter here. If the gaps are too small then it is too tight and the flap is hard to rotate, which is not fun and not good for playing with. If the gaps are too big then it rotates too loosely and the flap just flops down under gravity. We use the same idea for the elevators and the rudders, but the wing flap is a little bit different. On the elevators and rudders the whole flap has one nail going all the way through it, and the holes are on the inside of the wing. So there is no cutout in the flap and no bit of the wing sticking out, which is the only real difference between them and the main wings.",
       imgs:[
         { src:"assets/models/addl-1.jpg", cap:"Wing flat, flap on its nail, slot visible" },
@@ -425,7 +425,7 @@ window.SECTIONS = [
         { src:"assets/models/addl-5.jpg", cap:"Flap part way through its tilt" }
       ] },
 
-    { t:"cards", id:"justification", eyebrow:"4c · Model Justification", head:"Why I built each model.", cols:2,
+    { t:"cards", id:"justification", eyebrow:"4c · Model Justification", head:"Model Justification", cols:2,
       cards:[
         { img:"assets/models/foam-1.jpg", title:"First Model", meta:"Whole-jet foam mock-up",
           body:"This is my first model, made out of foam. I misjudged some of the proportions in my planning, so this model helped me understand and fix the sizes of each part, especially the length of the nose and how big the wings needed to be. It also helped me work out which parts I actually needed and which ones I could get rid of, and it is where I decided to keep the twin tails because I liked how they looked on the foam." },
@@ -433,7 +433,7 @@ window.SECTIONS = [
           body:"My second model is smaller but just as important. It is a working test of the flap mechanism that makes my jet special. The control surfaces are the whole reason a kid would pick this jet over a solid one, so the nail and cutout joint had to be proven before I built it six times in the real materials, two for the ailerons, two for the elevators and two for the wings. If the flaps do not move smoothly then the playability that I chose this design for is gone." }
       ] },
 
-    { t:"split", id:"finish-testing", eyebrow:"4d · Testing Finishes", head:"Four finishes, one board.",
+    { t:"split", id:"finish-testing", eyebrow:"4d · Testing Finishes", head:"Testing Finishes",
       body:[
         "I tested all four of my finishes side by side on a single piece of wood. They were <b>Cabothane Clear Matt</b>, <b>Cabothane Clear Gloss</b>, <b>Danish Oil</b> and <b>Mirotone</b>.",
         "In my opinion the Cabothane Clear Matt, the Cabothane Clear Gloss and the Danish Oil all look very similar to each other. Mirotone looks the darkest of the four, which I actually think is really good, because I can use it to contrast different parts of my plane against the lighter parts.",
@@ -442,7 +442,7 @@ window.SECTIONS = [
       ],
       img:"assets/models/finish-strip.jpg", cap:"The test strip, four finishes on one board" },
 
-    { t:"cards", id:"dev-conclusion", eyebrow:"4e · Development Testing Conclusion", head:"What development decided.", cols:2,
+    { t:"cards", id:"dev-conclusion", eyebrow:"4e · Development Testing Conclusion", head:"Development Testing Conclusion", cols:2,
       cards:[
         { title:"Sizing", meta:"From the foam model",
           body:"After looking at my foam model next to children's hand sizes, going about 1.5 times bigger than the foam felt right. That works out at around 400 mm in length with a wingspan of around 300 mm. That is big enough that every part is safely oversized for a 3 year old, but still small enough to hold in two hands and fly around." },
@@ -465,7 +465,7 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"The build, on paper first: an eight-step production plan, the working drawing, and a diary that will track the jet through the workshop." },
 
-    { t:"table", id:"production-plan", eyebrow:"5a · Production Plan", head:"Eight steps to a jet.",
+    { t:"table", id:"production-plan", eyebrow:"5a · Production Plan", head:"Production Plan",
       columns:["Step","Task","Resources","Tools","Health & Safety"],
       rows:[
         ["One","Make the main body. I could not find one piece of pine the right size, so I used two pieces, one for the bottom of the body and one for the top. That worked out well because the canopy is part of that top piece, so I did not have to cut the canopy out separately later. I cut the pine to the right width and length on the bandsaw, then used the bandsaw again to cut the tapers and angles for the nose and the tail to get the right shape. Then I sanded all the edges smooth.","Pine wood. Body is about 400 mm long, 70 mm wide and 90 to 100 mm high.","Pencil · Ruler · Bandsaw · Orbital sander","Safety goggles · Apron · Closed shoes"],
@@ -478,9 +478,9 @@ window.SECTIONS = [
         ["Eight","Put the whole jet together. To hold the wings on, I drilled one big hole all the way from one wing, through the intake, through the main body, through the other intake and into the other wing, then drilled a second hole like it so the wings cannot accidentally rotate. I pushed a metal beam through those holes to hold the wings firmly in place so they do not come loose or snap off under force. For each horizontal and vertical stabilizer I drilled two holes in the side that touches the body and two matching holes in the body, then pushed a cut nail into each one like a metal dowel to join it on. That holds all the stabilizers on and finishes the build.","Metal beam · metal nails.","Pencil · Ruler · Hand drill · Hammer","Safety goggles · Apron · Closed shoes"]
       ] },
 
-    { t:"ph", id:"working-drawing", eyebrow:"5b · Working Drawing", head:"Working drawing." },
+    { t:"ph", id:"working-drawing", eyebrow:"5b · Working Drawing", head:"Working Drawing" },
 
-    { t:"timeline", id:"diary", eyebrow:"5c · Diary of Making", head:"Build diary.",
+    { t:"timeline", id:"diary", eyebrow:"5c · Diary of Making", head:"Diary of Making",
       body:"This follows the same steps as my production plan. Each entry gets a photo from the workshop.",
       steps:[
         { meta:"Entry 01 · Main body", title:"Cutting the pine body",
@@ -510,9 +510,9 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"The finished wooden jet, and the photo record of how it got made. This section fills up as the build happens in the workshop." },
 
-    { t:"ph", id:"finished", eyebrow:"6a · Finished Product", head:"The finished jet." },
+    { t:"ph", id:"finished", eyebrow:"6a · Finished Product", head:"Finished Product" },
 
-    { t:"ph", id:"build-photos", eyebrow:"6b · Development Photos", head:"The build, step by step." }
+    { t:"ph", id:"build-photos", eyebrow:"6b · Development Photos", head:"Development Photos" }
   ]
 },
 
@@ -525,7 +525,7 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"Did the jet do what the research said it must? The specification re-tested against the finished product, outside feedback, and where the design goes next." },
 
-    { t:"table", id:"against-spec", eyebrow:"7a · Evaluation Against Specification", head:"Specification vs outcome.",
+    { t:"table", id:"against-spec", eyebrow:"7a · Evaluation Against Specification", head:"Evaluation Against Specification",
       columns:["Area","Specification","Evaluation"],
       rows:[
         ["Repairability","The product should have removable or replaceable parts. Strong materials and simple assembly should allow easy repairs.","Every control surface sits on a metal nail that can be pulled out, so a damaged flap, aileron or rudder can be swapped for a new one without taking the whole jet apart. <i>(To confirm on the finished build.)</i>"],
@@ -535,9 +535,9 @@ window.SECTIONS = [
         ["Playability","The product should be fun, safe, easy to hold, and encourage imagination or repeated use.","This is where the jet earns its place. Working ailerons, elevators and rudders, plus an opening canopy, give a kid loads to actually <b>do</b>, not just hold. There are no small loose parts and no sharp edges. <i>(To confirm in play testing.)</i>"]
       ] },
 
-    { t:"ph", id:"reviews", eyebrow:"7b · Product Review & Feedback", head:"What people think.", tag:"Not done yet" },
+    { t:"ph", id:"reviews", eyebrow:"7b · Product Review & Feedback", head:"Product Review & Feedback", tag:"Not done yet" },
 
-    { t:"cards", id:"modifications", eyebrow:"7c · Modifications & Adjustments", head:"To improve my product I would…", cols:2,
+    { t:"cards", id:"modifications", eyebrow:"7c · Modifications & Adjustments", head:"Modifications & Adjustments", cols:2,
       cards:[
         { title:"Carve a cockpit interior", meta:"Realism",
           body:"The canopy opens, but under it the body is solid. If I carved out a little cockpit with a seat shape, or added a small pilot figure that clips in, it would give a kid a reason to open the canopy and add a hide and seek part to the play. I would do it by drilling out the space before the body is shaped." },
@@ -545,7 +545,7 @@ window.SECTIONS = [
           body:"The metal nails the control surfaces tilt on are some of the thinnest parts on the jet, so they are the most likely to bend or fail under really rough play. Using thicker nails, or a harder material around the channel they sit in, would make the moving parts as tough as the rest of the jet without changing how they work." }
       ] },
 
-    { t:"cards", id:"further", eyebrow:"7d · Taking the Idea Further", head:"Where it could go next.", cols:3,
+    { t:"cards", id:"further", eyebrow:"7d · Taking the Idea Further", head:"Taking the Idea Further", cols:3,
       cards:[
         { title:"A whole squadron", meta:"Product range",
           body:"The same body and wing build would work for other aircraft like a delta wing jet, a prop plane or a helicopter. A small range that shares parts would also share spare parts, which helps repairability across the whole set." },
@@ -555,7 +555,7 @@ window.SECTIONS = [
           body:"My jet does not have wheels right now. A good next mechanism would be landing gear that folds up into the body on a sprung nail pivot, so the jet can fly clean and then drop its gear to land. The nail and cutout joint from this project is the perfect starting point for that." }
       ] },
 
-    { t:"cards", id:"issues", eyebrow:"7e · Issues I Came Across", head:"What went wrong (and what it taught me).", cols:2,
+    { t:"cards", id:"issues", eyebrow:"7e · Issues I Came Across", head:"Issues I Came Across", cols:2,
       cards:[
         { img:"assets/models/addl-3.jpg", title:"Flap cutout tolerance", meta:"Found in the foam model",
           body:"My first flap cutout was cut to the exact size of the flap and it jammed solid the second the nail went in. Foam squashes and wood does not, so in the real material it would have been even worse. Leaving 2 mm of clearance on every control surface cutout fixed it, and that 2 mm is now written into my production plan instead of left to memory." },

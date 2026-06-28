@@ -113,13 +113,18 @@
   let DPR = Math.min(window.devicePixelRatio || 1, 2);
   function resize() {
     DPR = Math.min(window.devicePixelRatio || 1, 2);
-    canvas.width = Math.floor(innerWidth * DPR);
-    canvas.height = Math.floor(innerHeight * DPR);
-    canvas.style.width = innerWidth + "px";
-    canvas.style.height = innerHeight + "px";
+    // Size the drawing buffer from the canvas's ACTUAL rendered size (set by CSS:
+    // 100lvh/100vw). Don't pin it to innerHeight px — on iOS that leaves a gap at
+    // the top/bottom when the Safari toolbars show or hide.
+    const w = canvas.clientWidth || innerWidth;
+    const h = canvas.clientHeight || innerHeight;
+    canvas.width = Math.floor(w * DPR);
+    canvas.height = Math.floor(h * DPR);
     gl.viewport(0, 0, canvas.width, canvas.height);
   }
   window.addEventListener("resize", resize);
+  window.addEventListener("orientationchange", resize);
+  if (window.visualViewport) window.visualViewport.addEventListener("resize", resize);
   resize();
 
   // colour state — current eases toward target each frame
