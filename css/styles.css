@@ -224,8 +224,9 @@ body[data-route="section"] .progress{opacity:1;}
   align-items:center;margin-top:30px;
 }
 @media (max-width:860px){.stack{grid-template-columns:1fr;gap:18px;}}
+/* no overflow clip here: resting cards must show in full, never cut at an edge */
 .stack-deck{
-  position:relative;height:min(60vh,540px);overflow:hidden;border-radius:18px;
+  position:relative;height:min(60vh,540px);
 }
 @media (max-width:860px){.stack-deck{height:min(52vh,440px);}}
 /* every card fills the deck; JS stacks them with a slight offset/scale per depth */

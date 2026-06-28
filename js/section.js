@@ -317,7 +317,7 @@
     const coarse = matchMedia("(pointer: coarse)").matches;
     const decks = [...root.querySelectorAll(".stack")].map((el) => {
       const cards = [...el.querySelectorAll(".stack-img")].map((im) => {
-        let rot = Math.random() * 4 + 1.5; if (Math.random() < 0.5) rot = -rot;   // gentle pile tilt
+        let rot = Math.random() * 2 + 0.8; if (Math.random() < 0.5) rot = -rot;   // gentle pile tilt (small so cards stay tidy)
         return { el: im, rot };
       });
       const s = {
@@ -330,7 +330,7 @@
       };
       const hint = el.querySelector(".stack-hint");
       if (hint) hint.textContent = coarse ? "Swipe the drawing away to see the next one"
-                                          : "Click the drawing to see the next one";
+                                          : "Scroll over the drawing to see the next one";
       const rb = el.querySelector(".stack-reset");
       if (rb) rb.addEventListener("click", () => resetDeck(s));
       return s;
@@ -339,7 +339,7 @@
     const renderDeck = (s, snapIdx) => {
       s.order.forEach((ci, p) => {
         const c = s.cards[ci], el = c.el, top = p === 0, depth = Math.min(p, 4);
-        const tf = `translate(0px, ${depth * 12}px) scale(${(1 - depth * 0.05).toFixed(3)}) rotate(${(top ? c.rot : c.rot * 0.5).toFixed(2)}deg)`;
+        const tf = `translate(0px, ${depth * 7}px) scale(${(1 - depth * 0.05).toFixed(3)}) rotate(${(top ? c.rot * 0.5 : c.rot).toFixed(2)}deg)`;
         el.classList.toggle("top", top);
         el.style.zIndex = String(s.n - p);
         if (ci === snapIdx) {                  // just-swiped card: snap to the back, no animation
@@ -379,14 +379,40 @@
       s.animating = false;
       renderDeck(s);
     };
+    const goBack = (s) => {                  // computer scroll-up: bring the previous drawing back to the front
+      if (s.animating || s.n <= 1) return;
+      s.order.unshift(s.order.pop());        // last-dismissed returns to the top
+      if (reduce) { renderDeck(s); return; }
+      s.animating = true;
+      renderDeck(s);                         // it rises from the back of the deck to the front
+      setTimeout(() => { s.animating = false; }, 430);
+    };
     for (const s of decks) {
       renderDeck(s);
       requestAnimationFrame(() => s.cards.forEach((c) => c.el.classList.add("anim")));   // transitions on after first paint
     }
 
-    /* swipe / drag / click the top card — Pointer Events cover mouse + touch */
-    let drag = null;
+    /* swipe / drag the top card — Pointer Events cover mouse + touch */
+    let drag = null, lastWheelT = -1e9, lastWheelAbs = 0;
     const topCard = (s) => s.cards[s.order[0]].el;
+    const deckUnder = (x, y) => decks.find((d) => {
+      if (!d.deckEl) return false;
+      const r = d.deckEl.getBoundingClientRect();
+      return x >= r.left && x <= r.right && y >= r.top && y <= r.bottom;
+    });
+    /* COMPUTER ("old way"): scroll over the deck to switch drawings. Touch uses swipe. */
+    const onWheel = (e) => {
+      if (coarse) return;
+      const s = deckUnder(e.clientX, e.clientY);
+      if (!s) return;                                   // not over the deck: page scrolls normally
+      e.preventDefault();                               // over the deck: scrolling flips drawings, page stays
+      const t = performance.now(), a = Math.abs(e.deltaY);
+      const fresh = (t - lastWheelT > 80) || (a > lastWheelAbs * 1.6 && a > 6);   // ignore a trackpad momentum tail
+      lastWheelT = t; lastWheelAbs = a;
+      if (!fresh || s.animating) return;
+      if (e.deltaY > 0) dismiss(s, 0.3, -1);            // scroll down -> next drawing
+      else goBack(s);                                   // scroll up   -> previous drawing
+    };
     const onPointerDown = (e) => {
       const s = decks.find((d) => d.deckEl && d.deckEl.contains(e.target));
       if (!s || s.animating || !topCard(s).contains(e.target)) return;     // must start on the top card
@@ -425,6 +451,7 @@
       addEventListener("pointermove", onPointerMove);
       addEventListener("pointerup", onPointerUp);
       addEventListener("pointercancel", onPointerUp);
+      if (!coarse) addEventListener("wheel", onWheel, { passive: false });
     }
 
     /* scroll progress bar */
@@ -444,6 +471,7 @@
       removeEventListener("pointermove", onPointerMove);
       removeEventListener("pointerup", onPointerUp);
       removeEventListener("pointercancel", onPointerUp);
+      removeEventListener("wheel", onWheel);
     };
   };
 
