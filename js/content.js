@@ -481,22 +481,22 @@ window.SECTIONS = [
     { t:"ph", id:"working-drawing", eyebrow:"5b · Working Drawing", head:"Working Drawing" },
 
     { t:"timeline", id:"diary", eyebrow:"5c · Diary of Making", head:"Diary of Making",
-      body:"This follows the same steps as my production plan. Each entry gets a photo from the workshop.",
+      body:"My diary from the workshop, written as I build the jet. This is less about the order of the steps and more about how it actually went: the parts that were tricky, the mistakes, and the moments I was proud of. Each entry gets a photo from the workshop.",
       steps:[
-        { meta:"Entry 01 · Main body", title:"Cutting the pine body",
-          p:"I could not find one piece of pine the right size, so I cut the body from two pieces, a bottom and a top, with the canopy already part of the top piece. I cut the width and length on the bandsaw, then cut the nose and tail tapers, and sanded all the edges smooth. (Photo to come.)" },
-        { meta:"Entry 02 · Wings and stabilizers", title:"Cutting the MDF parts",
-          p:"I drew every part onto the MDF from my working drawing with a pencil and ruler, then cut them out on the bandsaw. I did this for both main wings, both horizontal stabilizers and both vertical stabilizers. MDF cuts fine on the bandsaw but it is a real pain to sand. (Photo to come.)" },
-        { meta:"Entry 03 · Intakes", title:"Building the intakes",
-          p:"I cut the intake parts out of MDF and drilled pilot holes where the small nails go, so the MDF would not split when I nailed the parts together. I did both sides the same way. (Photo to come.)" },
-        { meta:"Entry 04 · Control surfaces", title:"Flaps, ailerons and rudders",
-          p:"I cut out the flaps and used the ailerons and rudders from step two. Then I sanded the front edge of each one into a half circle so it can rotate, and left 2 mm of clearance on every side that sits next to another part. (Photo to come.)" },
-        { meta:"Entry 05 · Axles", title:"Drilling channels and making nail axles",
-          p:"I drew lines for exactly where each axle channel goes so they would be centred, then drilled the channels through every part. I cut the big ends off the nails with pliers and used the rest as the axles. Drilling the rod holes in MDF was the hardest part. (Photo to come.)" },
-        { meta:"Entry 06 · Finishing", title:"Fine sand and finishes",
-          p:"I gave everything a final sand with very fine sandpaper, then put the dark Mirotone finish on some parts and a lighter finish on others to get a contrast across the plane. No paint at all. (Photo to come.)" },
-        { meta:"Entry 07 · Assembly", title:"Putting it together",
-          p:"I drilled the two long holes through the wings, intakes and body and pushed a metal beam through to hold the wings on. Then I joined each stabilizer on with cut nails used like metal dowels. (Photo to come.)" }
+        { meta:"Entry 01 · The first cut", title:"Nervous about the main body",
+          p:"Cutting the very first piece of pine for the body was the bit I was most nervous about. This is the main part that everything else joins onto, so if the shape came out wrong the whole jet would look off. The nose taper took me a few goes on the bandsaw to get right, but the moment it was cut and sanded it already looked like a real jet, and that made me excited to keep going. (Photo to come.)" },
+        { meta:"Entry 02 · A lucky mistake", title:"Two pieces of pine",
+          p:"I could not find one piece of pine big enough for the body, so I ended up using two pieces, a bottom and a top. At first this felt like a problem, but it turned into a lucky one, because the canopy is part of that top piece so I did not have to cut it out on its own later. It is funny how the thing that looks like a mistake can end up making the job easier. (Photo to come.)" },
+        { meta:"Entry 03 · Fighting the MDF", title:"MDF was a nightmare",
+          p:"Working with the MDF for the wings and intakes was easily the most annoying part of the whole build. It cuts fine on the bandsaw, but sanding it took forever and it kept trying to split every time I drilled into it, so I had to put little pilot holes in first. I chose MDF because it was the right thickness and easy to get hold of, but if I did it again I would think a lot harder about the material. (Photo to come.)" },
+        { meta:"Entry 04 · The half circle trick", title:"Making the flaps rotate",
+          p:"Sanding the front edge of each flap into a half circle was the part I am most proud of working out. If you leave that edge square the flap just jams against the wing and will not budge, but rounding it off lets it spin freely like a circle. The first time a flap actually moved smoothly I was really happy, because those moving flaps are the whole reason a kid would pick my jet over a solid one. (Photo to come.)" },
+        { meta:"Entry 05 · Making the axles", title:"Cutting nails into axles",
+          p:"Turning the metal nails into little axles meant cutting the big head off each one with pliers. It was fiddly and my hands were pretty sore after doing it over and over, but the metal nails are way stronger than a wooden rod, and this toy is going to get thrown around by a 3 year old, so it is worth the effort. (Photo to come.)" },
+        { meta:"Entry 06 · Getting the tolerance right", title:"The 2 mm that matters",
+          p:"Getting the 2 mm of clearance right on the control surfaces was something I only understood because of my foam model, where a flap I cut too tight jammed up completely. Too tight and it will not move, too loose and it just flops down on its own. It is a tiny measurement, but it is the difference between the flaps feeling fun and feeling broken. (Photo to come.)" },
+        { meta:"Entry 07 · It becomes a jet", title:"All one jet",
+          p:"Putting the whole jet together was the best moment of the build. I pushed a metal beam all the way through the wings, intakes and body to pin the wings on solid, then joined the twin tails on with cut nails used like little dowels. Watching all the separate parts finally become one jet, with everything moving the way it should, made all the fiddly bits worth it. It looks fast just sitting on the bench. (Photo to come.)" }
       ] }
   ]
 },
