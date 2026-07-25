@@ -52,8 +52,9 @@ window.SECTIONS = [
     { t:"intro", lead:"Everything I needed to find out before designing: what's already on the market, which materials and finishes hold up, how parts get made, and what children actually want from a toy." },
 
     { t:"deck", id:"plan", eyebrow:"2a · Research Plan", head:"Research Plan", text:true,
+      simple:{ t:"tabtable", heads:["Information Needed","Resources"] },
       tabs:[
-        { label:"Reliability", title:"Reliability",
+        { label:"Repairability", title:"Repairability",
           lead:"How easily the toy can be repaired decides how long it survives, especially with young children who are tough on their things.",
           cols:[
             {h:"Information needed", items:["Ways the toy can be fixed if a part breaks","Which joints are most likely to fail","What makes a repair simple for a parent at home"]},
@@ -119,11 +120,11 @@ window.SECTIONS = [
               ["Playability","Combines truck play with shape sorting, fun and useful for learning."],
               ["Manufacturing","A sturdy wooden educational toy focused on durability."],
               ["Environment","Wooden construction lasts longer, reducing waste."],
-              ["Ergonomics","Large shapes are easy to grip; smooth edges improve safety."]] },
+              ["Ergonomics","Large shapes are easy to grip and the smooth edges improve safety."]] },
         { title:"Creator 3-in-1 Sports Car", meta:"Lego · ≈ $26.99 USD", img:"assets/products/lego.png",
           dl:[["Repairability","Repairable, lost or damaged pieces can be replaced without binning the whole toy."],
               ["Material","Plastic Lego bricks."],
-              ["Aesthetics","Bright and sporty with detailed features; the 3 build options keep it interesting."],
+              ["Aesthetics","Bright and sporty with detailed features, and the 3 build options keep it interesting."],
               ["Playability","Very high play value, build, rebuild and play with different models."],
               ["Manufacturing","Precision-made and mass-produced, so pieces fit accurately."],
               ["Environment","Bricks are durable and reusable for years, though plastic is less eco-friendly than wood."],
@@ -139,6 +140,7 @@ window.SECTIONS = [
       ] },
 
     { t:"deck", id:"wood", eyebrow:"2d · Materials", head:"Materials",
+      simple:{ t:"xdeck" },
       tabs:[
         { label:"Pine", img:"assets/materials/pine.jpg", cap:"Pine", title:"Pine",
           lead:"A softwood and one of the cheapest, most available timbers in New Zealand. Pale, lightweight and easy to cut, sand and glue, perfect for fast prototyping before committing to an expensive wood.",
@@ -164,6 +166,7 @@ window.SECTIONS = [
       ] },
 
     { t:"deck", id:"other-materials", eyebrow:"2d · Materials", head:"Materials",
+      simple:{ t:"xdeck" },
       tabs:[
         { label:"Acrylic", img:"assets/materials/acrylic.jpg", cap:"Acrylic", title:"Acrylic",
           lead:"A clear or coloured plastic that can be laser-cut and shaped precisely. Its glassy, transparent finish makes it the obvious candidate for a see-through cockpit canopy.",
@@ -189,6 +192,7 @@ window.SECTIONS = [
       ] },
 
     { t:"deck", id:"finishes", eyebrow:"2d · Finishes", head:"Finishes",
+      simple:{ t:"xdeck" },
       tabs:[
         { label:"Danish Oil", img:"assets/finishes/danish-oil.jpg", cap:"Danish Oil", title:"Danish Oil",
           lead:"A quick, easy-to-apply oil that soaks into the timber and brings out the natural grain. Good for getting a finish on quickly without much fuss.",
@@ -214,6 +218,7 @@ window.SECTIONS = [
       ] },
 
     { t:"deck", id:"wheels", eyebrow:"2d · Wheels", head:"Wheels",
+      simple:{ t:"xdeck" },
       tabs:[
         { label:"Basic Wooden", img:"assets/wheels/basic.jpg", cap:"Basic wooden", title:"Basic Wooden Wheels",
           lead:"Simple round wooden wheels turned on a lathe, the easiest and cheapest option, and a perfect fit for the eco-friendly brief.",
@@ -239,6 +244,7 @@ window.SECTIONS = [
       ] },
 
     { t:"deck", id:"manufacturing", eyebrow:"2d · Manufacturing Analysis", head:"Manufacturing Analysis", thumbs:true,
+      simple:{ t:"xdeck" },
       tabs:[
         { label:"Domino", img:"assets/mfg/domino.jpg", cap:"01 · Domino", title:"Domino",
           lead:"Cuts accurate joining slots (mortises) so two pieces slot together around a loose tenon. Strong, neat, hidden joints, ideal for joining the jet's fuselage sections without visible screws." },
@@ -285,6 +291,7 @@ window.SECTIONS = [
       ] },
 
     { t:"deck", id:"summary", eyebrow:"2e · Research Summary & Specifications", head:"Research Summary & Specifications", text:true,
+      simple:{ t:"tabtable" },
       tabs:[
         { label:"Repairability", title:"Repairability",
           cols:[
@@ -334,13 +341,15 @@ window.SECTIONS = [
       img:"assets/designer/f16.jpg", cap:"F-16 Fighting Falcon" },
 
     { t:"stack", id:"sketches", eyebrow:"3b · Design Ideas", head:"Design Ideas",
+      simple:{ t:"gallery", tall:true, body:null,
+        imgs:[ { src:"assets/sketches/sheet-1.jpg" }, { src:"assets/sketches/sheet-2.jpg" }, { src:"assets/sketches/sheet-3.jpg" } ] },
       body:"All twenty-two of my hand-drawn concepts, stacked like a deck of cards. Move the top drawing aside to send it to the back and bring up the next one.",
       items:[
         { img:"assets/sketches/items/golf-cart.jpg", title:"Golf Cart", text:"+17 pieces · complex design. A realistic cart with working steering and wheels, fun, but a lot of fiddly parts for the play value it gives back." },
         { img:"assets/sketches/items/flatbed-truck.jpg", title:"Flatbed Truck", text:"10 pieces · complex design. Working doors and wheels with a flat deck for carrying other toys. Solid, but very similar to toys already everywhere." },
         { img:"assets/sketches/items/digger.jpg", title:"Digger", text:"12 pieces · complex design. Role-play and realism in one, a strong yellow/black identity. Made the final shortlist of four." },
         { img:"assets/sketches/items/helicopter.jpg", title:"Helicopter", text:"7 pieces · simple design, easy to make. Aimed at a younger audience with a smaller propeller for safety." },
-        { img:"assets/sketches/items/nfl.jpg", title:"NFL Game", text:"+13 pieces · simple design, interactable. A figure throws the ball into hoops for points; magnets let the figure be moved around the board." },
+        { img:"assets/sketches/items/nfl.jpg", title:"NFL Game", text:"+13 pieces · simple design, interactable. A figure throws the ball into hoops for points, and magnets let the figure be moved around the board." },
         { img:"assets/sketches/items/fighter-jet.jpg", title:"Fighter Jet", text:"+25 pieces · complex, realistic, hard to make, but with working wheels, flaps, stabiliser, rudder and elevators plus detailed vents. The eventual winner." },
         { img:"assets/sketches/items/truck.jpg", title:"Container Truck", text:"+8 pieces · simple design. Working doors and wheels with a detachable container for role-play." },
         { img:"assets/sketches/items/scooter.jpg", title:"Scooter", text:"+12 pieces · complex design. A realistic role-play scooter with nice curves, tricky ones to cut in timber." },
@@ -352,9 +361,9 @@ window.SECTIONS = [
         { img:"assets/sketches/items/shape-puzzle.jpg", title:"Shape Puzzle", text:"8 pieces · simple design, easy to make. A learning toy for a younger audience, match the shapes to the holes." },
         { img:"assets/sketches/items/ring-toss.jpg", title:"Ring Toss", text:"2-player · 7 pieces for the base + 6 rings. Easy assembly and disassembly for storage and portability." },
         { img:"assets/sketches/items/semi-circle.jpg", title:"Semi-Circle Toy", text:"5 pieces · simple design. Stacking rainbow arches, a classic sensory toy for little hands." },
-        { img:"assets/sketches/items/whack-a-mole.jpg", title:"Whack-a-Mole", text:"12 pieces · interactable. Flip the object to restart the game; reinforced hammer to survive enthusiastic whacking. Made the final shortlist." },
+        { img:"assets/sketches/items/whack-a-mole.jpg", title:"Whack-a-Mole", text:"12 pieces · interactable. Flip the object to restart the game. The hammer is reinforced to survive enthusiastic whacking. Made the final shortlist." },
         { img:"assets/sketches/items/toy-camera.jpg", title:"Toy Camera", text:"14 pieces · a fake camera prop for role-play, with working buttons and dial. Realistic." },
-        { img:"assets/sketches/items/tool-box.jpg", title:"Tool Box", text:"10 pieces · role-play and pretend. Sharp or dangerous edges removed or dulled; a case for storage including a right-angle ruler, screwdriver with bits, saw and caliper. Made the final shortlist." },
+        { img:"assets/sketches/items/tool-box.jpg", title:"Tool Box", text:"10 pieces · role-play and pretend. Sharp or dangerous edges removed or dulled. It comes with a case for storage including a right-angle ruler, screwdriver with bits, saw and caliper. Made the final shortlist." },
         { img:"assets/sketches/items/spinner.jpg", title:"Spinner", text:"1 piece · the simplest design of all, made for spinning." },
         { img:"assets/sketches/items/drums.jpg", title:"Drums", text:"+4 pieces · simple design. Toy drums that work, cuts in the drum surface allow vibration, with a reinforced drumstick." },
         { img:"assets/sketches/items/string-spinner.jpg", title:"String-Powered Spinner", text:"5 pieces · simple design. Pulling the string spins the spinner very fast and it pops out onto the surface below." }
@@ -404,11 +413,11 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"Before cutting any real material, I modelled the jet in foam. First the whole aircraft, then a working wing and flap mechanism. I also tested four finishes on a piece of wood." },
 
-    { t:"gallery", id:"first-model", eyebrow:"4a · First Model", head:"First Model",
+    { t:"gallery", id:"first-model", eyebrow:"4a · First Model", head:"First Model", three:true,
       body:"My first model was cut out of foam. The point was not to make it look pretty. It was to get the proportions right and to work out how many parts the jet actually needs. Building it taught me a lot. The foam model has twin tails and I really liked how that looked, so I am keeping twin tails on the real jet instead of the single tail from my first sketch. It also helped me see which parts I actually needed and let me count up the real part list before cutting any real material.",
       imgs:[
         { src:"assets/models/foam-1.jpg", cap:"Front view" },
-        { src:"assets/models/foam-2.jpg", cap:"Elevator, the pitch control surface" },
+        { src:"assets/models/foam-tails.jpg", cap:"Twin tails lifted, showing their nails" },
         { src:"assets/models/foam-3.jpg", cap:"All parts laid out" },
         { src:"assets/models/foam-5.jpg", cap:"Top view, bird's eye" },
         { src:"assets/models/foam-6.jpg", cap:"Rear view" },
@@ -480,23 +489,11 @@ window.SECTIONS = [
 
     { t:"ph", id:"working-drawing", eyebrow:"5b · Working Drawing", head:"Working Drawing" },
 
-    { t:"timeline", id:"diary", eyebrow:"5c · Diary of Making", head:"Diary of Making",
-      body:"My diary from the workshop, written as I build the jet. This is less about the order of the steps and more about how it actually went: the parts that were tricky, the mistakes, and the moments I was proud of. Each entry gets a photo from the workshop.",
-      steps:[
-        { meta:"Entry 01 · The first cut", title:"Nervous about the main body",
-          p:"Cutting the very first piece of pine for the body was the bit I was most nervous about. This is the main part that everything else joins onto, so if the shape came out wrong the whole jet would look off. The nose taper took me a few goes on the bandsaw to get right, but the moment it was cut and sanded it already looked like a real jet, and that made me excited to keep going. (Photo to come.)" },
-        { meta:"Entry 02 · A lucky mistake", title:"Two pieces of pine",
-          p:"I could not find one piece of pine big enough for the body, so I ended up using two pieces, a bottom and a top. At first this felt like a problem, but it turned into a lucky one, because the canopy is part of that top piece so I did not have to cut it out on its own later. It is funny how the thing that looks like a mistake can end up making the job easier. (Photo to come.)" },
-        { meta:"Entry 03 · Fighting the MDF", title:"MDF was a nightmare",
-          p:"Working with the MDF for the wings and intakes was easily the most annoying part of the whole build. It cuts fine on the bandsaw, but sanding it took forever and it kept trying to split every time I drilled into it, so I had to put little pilot holes in first. I chose MDF because it was the right thickness and easy to get hold of, but if I did it again I would think a lot harder about the material. (Photo to come.)" },
-        { meta:"Entry 04 · The half circle trick", title:"Making the flaps rotate",
-          p:"Sanding the front edge of each flap into a half circle was the part I am most proud of working out. If you leave that edge square the flap just jams against the wing and will not budge, but rounding it off lets it spin freely like a circle. The first time a flap actually moved smoothly I was really happy, because those moving flaps are the whole reason a kid would pick my jet over a solid one. (Photo to come.)" },
-        { meta:"Entry 05 · Making the axles", title:"Cutting nails into axles",
-          p:"Turning the metal nails into little axles meant cutting the big head off each one with pliers. It was fiddly and my hands were pretty sore after doing it over and over, but the metal nails are way stronger than a wooden rod, and this toy is going to get thrown around by a 3 year old, so it is worth the effort. (Photo to come.)" },
-        { meta:"Entry 06 · Getting the tolerance right", title:"The 2 mm that matters",
-          p:"Getting the 2 mm of clearance right on the control surfaces was something I only understood because of my foam model, where a flap I cut too tight jammed up completely. Too tight and it will not move, too loose and it just flops down on its own. It is a tiny measurement, but it is the difference between the flaps feeling fun and feeling broken. (Photo to come.)" },
-        { meta:"Entry 07 · It becomes a jet", title:"All one jet",
-          p:"Putting the whole jet together was the best moment of the build. I pushed a metal beam all the way through the wings, intakes and body to pin the wings on solid, then joined the twin tails on with cut nails used like little dowels. Watching all the separate parts finally become one jet, with everything moving the way it should, made all the fiddly bits worth it. It looks fast just sitting on the bench. (Photo to come.)" }
+    { t:"notes", id:"diary", eyebrow:"5c · Diary of Making", head:"Diary of Making",
+      body:"Two entries from the workshop. Each one is a photo of what I was doing at that point in the build, with a bit about how it actually went.",
+      entries:[
+        { p:"Placeholder text. This entry will be about the photo next to it: what I was making at that point in the build, which bits were fiddly, and what I would do differently if I did that step again." },
+        { p:"Placeholder text. This entry will be about the second photo: the part of the build I was most proud of working out, and why that step mattered for the way the finished jet moves." }
       ] }
   ]
 },
@@ -512,7 +509,15 @@ window.SECTIONS = [
 
     { t:"ph", id:"finished", eyebrow:"6a · Finished Product", head:"Finished Product" },
 
-    { t:"ph", id:"build-photos", eyebrow:"6b · Development Photos", head:"Development Photos" }
+    { t:"gallery", id:"build-photos", eyebrow:"6b · Development Photos", head:"Development Photos", three:true,
+      imgs:[
+        { src:"assets/build/dev-1.jpg" },
+        { src:"assets/build/dev-2.jpg" },
+        { src:"assets/build/dev-3.jpg" },
+        { src:"assets/build/dev-4.jpg" },
+        { src:"assets/build/dev-5.jpg" },
+        { src:"assets/build/dev-6.jpg" }
+      ] }
   ]
 },
 
@@ -535,7 +540,18 @@ window.SECTIONS = [
         ["Playability","The product should be fun, safe, easy to hold, and encourage imagination or repeated use.","This is where the jet earns its place. Working ailerons, elevators and rudders, plus an opening canopy, give a kid loads to actually <b>do</b>, not just hold. There are no small loose parts and no sharp edges. <i>(To confirm in play testing.)</i>"]
       ] },
 
-    { t:"ph", id:"reviews", eyebrow:"7b · Product Review & Feedback", head:"Product Review & Feedback", tag:"Not done yet" },
+    { t:"reviews", id:"reviews", eyebrow:"7b · Product Review & Feedback", head:"Product Review & Feedback",
+      people:[
+        { label:"Student 1", img:"assets/reviews/student-1.jpg", name:"Monty Alderton", ps:[
+          "The first thing I did was pick it up and start moving the flaps, which probably says a lot about it. They move smoothly and they stay where you put them instead of flopping straight back down, so it actually feels like something you are flying and not just holding. It is heavier than I expected for a toy, but that is what makes it feel properly made instead of cheap. If I am being picky the wood underneath could do with a bit more sanding, but the shape is easily the best part. It looks fast even sitting still on the table."
+        ]},
+        { label:"Student 2", img:"assets/reviews/student-2.jpg", name:"Millar Ormsby", ps:[
+          "I like that it is wood and not plastic, because you can tell it is going to last a lot longer than the stuff you get in a shop. The twin tails are what make it read as a proper fighter jet instead of just a plane shape. I opened the canopy a fair few times and it never felt like it was going to snap, which matters because that is exactly the bit a little kid would keep messing with. The dark finish against the lighter wood looks really good in person. My only note is that a younger kid might want it a bit lighter to carry around."
+        ]}
+      ],
+      personal:{ head:"Personal review", name:"Luca Carlisle", ps:[
+        "Looking at the finished jet next to my brief, the working control surfaces are the thing that made it worth building. That was the whole reason I picked this design over the digger or the tool box, and it is the first thing people go for when they pick it up. The hardest part was the MDF, which fought me the whole way through sanding and drilling, and if I did this again I would use a proper hardwood like beech instead. I am happy with the contrast between the two finishes and glad I did not paint it, because the wood grain does the work on its own. Next time I would give myself more time on the assembly, because pinning the wings through the body was a lot fiddlier than my plan made it sound."
+      ]} },
 
     { t:"cards", id:"modifications", eyebrow:"7c · Modifications & Adjustments", head:"Modifications & Adjustments", cols:2,
       cards:[

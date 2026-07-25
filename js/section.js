@@ -85,7 +85,7 @@
         <p class="eyebrow rv">${b.eyebrow}</p>
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
         ${b.body ? `<p class="body rv" style="--d:.1s">${b.body}</p>` : ""}
-        <div class="gal ${b.wide ? "gal--wide" : ""}">
+        <div class="gal ${b.wide ? "gal--wide" : ""} ${b.tall ? "gal--tall" : ""} ${b.three ? "gal--three" : ""}">
           ${b.imgs.map((im, i) => `
             <figure class="rv" style="--d:${0.06 + i * 0.05}s" data-full="${im.src}">
               <img src="${im.src}" alt="${im.cap || ""}" loading="lazy">
@@ -198,30 +198,105 @@
       </div>`;
     },
 
-    quotes(b) {
+    /* 7b · reviews: photo on the left, review + attribution on the right.
+       The personal review is the same card with no photo, full width. */
+    reviews(b) {
+      const card = (o, solo) => `
+        <article class="rev ${solo ? "rev--solo" : ""} rv" style="--d:${o.d}s">
+          ${solo ? "" : `<figure class="rev-fig ${o.img ? "" : "is-empty"}">${
+            o.img ? `<img src="${o.img}" alt="${o.label}" loading="lazy">` : `<span class="ph-tag">Photo to come</span>`
+          }</figure>`}
+          <div class="rev-body glass">
+            <h4>${o.label}</h4>
+            ${o.ps.map((p) => `<p>${p}</p>`).join("")}
+            <p class="rev-by">${o.name}</p>
+          </div>
+        </article>`;
       return `<div class="blk" id="${b.id}">
         <p class="eyebrow rv">${b.eyebrow}</p>
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
-        <div class="quotes">
-          ${b.people.map((p, i) => `
-            <article class="quote glass rv" style="--d:${0.08 + i * 0.07}s">
-              <div class="q-head">
-                <span class="q-avatar">${p.img ? `<img src="${p.img}" alt="${p.name}">` : "?"}</span>
-                <span><span class="q-name" style="display:block">${p.name}</span><span class="q-role">${p.role}</span></span>
-              </div>
-              ${p.quotes.map((q) => `<p>“${q}”</p>`).join("")}
+        ${b.people.map((p, i) => card(Object.assign({}, p, { d: (0.1 + i * 0.08).toFixed(2) }), false)).join("")}
+        ${card({ label: b.personal.head, ps: b.personal.ps, name: b.personal.name, d: "0.26" }, true)}
+      </div>`;
+    },
+
+    /* 5c · diary: photo + paragraph pairs. An entry with no img shows an empty
+       frame, so dropping a photo in later needs no template change. */
+    notes(b) {
+      return `<div class="blk" id="${b.id}">
+        <p class="eyebrow rv">${b.eyebrow}</p>
+        <h3 class="head rv" style="--d:.06s">${b.head}</h3>
+        ${b.body ? `<p class="body rv" style="--d:.1s">${b.body}</p>` : ""}
+        <div class="notes">
+          ${b.entries.map((e, i) => `
+            <article class="note rv" style="--d:${(0.1 + i * 0.08).toFixed(2)}s">
+              <figure class="note-fig ${e.img ? "" : "is-empty"}">
+                ${e.img ? `<img src="${e.img}" alt="${e.cap || ""}" loading="lazy">` : `<span class="ph-tag">Photo to come</span>`}
+              </figure>
+              <p>${e.p}</p>
             </article>`).join("")}
         </div>
-        <div class="quote glass rv" style="--d:.2s;padding:clamp(20px,2.2vw,30px)">
-          <span class="q-role">${b.personal.head}</span>
-          <p style="margin-top:10px;font-style:normal">${b.personal.p}</p>
+      </div>`;
+    },
+
+    /* SIMPLE MODE · 2a + 2e: turn a tabbed deck into one plain table.
+       Rows are derived from b.tabs so the prose lives in exactly one place. */
+    tabtable(b) {
+      const heads = b.heads || (b.tabs[0].cols || []).map((c) => c.h);
+      return `<div class="blk" id="${b.id}">
+        <p class="eyebrow rv">${b.eyebrow}</p>
+        <h3 class="head rv" style="--d:.06s">${b.head}</h3>
+        <div class="dtable dtable--rows glass rv" style="--d:.12s">
+          <table>
+            <thead><tr><th>${b.rowHead || ""}</th>${heads.map((h) => `<th>${h}</th>`).join("")}</tr></thead>
+            <tbody>
+              ${b.tabs.map((tab) => `<tr>
+                <td>${tab.label}</td>
+                ${(tab.cols || []).map((c) => `<td>${
+                  c.items ? `<ul class="tlist">${c.items.map((li) => `<li>${li}</li>`).join("")}</ul>` : c.p
+                }</td>`).join("")}
+              </tr>`).join("")}
+            </tbody>
+          </table>
+        </div>
+      </div>`;
+    },
+
+    /* SIMPLE MODE · 2d: every deck tab expanded down the page, no tab buttons.
+       Reuses the deck-panel inner classes but never carries class "deck", so the
+       tab JS in this file skips it entirely. */
+    xdeck(b) {
+      return `<div class="blk" id="${b.id}">
+        <p class="eyebrow rv">${b.eyebrow}</p>
+        <h3 class="head rv" style="--d:.06s">${b.head}</h3>
+        <div class="xdeck">
+          ${b.tabs.map((tab, i) => `
+            <article class="xdeck-row rv" style="--d:${(0.06 + Math.min(i, 4) * 0.04).toFixed(2)}s">
+              <div class="deck-media">
+                <img src="${tab.img}" alt="${tab.label}" loading="lazy" decoding="async">
+                <span class="cap">${tab.cap || tab.label}</span>
+              </div>
+              <div class="deck-info">
+                <h4>${tab.title}</h4>
+                ${tab.lead ? `<p class="lead2">${tab.lead}</p>` : ""}
+                ${tab.cols ? `<div class="deck-cols">${tab.cols.map((c) =>
+                  c.items
+                    ? `<div><h5>${c.h}</h5><ul>${c.items.map((li) => `<li>${li}</li>`).join("")}</ul></div>`
+                    : `<div class="${c.boxed ? "boxed glass" : ""}"><h5>${c.h}</h5><p>${c.p}</p></div>`
+                ).join("")}</div>` : ""}
+                ${tab.note ? `<p class="deck-note">${tab.note}</p>` : ""}
+              </div>
+            </article>`).join("")}
         </div>
       </div>`;
     }
   };
 
   /* ---------- render a section view ---------- */
-  window.renderSection = function (root, sec) {
+  window.renderSection = function (root, sec, opts) {
+    opts = opts || {};
+    /* snapshot the mode once per render; blocks with a `simple` override swap shape */
+    const simpleOn = !!(window.SimpleMode && window.SimpleMode.on);
     const idx = window.SECTIONS.indexOf(sec);
     const prev = window.SECTIONS[idx - 1], next = window.SECTIONS[idx + 1];
 
@@ -229,14 +304,17 @@
       .map((b) => `<a class="sec-chip" href="#/section/${sec.id}" data-anchor="${b.id}">${b.eyebrow.replace(/^[\d\w]+[a-e]? · /, "")}</a>`).join("");
 
     root.innerHTML = `
-    <div class="view sec">
+    <div class="view sec${opts.instant ? " view--instant" : ""}">
       <header class="sec-head">
         <span class="sec-head-num">0${sec.id}</span>
         <p class="sec-head-kicker stag" style="--d:.05s">SECTION 0${sec.id} / 07</p>
         <h2 class="sec-head-title stag" style="--d:.12s">${sec.title}</h2>
         <div class="sec-head-pages stag" style="--d:.2s">${chips}</div>
       </header>
-      ${sec.blocks.map((b) => T[b.t] ? T[b.t](b) : "").join("")}
+      ${sec.blocks.map((b) => {
+        const v = simpleOn && b.simple ? Object.assign({}, b, b.simple) : b;
+        return T[v.t] ? T[v.t](v) : "";
+      }).join("")}
       <nav class="sec-nav">
         ${prev
           ? `<a href="#/section/${prev.id}"><span class="nav-k">← Previous</span><span class="nav-t">0${prev.id} · ${prev.title}</span></a>`
@@ -297,10 +375,14 @@
       f.addEventListener("click", () => { lbImg.src = f.dataset.full; lb.hidden = false; });
     });
 
-    /* reveal engine — one-time fade-in only (no scroll-linked movement) */
+    /* reveal engine — one-time fade-in only (no scroll-linked movement).
+       `instant` (a simple-mode re-render) shows everything at once, otherwise a
+       reader who scrolls back up after toggling finds the page above them blank.
+       Kept separate from `reduce`, which the card-deck animations also read. */
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const instant = reduce || opts.instant;
     let io = null;
-    if (!reduce) {
+    if (!instant) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
       }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
@@ -475,8 +557,8 @@
     };
   };
 
-  /* lightbox close (global, bound once) */
+  /* lightbox close (global, bound once). Escape is handled centrally in
+     router.js so the modal / lightbox / navigate-home order stays correct. */
   const lb = document.getElementById("lightbox");
   lb.addEventListener("click", () => { lb.hidden = true; lb.querySelector("img").src = ""; });
-  addEventListener("keydown", (e) => { if (e.key === "Escape" && !lb.hidden) lb.hidden = true; });
 })();

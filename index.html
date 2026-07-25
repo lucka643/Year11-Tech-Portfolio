@@ -7,7 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Familjen+Grotesk:ital,wght@0,400..700;1,400..600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="css/styles.css?v=40" />
+<link rel="stylesheet" href="css/styles.css?v=41" />
 <script type="importmap">
 {
   "imports": {
@@ -37,6 +37,10 @@
   </div>
   <div class="hud-right">
     <span class="hud-course">DES·TECH / YR11</span>
+    <button class="hud-simple" id="hudSimple" type="button" role="switch" aria-checked="false" aria-label="Simple mode">
+      <span class="hs-label">SIMPLE</span>
+      <span class="hs-track"><i class="hs-knob"></i></span>
+    </button>
   </div>
 </header>
 
@@ -52,10 +56,25 @@
   <button class="lightbox-x" aria-label="Close">✕</button>
 </div>
 
-<script src="js/fog.js?v=40"></script>
-<script src="js/content.js?v=40"></script>
-<script src="js/home.js?v=40"></script>
-<script src="js/section.js?v=40"></script>
-<script src="js/router.js?v=40"></script>
+<!-- First-visit intro: explains the simple-mode switch -->
+<div class="smodal" id="introModal" hidden>
+  <div class="smodal-card glass" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <p class="eyebrow">Before you start</p>
+    <h2 id="introTitle">There are two ways to read this site.</h2>
+    <p>Up in the top right corner there is a switch. Turn it on and the whole site swaps to a
+       simpler, easier to read version. The design sketches become big photos you just scroll
+       past, and the tabbed panels turn into plain tables and lists.</p>
+    <p>Leave it off and you get the full interactive version. You can change your mind whenever
+       you like, and the site remembers which one you picked.</p>
+    <button class="smodal-x" id="introClose" type="button">Got it</button>
+  </div>
+</div>
+
+<script src="js/fog.js?v=41"></script>
+<script src="js/content.js?v=41"></script>
+<script src="js/simple.js?v=41"></script>
+<script src="js/home.js?v=41"></script>
+<script src="js/section.js?v=41"></script>
+<script src="js/router.js?v=41"></script>
 </body>
 </html>

@@ -57,7 +57,7 @@
       scrollTo(0, 0);
       app.innerHTML = `<div class="view"><div class="v-loading">LOADING 3D VIEWER…</div></div>`;
       try {
-        viewerMod = viewerMod || await import("./viewer3d.js?v=40");
+        viewerMod = viewerMod || await import("./viewer3d.js?v=41");
         app.innerHTML = "";
         destroy = viewerMod.mount(app);
       } catch (err) {
@@ -71,13 +71,47 @@
     }
   }
 
+  /* ---- simple-mode: re-render the current section in place ----
+     Not go(): that plays the leave animation and re-runs setFog. Simple mode
+     changes block heights a lot (2a/2e shrink, 2d grows ~10x), so we anchor on
+     the nearest block above the fold instead of restoring a raw scrollY. */
+  function anchorNow() {
+    const y = scrollY;
+    let best = null;
+    app.querySelectorAll(".blk[id]").forEach((el) => {
+      const top = el.getBoundingClientRect().top + y;
+      if (top <= y + 8 && (!best || top > best.top)) best = { id: el.id, top: top };
+    });
+    return best ? { id: best.id, delta: y - best.top } : { y: y };
+  }
+  function restoreAnchor(k) {
+    if (k.id) {
+      const el = document.getElementById(k.id);
+      if (el) { scrollTo(0, Math.max(0, el.getBoundingClientRect().top + scrollY + k.delta)); return; }
+    }
+    scrollTo(0, k.y || 0);
+  }
+  function rerender() {
+    const target = parse();
+    if (target.route !== "section") return;   // home has no simple variants; viewer must not remount Three.js
+    const keep = anchorNow();
+    if (destroy) { destroy(); destroy = null; }   // must run first: releases 6 window listeners + 2 observers
+    app.innerHTML = "";
+    destroy = window.renderSection(app, target.sec, { instant: true });
+    restoreAnchor(keep);
+  }
+  addEventListener("simplechange", rerender);
+
   /* HUD buttons */
   document.getElementById("hudHome").addEventListener("click", () => { location.hash = "#/"; });
   document.getElementById("hudBack").addEventListener("click", () => { location.hash = "#/"; });
+  /* One Escape handler for the whole site, in priority order. */
   addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && document.body.dataset.route !== "home" && document.getElementById("lightbox").hidden) {
-      location.hash = "#/";
-    }
+    if (e.key !== "Escape") return;
+    const sm = window.SimpleMode, lb = document.getElementById("lightbox");
+    if (sm && sm.introOpen) { sm.closeIntro(); return; }   // no-op while the countdown runs
+    if (!lb.hidden) { lb.hidden = true; lb.querySelector("img").src = ""; return; }
+    if (document.body.dataset.route !== "home") location.hash = "#/";
   });
 
   addEventListener("hashchange", go);
