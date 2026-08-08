@@ -9,3 +9,10 @@
 # Logs / temp
 *.log
 assets/_raw/
+
+# staging copies of photos dropped into assets/ root.
+# The processed versions live in assets/build/ and assets/ergonomics/.
+/assets/diary-1.jpg
+/assets/diary-2.jpg
+/assets/hand-sizes.jpg
+/assets/big-blocks.avif
