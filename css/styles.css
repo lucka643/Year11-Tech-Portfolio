@@ -651,16 +651,20 @@ body[data-modal="on"] .hud-simple{color:var(--ink);border-color:var(--accent);an
 .notes{display:grid;grid-template-columns:1fr 1fr;gap:clamp(26px,4vw,60px);align-items:start;}
 @media (max-width:760px){.notes{grid-template-columns:1fr;}}
 .note{display:flex;flex-direction:column;}
+/* square frame: both workshop photos are portrait, and a landscape frame cropped
+   them down to a thin band that cut my head out of the bandsaw shot */
 .note-fig{
   border-radius:14px;overflow:hidden;border:1px solid var(--panel-line);
-  background:var(--panel);aspect-ratio:4/3;margin-bottom:16px;
+  background:var(--panel);aspect-ratio:1/1;margin-bottom:16px;
 }
 .note-fig.is-empty{
   border-style:dashed;display:flex;align-items:center;justify-content:center;
   background:rgba(255,255,255,.02);
 }
-.note-fig img{width:100%;height:100%;object-fit:cover;}
-.note > p{font-size:clamp(13.5px,1.05vw,17px);line-height:1.65;color:var(--ink-dim);max-width:52ch;}
+.note-fig img{width:100%;height:100%;object-fit:cover;object-position:center 18%;}
+/* full column width, so the lines run the same length as the photo above and
+   the paragraph is shorter and wider instead of a narrow tall block */
+.note > p{font-size:clamp(13.5px,1.05vw,17px);line-height:1.65;color:var(--ink-dim);max-width:none;}
 /* second entry runs text first, photo underneath */
 .notes .note:nth-child(2) .note-fig{order:2;margin:16px 0 0;}
 
