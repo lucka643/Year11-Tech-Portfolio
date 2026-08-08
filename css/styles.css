@@ -483,18 +483,25 @@ body[data-route="section"] .progress{opacity:1;}
 @media (max-width:980px){.blk-cols{grid-template-columns:1fr 1fr;}}
 @media (max-width:620px){.blk-cols{grid-template-columns:1fr;gap:0;}.blk-cols .body{margin-bottom:16px;}}
 
-/* 2d Ergonomics: a supporting photo with a starred caption under it */
+/* 2d Ergonomics: a supporting photo with a starred caption under it.
+   The column is a flex stack so the text takes the slack and the figures in
+   both columns line up with each other, however long the paragraphs are. */
+.duo-col{display:flex;flex-direction:column;}
+.duo-txt{flex:1 1 auto;}
 .duo-fig{margin-top:18px;}
 .duo-fig .duo-fig-img{
   display:block;border-radius:14px;overflow:hidden;border:1px solid var(--panel-line);
-  background:var(--panel);aspect-ratio:16/10;
+  background:var(--panel);aspect-ratio:16/9;
 }
 .duo-fig .duo-fig-img.is-empty{
   border-style:dashed;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.02);
 }
-.duo-fig .duo-fig-img img{width:100%;height:100%;object-fit:contain;background:#fff;}
+/* fill the frame edge to edge. Anchored to the top, so a tall photo loses its
+   bottom rather than the part that matters. */
+.duo-fig .duo-fig-img img{width:100%;height:100%;object-fit:cover;object-position:center top;background:none;}
 .duo-fig figcaption{
   margin-top:10px;font-size:clamp(12.5px,.95vw,15px);line-height:1.5;color:var(--ink-faint);
+  min-height:calc(2 * 1.5em);
 }
 
 /* pinned 3 across (4a first model, 6b development photos) */

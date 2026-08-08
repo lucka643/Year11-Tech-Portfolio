@@ -173,8 +173,10 @@
         <div class="duo">
           ${b.cols.map((c, i) => `
             <div class="duo-col rv" style="--d:${0.1 + i * 0.08}s">
-              <h4>${c.h}</h4>
-              ${c.ps.map((p) => `<p>${p}</p>`).join("")}
+              <div class="duo-txt">
+                <h4>${c.h}</h4>
+                ${c.ps.map((p) => `<p>${p}</p>`).join("")}
+              </div>
               ${c.fig ? `<figure class="duo-fig">
                   <span class="duo-fig-img ${c.fig.img ? "" : "is-empty"}">${
                     c.fig.img ? `<img src="${c.fig.img}" alt="${c.fig.note || ""}" loading="lazy" onerror="__imgFallback(this)">` : `<span class="ph-tag">Photo to come</span>`
