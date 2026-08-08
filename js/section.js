@@ -5,6 +5,21 @@
 (function () {
   const esc = (s) => String(s); // content is author-controlled static data
 
+  /* If a photo file isn't in the repo yet, show the tidy dashed "Photo to come"
+     frame instead of a broken image. Drop the file in and it just appears. */
+  window.__imgFallback = function (img) {
+    const box = img.parentNode;
+    if (!box) return;
+    box.classList.add("is-empty");
+    img.remove();
+    if (!box.querySelector(".ph-tag")) {
+      const tag = document.createElement("span");
+      tag.className = "ph-tag";
+      tag.textContent = "Photo to come";
+      box.appendChild(tag);
+    }
+  };
+
   /* ---------- block templates ---------- */
   const T = {
     intro(b) {
@@ -81,11 +96,16 @@
     },
 
     gallery(b) {
+      /* body can be a string, or an array to lay the text out in columns
+         across the full width instead of one tall narrow block */
+      const paras = Array.isArray(b.body) ? b.body : (b.body ? [b.body] : []);
+      const textCols = Array.isArray(b.body) && b.body.length > 1;
       return `<div class="blk" id="${b.id}">
         <p class="eyebrow rv">${b.eyebrow}</p>
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
-        ${b.body ? `<p class="body rv" style="--d:.1s">${b.body}</p>` : ""}
-        <div class="gal ${b.wide ? "gal--wide" : ""} ${b.tall ? "gal--tall" : ""} ${b.three ? "gal--three" : ""}">
+        ${paras.length ? `<div class="${textCols ? "blk-cols" : ""}">${paras.map((p, i) =>
+          `<p class="body rv" style="--d:${(0.1 + i * 0.05).toFixed(2)}s">${p}</p>`).join("")}</div>` : ""}
+        <div class="gal ${b.wide ? "gal--wide" : ""} ${b.tall ? "gal--tall" : ""} ${b.three ? "gal--three" : ""} ${b.feature ? "gal--feature" : ""}">
           ${b.imgs.map((im, i) => `
             <figure class="rv" style="--d:${0.06 + i * 0.05}s" data-full="${im.src}">
               <img src="${im.src}" alt="${im.cap || ""}" loading="lazy">
@@ -155,6 +175,12 @@
             <div class="duo-col rv" style="--d:${0.1 + i * 0.08}s">
               <h4>${c.h}</h4>
               ${c.ps.map((p) => `<p>${p}</p>`).join("")}
+              ${c.fig ? `<figure class="duo-fig">
+                  <span class="duo-fig-img ${c.fig.img ? "" : "is-empty"}">${
+                    c.fig.img ? `<img src="${c.fig.img}" alt="${c.fig.note || ""}" loading="lazy" onerror="__imgFallback(this)">` : `<span class="ph-tag">Photo to come</span>`
+                  }</span>
+                  <figcaption>★ ${c.fig.note}</figcaption>
+                </figure>` : ""}
               ${c.eg ? `<div class="duo-eg"><img src="${c.eg.img}" alt="" loading="lazy"><p>${c.eg.text}</p></div>` : ""}
             </div>`).join("")}
         </div>
@@ -231,7 +257,7 @@
           ${b.entries.map((e, i) => `
             <article class="note rv" style="--d:${(0.1 + i * 0.08).toFixed(2)}s">
               <figure class="note-fig ${e.img ? "" : "is-empty"}">
-                ${e.img ? `<img src="${e.img}" alt="${e.cap || ""}" loading="lazy">` : `<span class="ph-tag">Photo to come</span>`}
+                ${e.img ? `<img src="${e.img}" alt="${e.cap || ""}" loading="lazy" onerror="__imgFallback(this)">` : `<span class="ph-tag">Photo to come</span>`}
               </figure>
               <p>${e.p}</p>
             </article>`).join("")}

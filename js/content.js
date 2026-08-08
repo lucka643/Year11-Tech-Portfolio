@@ -94,41 +94,41 @@ window.SECTIONS = [
     { t:"cards", id:"pa1", eyebrow:"2b · Product Analysis #1", head:"Product Analysis #1", cols:2, imgFit:"product",
       cards:[
         { title:"Hot Wheels", meta:"Mattel · ≈ $2.80 NZD", img:"assets/products/hot-wheels.png",
-          dl:[["Repairability","Not repairable. If the wheels or axles break, it's cheaper to replace the whole toy than fix it."],
-              ["Material","Die-cast metal body with plastic parts."],
-              ["Aesthetics","Small, detailed and eye-catching. Realistic styling and bright colours appeal to children and collectors."],
-              ["Playability","Rolls smoothly, easy to use with tracks or floor play. Good for quick, imaginative play and collecting."],
-              ["Manufacturing","Mass-produced, keeping the price low and availability high."],
-              ["Environment","Metal can be recycled, but plastic parts reduce sustainability."],
-              ["Ergonomics","Small and lightweight, fits comfortably in one hand."]] },
+          dl:[["Repairability","Not repairable at all. The axles are pressed into the metal base, so if a wheel snaps off there is no way to get it apart without wrecking it. At under three dollars nobody is going to try either, they will just buy another one. That is convenient for the shop but it is exactly the throwaway habit my project is trying to get away from."],
+              ["Material","A die-cast metal body with a plastic base, plastic windows and plastic wheels. The metal shell is what makes it feel solid and gives it that satisfying weight in your hand, but the parts most likely to break are the plastic ones."],
+              ["Aesthetics","Small but really detailed for the size, with a proper paint job and printed badges. The bright red and the realistic Camaro shape are what make you pick it up off the shelf. It is aimed at collectors as much as kids, which is why so much of the money goes on how it looks rather than what it does."],
+              ["Playability","It rolls really well, which is basically its whole trick. On a track or a smooth floor it is fun for a few minutes, but there is nothing to move, open or change, so the play runs out fast. Kids tend to fix that by owning twenty of them instead of playing longer with one."],
+              ["Manufacturing","Mass-produced in huge numbers using die-casting and injection moulding, which is why it can sell for a couple of dollars and be in every shop. The trade off is that the quality is only as good as the batch, and none of it is made to be taken apart or fixed."],
+              ["Environment","The metal body could be recycled in theory, but it is stuck to plastic parts that cannot be separated easily, so almost all of them end up in the bin. Because they are so cheap they get replaced constantly, which makes the waste problem worse than the materials alone suggest."],
+              ["Ergonomics","Small and light enough for even a toddler to hold in one hand, and easy to push along the floor. The downside of being that small is that it is a choking risk for the younger end of my target market, so it really only suits older kids."]] },
         { title:"Buzzy Bee Pull Toy", meta:"Buzzy Bee · ≈ $39.95 NZD", img:"assets/products/buzzy-bee.png",
-          dl:[["Repairability","More repairable than plastic toys because it's wood. Small damaged parts can often be glued or replaced."],
-              ["Material","Wood with a non-toxic finish."],
-              ["Aesthetics","Bright, classic and recognisable, a strong New Zealand identity."],
-              ["Playability","Easy for toddlers to pull along. The clicking sound and moving wings make it interactive and fun."],
-              ["Manufacturing","Made as a traditional wooden toy, a more classic, durable feel."],
-              ["Environment","Wooden body is renewable and longer-lasting than plastic. Non-toxic paint is a plus."],
-              ["Ergonomics","Easy pull-string handle and lightweight size for toddlers."]] }
+          dl:[["Repairability","Much more repairable than a plastic toy. It is screwed and glued wood, so a cracked wing or a snapped string can be replaced at home with basic tools. Buzzy Bees get handed down between generations in New Zealand, which only happens because they can be patched up instead of thrown out."],
+              ["Material","Solid wood with non-toxic paint and a pull string. The wood takes knocks without shattering the way thin plastic does, and because it is a natural material it does not feel cold or cheap in your hands."],
+              ["Aesthetics","Bright red, yellow and blue in a shape almost every New Zealander recognises instantly. The design has barely changed since the 1940s, which tells me a simple, bold shape in strong primary colours does not go out of style. Parents buy it partly because they had one themselves."],
+              ["Playability","Easy for a toddler to pull along, and the wings spinning and the clicking noise give instant feedback for every step they take. That reward loop is what keeps a very young kid coming back to it, and it is the same idea I am using with the moving flaps on my jet."],
+              ["Manufacturing","Made the traditional way from turned and cut wood rather than moulded in one shot, so each one takes longer to produce and costs more. That is why it is nearly forty dollars instead of three, but it also means it is built to survive being dragged around for years."],
+              ["Environment","Wood is renewable and will break down at the end of its life, unlike plastic. Because it lasts long enough to be handed down, one Buzzy Bee replaces what might otherwise be several plastic toys, so the real environmental saving is bigger than just the material."],
+              ["Ergonomics","The pull string means a toddler who is only just walking can use it without needing any grip strength or coordination. It is light, low to the ground and stable, so it does not tip over and pull them off balance."]] }
       ] },
 
     { t:"cards", id:"pa2", eyebrow:"2b · Product Analysis #2", head:"Product Analysis #2", cols:2, imgFit:"product",
       cards:[
         { title:"Shape-Sorting Dump Truck", meta:"Melissa & Doug · ≈ $26.99 USD", img:"assets/products/md.png",
-          dl:[["Repairability","More repairable than electronic toys, wooden with simple moving parts, so it stays usable even if one part breaks."],
-              ["Material","Wood with colourful shape blocks."],
-              ["Aesthetics","Colourful, friendly and educational, attractive to younger children."],
-              ["Playability","Combines truck play with shape sorting, fun and useful for learning."],
-              ["Manufacturing","A sturdy wooden educational toy focused on durability."],
-              ["Environment","Wooden construction lasts longer, reducing waste."],
-              ["Ergonomics","Large shapes are easy to grip and the smooth edges improve safety."]] },
+          dl:[["Repairability","Fairly repairable because there is no electronics and nothing complicated inside. If a wheel comes loose it can be re-glued, and even if a couple of the shape blocks go missing the truck still works as a truck. Losing one part does not kill the whole toy, which is exactly what I want for mine."],
+              ["Material","Wood for the truck with nine painted wooden shape blocks and two little wooden figures. Using wood for the blocks matters here because they are the parts that get chewed, thrown and stood on the most."],
+              ["Aesthetics","Friendly rounded shapes in bright block colours, and it clearly reads as a learning toy the moment you look at it. The colours are doing two jobs at once, catching a kid's eye and teaching them to match a shape to a hole."],
+              ["Playability","It does two things instead of one. You can push it around like a normal truck, and you can sort the shapes through the holes and tip them out of the back. Having two ways to play with it is why it holds a young kid's attention far longer than a single-purpose toy."],
+              ["Manufacturing","Built as a chunky wooden educational toy with thick parts and no thin details to snap off. It is clearly designed around surviving a preschool rather than looking delicate on a shelf."],
+              ["Environment","The wood construction means it lasts for years and can be passed on to the next kid, which cuts down how many toys get bought and binned. The painted finish does make it harder to recycle at the very end of its life."],
+              ["Ergonomics","The blocks are big enough to grab with a whole fist, which suits a toddler who has not developed a proper pinch grip yet. Every edge is rounded and sanded smooth, and nothing is small enough to swallow."]] },
         { title:"Creator 3-in-1 Sports Car", meta:"Lego · ≈ $26.99 USD", img:"assets/products/lego.png",
-          dl:[["Repairability","Repairable, lost or damaged pieces can be replaced without binning the whole toy."],
-              ["Material","Plastic Lego bricks."],
-              ["Aesthetics","Bright and sporty with detailed features, and the 3 build options keep it interesting."],
-              ["Playability","Very high play value, build, rebuild and play with different models."],
-              ["Manufacturing","Precision-made and mass-produced, so pieces fit accurately."],
-              ["Environment","Bricks are durable and reusable for years, though plastic is less eco-friendly than wood."],
-              ["Ergonomics","Small bricks fit children's hands, but younger children may struggle."]] }
+          dl:[["Repairability","The most repairable toy I looked at. Every brick is a separate part, so a lost or broken piece can be replaced on its own and Lego will even post you spares. Nothing is glued, so the whole thing comes apart and goes back together as many times as you like."],
+              ["Material","Injection-moulded ABS plastic bricks. The plastic is genuinely tough and the moulding is accurate enough that bricks from decades ago still clip together, but it is still oil-based plastic that will not break down."],
+              ["Aesthetics","Bright red with black and white detailing and a sporty low shape that looks fast sitting still. Because it builds into three different vehicles, it never looks like a finished object you get bored of, and that is a big part of the appeal."],
+              ["Playability","Very high play value. Building it is half the fun, then you can play with it, pull it apart and build something else. That rebuilding is what makes it last months rather than days, and it is the one area where my jet cannot really compete."],
+              ["Manufacturing","Mass-produced to very tight tolerances, so every brick grips with the same firmness. That precision is the whole product, because a Lego brick that is even slightly out of spec is useless. It is a level of accuracy I could never reach in a school workshop."],
+              ["Environment","The bricks last for decades and get reused constantly, so they are not really disposable. But it is still plastic, it is not biodegradable, and a set this size uses a lot of it. Lego are trying plant-based plastics now, which shows even they see the problem."],
+              ["Ergonomics","The brick size suits kids from about six upwards who have the finger strength to push them together. For a 3 year old they are too small and too fiddly, and they are a choking hazard, which is why the box says 6 plus."]] }
       ] },
 
     { t:"cards", id:"aesthetics", eyebrow:"2c · Aesthetics Analysis", head:"Aesthetics Analysis", cols:4, imgFit:"contain",
@@ -273,11 +273,13 @@ window.SECTIONS = [
         { h:"Size", ps:[
           "The size of the toy has to suit the consumer. For a 3 to 8 year old it needs to be big enough that there are no small parts a child could swallow, but small and light enough for little hands to grip, lift and push around comfortably.",
           "The wooden jet should sit comfortably in a child's two hands, light enough to carry and \"fly\" around, yet solid enough that it doesn't feel flimsy or break when dropped."
-        ]},
+        ], fig:{ img:"assets/ergonomics/hand-sizes.jpg",
+          note:"This shows average hand sizes for different age groups. This will help me build my toy the right size in theory." }},
         { h:"Made for Audience", ps:[
           "It's designed for children aged 3 to 8, who learn through play and are rough with their toys. Every surface must be smooth with rounded edges and no sharp points, and parts must be too big to swallow.",
           "Bold colours and moving parts, the wings, ailerons and opening canopy, keep children engaged, while the durable wooden build survives drops, throws and being stepped on. Parents, the actual buyers, get a safe, long-lasting, eco-friendly toy."
-        ]}
+        ], fig:{ img:"assets/ergonomics/big-blocks.jpg",
+          note:"The product in this image uses big sized blocks, which is easy for toddlers to interact with." }}
       ] },
 
     { t:"duo", id:"repair-play", eyebrow:"2d · Repairability & Playability", head:"Repairability & Playability",
@@ -424,8 +426,12 @@ window.SECTIONS = [
         { src:"assets/models/foam-7.jpg", cap:"Exploded view, every part on its rods" }
       ] },
 
-    { t:"gallery", id:"additional-model", eyebrow:"4b · Additional Model", head:"Additional Model",
-      body:"My second model is all about the most important moving part on the jet, which is the control surface. The way it works is we use metal nails as the rod. On the main wing a cutout is made on the flap, and a little bit of the main wing sticks out and sits inside that hole in the flap. Then we drill holes that go through the flap and through that sticking out bit of the wing, and the metal nail goes inside that hole. That nail is what the flap tilts on. The tolerances really matter here. If the gaps are too small then it is too tight and the flap is hard to rotate, which is not fun and not good for playing with. If the gaps are too big then it rotates too loosely and the flap just flops down under gravity. We use the same idea for the elevators and the rudders, but the wing flap is a little bit different. On the elevators and rudders the whole flap has one nail going all the way through it, and the holes are on the inside of the wing. So there is no cutout in the flap and no bit of the wing sticking out, which is the only real difference between them and the main wings.",
+    { t:"gallery", id:"additional-model", eyebrow:"4b · Additional Model", head:"Additional Model", feature:true,
+      body:[
+        "My second model is all about the most important moving part on the jet, which is the control surface. The way it works is we use metal nails as the rod. On the main wing a cutout is made on the flap, and a little bit of the main wing sticks out and sits inside that hole in the flap. Then we drill holes that go through the flap and through that sticking out bit of the wing, and the metal nail goes inside that hole. That nail is what the flap tilts on.",
+        "The tolerances really matter here. If the gaps are too small then it is too tight and the flap is hard to rotate, which is not fun and not good for playing with. If the gaps are too big then it rotates too loosely and the flap just flops down under gravity. Getting that gap right was the whole point of building this model instead of guessing.",
+        "We use the same idea for the elevators and the rudders, but the wing flap is a little bit different. On the elevators and rudders the whole flap has one nail going all the way through it, and the holes are on the inside of the wing. So there is no cutout in the flap and no bit of the wing sticking out, which is the only real difference between them and the main wings."
+      ],
       imgs:[
         { src:"assets/models/addl-1.jpg", cap:"Wing flat, flap on its nail, slot visible" },
         { src:"assets/models/addl-2.jpg", cap:"Flap tilted up on its nail" },
@@ -454,13 +460,13 @@ window.SECTIONS = [
     { t:"cards", id:"dev-conclusion", eyebrow:"4e · Development Testing Conclusion", head:"Development Testing Conclusion", cols:2,
       cards:[
         { title:"Sizing", meta:"From the foam model",
-          body:"After looking at my foam model next to children's hand sizes, going about 1.5 times bigger than the foam felt right. That works out at around 400 mm in length with a wingspan of around 300 mm. That is big enough that every part is safely oversized for a 3 year old, but still small enough to hold in two hands and fly around." },
+          body:"After looking at my foam model next to children's hand sizes, going about 1.5 times bigger than the foam felt right. That works out at around 400 mm in length with a wingspan of somewhere between 400 and 450 mm. That is big enough that every part is safely oversized for a 3 year old, but still small enough to hold in two hands and fly around." },
         { title:"Materials", meta:"From research and testing",
           body:"Pine for the main body and the canopy, because it is easy to shape and sand. MDF for the wings and the flaps, because it was the right thickness and was easy to find in my workshop. MDF was fine to cut on the bandsaw, but it was a nightmare to sand and to drill holes in, especially the holes for the rods. Metal nails are used as the axles and as the rods that the control surfaces tilt on." },
-        { title:"Finish", meta:"From the four-way test",
-          body:"I am not painting or colouring the jet at all. Instead I am using the dark Mirotone finish on some parts and a lighter finish on the other parts so the different parts of the plane contrast against each other. The finishes are non toxic once they are dry and they keep the natural look of the wood." },
+        { title:"Finish", meta:"Changed my mind after the test board",
+          body:"I have gone with paint in the end, not a clear finish. First I sanded every part smooth, then I sprayed the whole lot with a white base coat so the colours would sit even and the MDF edges would stop soaking up paint. Once that was dry I sprayed the real colours on: blue for the main body, orange for the intakes, and green for the wings, ailerons, rudders and flaps. I used gloss spray, so it dries shiny and hard. The shine is not just for looks. A gloss coat wipes clean when a kid gets jam on it, and it seals the wood so it does not swell or splinter. Spray also gets into the corners around the intakes that a brush would have missed, and once it is properly cured the paint is non toxic, which matters for a toy a 3 year old is going to chew on. The bright colours came straight out of my colour research, where the toys that grabbed kids the fastest were the bold ones." },
         { title:"Modifications", meta:"From both models",
-          body:"My first sketch had a single tail, but I have gone to twin tails like my foam model because I liked how that looked. The flap cutouts get 2 mm of clearance after the foam flap jammed when it was cut too tight. The main body is made from two pieces of pine, a bottom piece and a top piece, and the canopy is part of that top piece so it does not have to be cut out separately." }
+          body:"My first sketch had a single tail, but I have gone to twin tails like my foam model because I liked how that looked. I have also decided to only put moving flaps on the main wings. The elevators and rudders are staying fixed, because those parts are thin and a moving flap on them would be too fragile for a kid's toy and would snap off first. The flap cutouts get 2 mm of clearance after the foam flap jammed when it was cut too tight. The main body is made from two pieces of pine, a bottom piece and a top piece, and the canopy is part of that top piece so it does not have to be cut out separately." }
       ] }
   ]
 },
@@ -490,10 +496,11 @@ window.SECTIONS = [
     { t:"ph", id:"working-drawing", eyebrow:"5b · Working Drawing", head:"Working Drawing" },
 
     { t:"notes", id:"diary", eyebrow:"5c · Diary of Making", head:"Diary of Making",
-      body:"Two entries from the workshop. Each one is a photo of what I was doing at that point in the build, with a bit about how it actually went.",
       entries:[
-        { p:"Placeholder text. This entry will be about the photo next to it: what I was making at that point in the build, which bits were fiddly, and what I would do differently if I did that step again." },
-        { p:"Placeholder text. This entry will be about the second photo: the part of the build I was most proud of working out, and why that step mattered for the way the finished jet moves." }
+        { img:"assets/build/diary-1.jpg", cap:"Cutting the wings out on the bandsaw",
+          p:"Cutting the wings out on the bandsaw. I had drawn the shape on in pencil off my working drawing, and then it was just a case of following the line slowly and not rushing the corners. The swept bit at the back is the part I was worried about, because if I wandered off the line there the two wings would not match and you would notice straight away when they were both on the jet. I kept both hands flat on the board and well back from the blade the whole way through. MDF cuts pretty easily on the bandsaw, which was a nice surprise after how much of a pain it was to sand." },
+        { img:"assets/build/diary-2.jpg", cap:"Rounding the wing edge on the sander",
+          p:"Sanding the edge of the wing round on the linisher. A real wing is not a flat slab with square edges, so rounding the edge off makes it look a lot more like an actual aircraft wing instead of a bit of board. It is also safer, because a square MDF edge is sharp enough to mark you and this toy is going to a little kid. This took ages to get even along the whole length, and I had to keep stopping to check I was not taking more off one end than the other. It is one of those jobs that is boring while you are doing it and then makes a big difference once you stand back and look at it." }
       ] }
   ]
 },
@@ -543,20 +550,20 @@ window.SECTIONS = [
     { t:"reviews", id:"reviews", eyebrow:"7b · Product Review & Feedback", head:"Product Review & Feedback",
       people:[
         { label:"Student 1", img:"assets/reviews/student-1.jpg", name:"Monty Alderton", ps:[
-          "The first thing I did was pick it up and start moving the flaps, which probably says a lot about it. They move smoothly and they stay where you put them instead of flopping straight back down, so it actually feels like something you are flying and not just holding. It is heavier than I expected for a toy, but that is what makes it feel properly made instead of cheap. If I am being picky the wood underneath could do with a bit more sanding, but the shape is easily the best part. It looks fast even sitting still on the table."
+          "First thing I did was grab it and start flicking the flaps, which probably tells you what the best bit is. They actually move, which I was not expecting from a wooden one. It is heavier than it looks. I thought that would be a bad thing but it kind of is not, it just feels like it was properly made instead of the plastic stuff that feels hollow. The colours work, the orange on the intakes especially. If I had to pick something, the flaps do drop back down on their own if you let go, so you cannot really leave them set where you want them. Would 100% have played with this when I was little."
         ]},
         { label:"Student 2", img:"assets/reviews/student-2.jpg", name:"Millar Ormsby", ps:[
-          "I like that it is wood and not plastic, because you can tell it is going to last a lot longer than the stuff you get in a shop. The twin tails are what make it read as a proper fighter jet instead of just a plane shape. I opened the canopy a fair few times and it never felt like it was going to snap, which matters because that is exactly the bit a little kid would keep messing with. The dark finish against the lighter wood looks really good in person. My only note is that a younger kid might want it a bit lighter to carry around."
+          "It looks like an actual fighter jet, not just a plane shape, and I reckon that is the two tails at the back doing it. You can tell it is wood and not plastic when you hold it, and it does not feel like it would snap if you dropped it, which is more than I can say for most toys my little cousin owns. I kept opening and shutting the canopy and it held up fine, and that is exactly the part a little kid would not leave alone. The paint job is class in person, better than in photos. Only thing is it is a decent weight, so a really young kid might struggle to carry it round for long."
         ]}
       ],
       personal:{ head:"Personal review", name:"Luca Carlisle", ps:[
-        "Looking at the finished jet next to my brief, the working control surfaces are the thing that made it worth building. That was the whole reason I picked this design over the digger or the tool box, and it is the first thing people go for when they pick it up. The hardest part was the MDF, which fought me the whole way through sanding and drilling, and if I did this again I would use a proper hardwood like beech instead. I am happy with the contrast between the two finishes and glad I did not paint it, because the wood grain does the work on its own. Next time I would give myself more time on the assembly, because pinning the wings through the body was a lot fiddlier than my plan made it sound."
+        "Putting the finished jet next to my brief, the moving flaps are the thing that made the whole build worth it. That was the reason I picked this over the digger or the tool box in the first place, and it is the first thing everyone goes for when they pick it up, so at least that part of my research was right. The MDF was the worst decision I made. It cut fine but it fought me the entire way through sanding and drilling, and I would use pine or a proper hardwood for the wings if I did it again. I changed my mind on the finish partway through and painted it instead of leaving the wood bare, and I am glad I did, because the blue and orange make it look like something off a shelf rather than a school project. What I would fix next is the flaps holding their position, and I would give myself more time on the assembly, because pinning the wings through the body was way fiddlier than my plan made it sound."
       ]} },
 
     { t:"cards", id:"modifications", eyebrow:"7c · Modifications & Adjustments", head:"Modifications & Adjustments", cols:2,
       cards:[
-        { title:"Carve a cockpit interior", meta:"Realism",
-          body:"The canopy opens, but under it the body is solid. If I carved out a little cockpit with a seat shape, or added a small pilot figure that clips in, it would give a kid a reason to open the canopy and add a hide and seek part to the play. I would do it by drilling out the space before the body is shaped." },
+        { title:"Make the flaps hold position", meta:"Feel and friction",
+          body:"The thing I would work on most is how much resistance the flaps have on their nails. Right now they turn, but they do not really stay where you leave them. What I want is for a kid to be able to set a flap halfway up and have it sit there, so it feels like they have actually changed something on the plane. Too loose and it just drops back down under its own weight, too tight and a little kid cannot shift it at all. Getting that middle ground is the tricky part. I would try it by slowly opening the hole out in tiny steps and testing after each one, or by putting something thin between the flap and the wing to add a bit of grip. On the foam model I only tested whether the flap moved, not whether it would hold, and now that I have seen the real one I think holding position is the bit that actually makes it feel good to play with." },
         { title:"Make the nail hinges stronger", meta:"Durability",
           body:"The metal nails the control surfaces tilt on are some of the thinnest parts on the jet, so they are the most likely to bend or fail under really rough play. Using thicker nails, or a harder material around the channel they sit in, would make the moving parts as tough as the rest of the jet without changing how they work." }
       ] },
