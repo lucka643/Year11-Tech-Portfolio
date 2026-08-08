@@ -286,10 +286,10 @@ window.SECTIONS = [
       cols:[
         { h:"Repairability", ps:[
           "Repairability refers to how easily a product can be fixed when parts become damaged or worn out. This matters for toys because children use them frequently and sometimes roughly. A toy that can be repaired usually lasts longer, saves money, and reduces waste."
-        ], eg:{ img:"assets/examples/lego.jpg", text:"<b>LEGO</b> is a strong example, if one piece is lost or broken it can be replaced without throwing away the whole set, making it more practical and longer-lasting for families." }},
+        ], eg:{ img:"assets/examples/lego.png", text:"<b>LEGO</b> is a strong example, if one piece is lost or broken it can be replaced without throwing away the whole set, making it more practical and longer-lasting for families." }},
         { h:"Playability", ps:[
           "Playability is the level of enjoyment and interest a toy provides. It's affected by age group, challenge level, colours, movement, and whether the toy can be used alone or with others. Products with high playability are more likely to stay popular over time."
-        ], eg:{ img:"assets/examples/uno.jpg", text:"<b>UNO</b> has strong playability, easy to learn, quick to play, and suited to groups. Bright colours and competitive gameplay keep players engaged across a wide audience." }}
+        ], eg:{ img:"assets/examples/uno.png", text:"<b>UNO</b> has strong playability, easy to learn, quick to play, and suited to groups. Bright colours and competitive gameplay keep players engaged across a wide audience." }}
       ] },
 
     { t:"deck", id:"summary", eyebrow:"2e · Research Summary & Specifications", head:"Research Summary & Specifications", text:true,
