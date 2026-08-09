@@ -62,28 +62,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer;}
 body[data-route="section"] .hud-back, body[data-route="viewer"] .hud-back{
   opacity:1;transform:none;visibility:visible;
 }
-/* simple-mode switch (.hud is pointer-events:none, so opt back in here) */
 .hud-right{display:flex;align-items:center;gap:clamp(12px,1.6vw,22px);min-width:0;}
-.hud-simple{
-  display:inline-flex;align-items:center;gap:9px;pointer-events:auto;
-  font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.24em;color:var(--ink-dim);
-  border:1px solid var(--panel-line);border-radius:99px;padding:7px 10px 7px 14px;
-  background:rgba(8,11,20,.45);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-  transition:color .25s,border-color .25s;
-}
-.hud-simple:hover{color:var(--ink);border-color:var(--accent);}
-.hs-track{
-  position:relative;width:34px;height:18px;border-radius:99px;flex:0 0 auto;
-  border:1px solid var(--panel-line);background:rgba(255,255,255,.06);
-  transition:background .25s,border-color .25s;
-}
-.hs-knob{
-  position:absolute;top:2px;left:2px;width:12px;height:12px;border-radius:50%;
-  background:var(--ink-dim);transition:transform .25s var(--ease),background .25s;
-}
-.hud-simple[aria-checked="true"]{color:var(--ink);border-color:var(--accent);}
-.hud-simple[aria-checked="true"] .hs-track{background:var(--accent);border-color:var(--accent);}
-.hud-simple[aria-checked="true"] .hs-knob{transform:translateX(16px);background:#05070f;}
 
 /* ---------- scroll progress ---------- */
 .progress{position:fixed;top:0;left:0;right:0;height:2px;z-index:70;opacity:0;transition:opacity .3s;}
@@ -94,8 +73,6 @@ body[data-route="section"] .progress{opacity:1;}
    VIEW TRANSITIONS
    ============================================================ */
 .view{min-height:100vh;animation:viewIn .6s var(--ease-out) both;}
-/* a same-route re-render (simple-mode toggle) must not replay the entrance */
-.view--instant{animation:none;}
 .view.leaving{animation:viewOut .3s var(--ease) both;}
 @keyframes viewIn{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
 @keyframes viewOut{from{opacity:1;}to{opacity:0;transform:translateY(-18px);}}
@@ -533,30 +510,6 @@ body[data-route="section"] .progress{opacity:1;}
 }
 .lightbox-x:hover{color:var(--ink);border-color:var(--accent);}
 
-/* first-visit intro modal (same overlay pattern as the lightbox, one layer up) */
-.smodal[hidden]{display:none;}
-.smodal{
-  position:fixed;inset:0;z-index:110;background:rgba(4,6,12,.72);
-  display:flex;align-items:center;justify-content:center;padding:6vmin;
-  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-  animation:lbIn .3s var(--ease-out);
-}
-.smodal-card{width:min(560px,100%);padding:clamp(24px,3vw,40px);}
-.smodal-card h2{
-  font-family:"Bricolage Grotesque",sans-serif;font-weight:700;
-  font-size:clamp(24px,2.6vw,36px);line-height:1.05;letter-spacing:-.02em;margin:10px 0 16px;
-}
-.smodal-card p{font-size:clamp(14px,1.1vw,17px);line-height:1.6;color:var(--ink-dim);margin-bottom:14px;}
-.smodal-x{
-  margin-top:8px;font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.22em;
-  text-transform:uppercase;color:#05070f;background:var(--accent);border-radius:99px;padding:12px 24px;
-  transition:opacity .25s,filter .25s;
-}
-.smodal-x:disabled{opacity:.38;filter:grayscale(1);cursor:not-allowed;}
-/* keep the switch crisp above the blur, since the modal is pointing at it */
-body[data-modal="on"] .hud{z-index:120;}
-body[data-modal="on"] .hud-simple{color:var(--ink);border-color:var(--accent);animation:hsPulse 1.9s infinite;}
-@keyframes hsPulse{0%,100%{box-shadow:0 0 0 0 rgba(255,255,255,0);}50%{box-shadow:0 0 0 7px rgba(255,255,255,.10);}}
 
 /* matrix (evaluation table) */
 .matrix{overflow-x:auto;border-radius:16px;}
@@ -755,9 +708,6 @@ body[data-modal="on"] .hud-simple{color:var(--ink);border-color:var(--accent);an
   /* HUD: drop the course tag, tighten so BACK + name fit one line */
   .hud{padding:15px 16px;}
   .hud-course{display:none;}
-  /* keep the switch on phones, drop only its label so it fits beside BACK */
-  .hs-label{display:none;}
-  .hud-simple{padding:6px 8px;gap:0;}
   .hud-left{gap:12px;}
   .hud-name{font-size:11px;letter-spacing:.16em;}
   .hud-back{padding:7px 13px 7px 10px;}
@@ -803,7 +753,4 @@ body[data-modal="on"] .hud-simple{color:var(--ink);border-color:var(--accent);an
   .rv-img img{transform:none;}
   .deck-panel.is-active{animation:none;}
   .peek{display:none;}
-  .smodal{animation:none;}
-  .hs-knob{transition:none;}
-  body[data-modal="on"] .hud-simple{animation:none;}
 }

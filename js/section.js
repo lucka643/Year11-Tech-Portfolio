@@ -321,10 +321,7 @@
   };
 
   /* ---------- render a section view ---------- */
-  window.renderSection = function (root, sec, opts) {
-    opts = opts || {};
-    /* snapshot the mode once per render; blocks with a `simple` override swap shape */
-    const simpleOn = !!(window.SimpleMode && window.SimpleMode.on);
+  window.renderSection = function (root, sec) {
     const idx = window.SECTIONS.indexOf(sec);
     const prev = window.SECTIONS[idx - 1], next = window.SECTIONS[idx + 1];
 
@@ -332,7 +329,7 @@
       .map((b) => `<a class="sec-chip" href="#/section/${sec.id}" data-anchor="${b.id}">${b.eyebrow.replace(/^[\d\w]+[a-e]? · /, "")}</a>`).join("");
 
     root.innerHTML = `
-    <div class="view sec${opts.instant ? " view--instant" : ""}">
+    <div class="view sec">
       <header class="sec-head">
         <span class="sec-head-num">0${sec.id}</span>
         <p class="sec-head-kicker stag" style="--d:.05s">SECTION 0${sec.id} / 07</p>
@@ -340,7 +337,8 @@
         <div class="sec-head-pages stag" style="--d:.2s">${chips}</div>
       </header>
       ${sec.blocks.map((b) => {
-        const v = simpleOn && b.simple ? Object.assign({}, b, b.simple) : b;
+        /* a block may carry an override that replaces how it renders */
+        const v = b.simple ? Object.assign({}, b, b.simple) : b;
         return T[v.t] ? T[v.t](v) : "";
       }).join("")}
       <nav class="sec-nav">
@@ -403,14 +401,10 @@
       f.addEventListener("click", () => { lbImg.src = f.dataset.full; lb.hidden = false; });
     });
 
-    /* reveal engine — one-time fade-in only (no scroll-linked movement).
-       `instant` (a simple-mode re-render) shows everything at once, otherwise a
-       reader who scrolls back up after toggling finds the page above them blank.
-       Kept separate from `reduce`, which the card-deck animations also read. */
+    /* reveal engine — one-time fade-in only (no scroll-linked movement) */
     const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const instant = reduce || opts.instant;
     let io = null;
-    if (!instant) {
+    if (!reduce) {
       io = new IntersectionObserver((entries) => {
         entries.forEach((en) => { if (en.isIntersecting) { en.target.classList.add("in"); io.unobserve(en.target); } });
       }, { threshold: 0.12, rootMargin: "0px 0px -6% 0px" });
