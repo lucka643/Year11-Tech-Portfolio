@@ -402,7 +402,9 @@ window.SECTIONS = [
       ],
       note:"<b>Decision:</b> the Fighter Jet wins on 21 out of 25. It is the hardest one to actually make, but it scores highest where my research says it matters most, which is aesthetics and playability. The moving control surfaces give it a level of fun none of the other ideas can match. I am keeping the build risk under control by testing every moving mechanism in foam first before I cut any real material." },
 
-    { t:"ph", id:"exploded", eyebrow:"3d · Exploded Drawing", head:"Exploded Drawing" }
+    { t:"gallery", id:"exploded", eyebrow:"3d · Exploded Drawing", head:"Exploded Drawing", tall:true,
+      body:"My exploded drawing of the jet. It shows every part on its own and where each one goes, with the two main body pieces, both wings and their flaps, the intakes, and the horizontal and vertical stabilizers.",
+      imgs:[ { src:"assets/sketches/exploded-drawing.jpg" } ] }
   ]
 },
 

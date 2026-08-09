@@ -452,6 +452,11 @@ body[data-route="section"] .progress{opacity:1;}
 /* gallery */
 .gal{display:grid;gap:clamp(12px,1.4vw,20px);grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr));}
 .gal figure{position:relative;border-radius:12px;overflow:hidden;border:1px solid var(--panel-line);cursor:zoom-in;background:var(--panel);}
+/* a gallery image whose file isn't in the repo yet */
+.gal figure.is-empty{
+  aspect-ratio:16/9;border-style:dashed;cursor:default;
+  display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.02);
+}
 .gal img{width:100%;aspect-ratio:4/3;object-fit:cover;transition:transform .6s var(--ease-out);}
 .gal figure:hover img{transform:scale(1.05);}
 .gal figcaption{

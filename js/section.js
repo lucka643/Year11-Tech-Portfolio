@@ -108,7 +108,7 @@
         <div class="gal ${b.wide ? "gal--wide" : ""} ${b.tall ? "gal--tall" : ""} ${b.three ? "gal--three" : ""} ${b.feature ? "gal--feature" : ""}">
           ${b.imgs.map((im, i) => `
             <figure class="rv" style="--d:${0.06 + i * 0.05}s" data-full="${im.src}">
-              <img src="${im.src}" alt="${im.cap || ""}" loading="lazy">
+              <img src="${im.src}" alt="${im.cap || ""}" loading="lazy" onerror="__imgFallback(this)">
               ${im.cap ? `<figcaption>${im.cap}</figcaption>` : ""}
             </figure>`).join("")}
         </div>
