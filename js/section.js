@@ -105,7 +105,7 @@
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
         ${paras.length ? `<div class="${textCols ? "blk-cols" : ""}">${paras.map((p, i) =>
           `<p class="body rv" style="--d:${(0.1 + i * 0.05).toFixed(2)}s">${p}</p>`).join("")}</div>` : ""}
-        <div class="gal ${b.wide ? "gal--wide" : ""} ${b.tall ? "gal--tall" : ""} ${b.three ? "gal--three" : ""} ${b.feature ? "gal--feature" : ""}">
+        <div class="gal ${b.wide ? "gal--wide" : ""} ${b.tall ? "gal--tall" : ""} ${b.three ? "gal--three" : ""} ${b.two ? "gal--two" : ""} ${b.feature ? "gal--feature" : ""}">
           ${b.imgs.map((im, i) => `
             <figure class="rv" style="--d:${0.06 + i * 0.05}s" data-full="${im.src}">
               <img src="${im.src}" alt="${im.cap || ""}" loading="lazy" onerror="__imgFallback(this)">

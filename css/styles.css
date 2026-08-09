@@ -509,6 +509,9 @@ body[data-route="section"] .progress{opacity:1;}
   min-height:calc(2 * 1.5em);
 }
 
+/* 6a: four hero shots as a clean 2x2 */
+.gal--two{grid-template-columns:repeat(2,1fr);}
+@media (max-width:620px){.gal--two{grid-template-columns:1fr;}}
 /* pinned 3 across (4a first model, 6b development photos) */
 .gal--three{grid-template-columns:repeat(3,1fr);}
 @media (max-width:760px){.gal--three{grid-template-columns:repeat(2,1fr);}}

@@ -495,7 +495,9 @@ window.SECTIONS = [
         ["Eight","Put the whole jet together. To hold the wings on, I drilled one big hole all the way from one wing, through the intake, through the main body, through the other intake and into the other wing, then drilled a second hole like it so the wings cannot accidentally rotate. I pushed a metal beam through those holes to hold the wings firmly in place so they do not come loose or snap off under force. For each horizontal and vertical stabilizer I drilled two holes in the side that touches the body and two matching holes in the body, then pushed a cut nail into each one like a metal dowel to join it on. That holds all the stabilizers on and finishes the build.","Metal beam · metal nails.","Pencil · Ruler · Hand drill · Hammer","Safety goggles · Apron · Closed shoes"]
       ] },
 
-    { t:"ph", id:"working-drawing", eyebrow:"5b · Working Drawing", head:"Working Drawing" },
+    { t:"gallery", id:"working-drawing", eyebrow:"5b · Working Drawing", head:"Working Drawing", tall:true,
+      body:"My working drawing of the jet, with a plan view, a side elevation and an end elevation. It has the sizes I worked off when I marked the parts out in the workshop, and a note on it that all the surfaces get spray painted.",
+      imgs:[ { src:"assets/sketches/working-drawing.jpg" } ] },
 
     { t:"notes", id:"diary", eyebrow:"5c · Diary of Making", head:"Diary of Making",
       entries:[
@@ -516,7 +518,14 @@ window.SECTIONS = [
   blocks:[
     { t:"intro", lead:"The finished wooden jet, and the photo record of how it got made. This section fills up as the build happens in the workshop." },
 
-    { t:"ph", id:"finished", eyebrow:"6a · Finished Product", head:"Finished Product" },
+    { t:"gallery", id:"finished", eyebrow:"6a · Finished Product", head:"Finished Product", two:true,
+      body:"The finished jet, painted and put together. Blue for the main body, orange for the intakes and green for the wings and stabilizers, with a moving flap cut into each wing and the twin tails on the back.",
+      imgs:[
+        { src:"assets/finished/front.jpg", cap:"Front view" },
+        { src:"assets/finished/top.jpg", cap:"Top view" },
+        { src:"assets/finished/left.jpg", cap:"Left side" },
+        { src:"assets/finished/right.jpg", cap:"Right side" }
+      ] },
 
     { t:"gallery", id:"build-photos", eyebrow:"6b · Development Photos", head:"Development Photos", three:true,
       imgs:[

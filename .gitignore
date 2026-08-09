@@ -20,3 +20,6 @@ assets/_raw/
 # superseded by transparent PNG cutouts
 /assets/examples/lego.jpg
 /assets/examples/uno.jpg
+
+# original finished-product photos, superseded by assets/finished/
+/assets/sketches/Finished-product/
