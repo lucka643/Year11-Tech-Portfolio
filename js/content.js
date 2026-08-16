@@ -462,7 +462,7 @@ window.SECTIONS = [
     { t:"cards", id:"dev-conclusion", eyebrow:"4e · Development Testing Conclusion", head:"Development Testing Conclusion", cols:2,
       cards:[
         { title:"Sizing", meta:"From the foam model",
-          body:"After looking at my foam model next to children's hand sizes, going about 1.5 times bigger than the foam felt right. That works out at around 400 mm in length with a wingspan of somewhere between 400 and 450 mm. That is big enough that every part is safely oversized for a 3 year old, but still small enough to hold in two hands and fly around." },
+          body:"After looking at my foam model next to children's hand sizes, going about 1.5 times bigger than the foam felt right. That works out at around 600 mm in length with a wingspan of about 450 mm. That is big enough that every part is safely oversized for a 3 year old, but still small enough to hold in two hands and fly around." },
         { title:"Materials", meta:"From research and testing",
           body:"Pine for the main body and the canopy, because it is easy to shape and sand. MDF for the wings and the flaps, because it was the right thickness and was easy to find in my workshop. MDF was fine to cut on the bandsaw, but it was a nightmare to sand and to drill holes in, especially the holes for the rods. Metal nails are used as the axles and as the rods that the control surfaces tilt on." },
         { title:"Finish", meta:"Changed my mind after the test board",
@@ -579,15 +579,12 @@ window.SECTIONS = [
           body:"The metal nails the control surfaces tilt on are some of the thinnest parts on the jet, so they are the most likely to bend or fail under really rough play. Using thicker nails, or a harder material around the channel they sit in, would make the moving parts as tough as the rest of the jet without changing how they work." }
       ] },
 
-    { t:"cards", id:"further", eyebrow:"7d · Taking the Idea Further", head:"Taking the Idea Further", cols:3,
-      cards:[
-        { title:"A whole squadron", meta:"Product range",
-          body:"The same body and wing build would work for other aircraft like a delta wing jet, a prop plane or a helicopter. A small range that shares parts would also share spare parts, which helps repairability across the whole set." },
-        { title:"Carrier playset", meta:"Play ecosystem",
-          body:"A wooden aircraft carrier deck with a launch notch would give the jet a home base and turn one toy into a whole play setting. That is the same trick LEGO uses to keep kids playing for longer." },
-        { title:"Folding landing gear", meta:"Mechanism v2",
-          body:"My jet does not have wheels right now. A good next mechanism would be landing gear that folds up into the body on a sprung nail pivot, so the jet can fly clean and then drop its gear to land. The nail and cutout joint from this project is the perfect starting point for that." }
-      ] },
+    { t:"gallery", id:"further", eyebrow:"7d · Taking the Idea Further", head:"Taking the Idea Further", tall:true,
+      body:[
+        "The next thing I would make is a wooden aircraft carrier for the jet to live on. At the moment the jet is just a jet, so once a kid has finished with it, it gets shoved in a box or left on the floor. A carrier gives it a home to sit on and somewhere to go back to, and that turns putting it away into part of the game instead of something a parent has to nag about.",
+        "I would build it the same way as the jet, out of pine and MDF with a painted finish, so the two look like they go together and I already know how to make all of it. The deck is mostly straight cuts with the tower off to one side, so it would not be much harder than what I have already done. The best part is that it turns one toy into a set, and a set is what keeps a kid coming back to something for months instead of a couple of days."
+      ],
+      imgs:[ { src:"assets/sketches/carrier-idea.jpg", cap:"My idea for the carrier, with the angled deck and the tower" } ] },
 
     { t:"cards", id:"issues", eyebrow:"7e · Issues I Came Across", head:"Issues I Came Across", cols:2,
       cards:[

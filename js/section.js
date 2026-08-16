@@ -103,7 +103,7 @@
       return `<div class="blk" id="${b.id}">
         <p class="eyebrow rv">${b.eyebrow}</p>
         <h3 class="head rv" style="--d:.06s">${b.head}</h3>
-        ${paras.length ? `<div class="${textCols ? "blk-cols" : ""}">${paras.map((p, i) =>
+        ${paras.length ? `<div class="${textCols ? "blk-cols" : ""}" style="--cols:${Math.min(paras.length, 3)}">${paras.map((p, i) =>
           `<p class="body rv" style="--d:${(0.1 + i * 0.05).toFixed(2)}s">${p}</p>`).join("")}</div>` : ""}
         <div class="gal ${b.wide ? "gal--wide" : ""} ${b.tall ? "gal--tall" : ""} ${b.three ? "gal--three" : ""} ${b.two ? "gal--two" : ""} ${b.feature ? "gal--feature" : ""}">
           ${b.imgs.map((im, i) => `

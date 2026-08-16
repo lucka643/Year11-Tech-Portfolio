@@ -460,7 +460,7 @@ body[data-route="section"] .progress{opacity:1;}
   .gal--feature figure:first-child img{aspect-ratio:16/10;height:auto;}
 }
 /* body text laid across the full width in columns rather than one tall block */
-.blk-cols{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(20px,2.6vw,44px);margin-bottom:22px;}
+.blk-cols{display:grid;grid-template-columns:repeat(var(--cols,3),1fr);gap:clamp(20px,2.6vw,44px);margin-bottom:22px;}
 .blk-cols .body{max-width:none;margin-bottom:0;}
 @media (max-width:980px){.blk-cols{grid-template-columns:1fr 1fr;}}
 @media (max-width:620px){.blk-cols{grid-template-columns:1fr;gap:0;}.blk-cols .body{margin-bottom:16px;}}
